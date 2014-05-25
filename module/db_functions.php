@@ -36,12 +36,15 @@ function get_userdata($uid){
     if(mysql_num_rows($res) <= 0)
     {
         return $result;
+    } else {
+        while($row = mysql_fetch_assoc($res)){
+            $result['coauditid'] = $row['coauditor_id'];
+            $result['coauditor_name'] = $row['coauditor_name'];
+            $result['email'] = $row['email'];
+            $result['read_permission'] = $row['read_permission'];
+            $result['write_permission'] = $row['write_permission'];
+        }
     }
-    $result['coauditid'] = $res[0]['coauditor_id'];
-    $result['coauditor_name'] = $res[0]['coauditor_name'];
-    $result['email'] = $res[0]['email'];
-    $result['read_permission'] = $res[0]['read_permission'];
-    $result['write_permission'] = $res[0]['write_permission'];
     return $result;
 }
 
@@ -114,8 +117,6 @@ function get_all_user(){
     if (!$res) {
         die('Ungültige Abfrage: ' . mysql_error());
     }
-
-    echo mysql_num_rows($res).'<br/>';
     return $res;
 }
 

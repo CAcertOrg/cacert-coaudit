@@ -18,7 +18,6 @@ if (isset($_REQUEST['cid'])) {
     $cid =0;
 }
 
-echo $_REQUEST['cid'] . " -- ". $cid .'<br/>';
 
 if ($cid == 0) {
     //new user
@@ -29,9 +28,7 @@ if ($cid == 0) {
     $write = 0;
 } else {
     //edit user
-echo $_REQUEST['cid'] . " -- ". $cid .'<br/>';
     $user = get_userdata($cid);
-echo var_dump($user).'<br/>';
     $userid = $user['coauditid'];
     $username = $user['coauditor_name'];
     $usermail = $user['email'];
