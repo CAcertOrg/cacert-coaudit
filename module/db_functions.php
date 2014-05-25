@@ -121,4 +121,49 @@ function get_all_user(){
     return $res;
 }
 
+//topics handling
+function get_all_topics($where = ''){
+    if ($where == '') {
+        $where = ' Where 1=1 ';
+    }else{
+        $where = ' Where session_topic_id='.$where.' ';
+    }
+    $query = "select `session_topic_id`, `session_topic`, `topic_explaination`, `activ` from `session_topic` " . $where . "ORDER BY `session_topic`";
+    $res = mysql_query($query);
+    if ($where == ' Where 1=1 ') {
+            return $res;
+    } else {
+        $result = array();
+        while($row = mysql_fetch_assoc($res)){
+            $result['session_topic_id'] = $row['session_topic_id'];
+            $result['session_topic'] = $row['session_topic'];
+            $result['topic_explaination'] = $row['topic_explaination'];
+            $result['activ'] = $row['activ'];
+        }
+        return $result;
+    }
+}
+
+
+function insert_topic($topic, $explain){
+    $query = "Insert into `session_topic` (`session_topic`, `topic_explaination`, `activ`)
+        VALUES ('$topic', '$explain', 1)";
+    mysql_query($query);
+    $nid =mysql_insert_id();
+    //write log
+
+}
+
+function update_topic($topic, $explain, $active, $tid){
+
+    $query = "Update `session_topic` Set `session_topic` = '$topic',
+        `topic_explaination` = '$explain',
+        `activ` = '$active'
+        WHERE  `session_topic_id` = $tid";
+    mysql_query($query);
+    //write log
+
+}
+
+
 ?>

@@ -34,7 +34,7 @@ function menu(){
     $tabstrings .=      '<ul>';
     $tabstrings .=      '<li><a href="index.php?type=userlist">List user</a></li>';
     $tabstrings .=      '<li>List sessions</li>';
-    $tabstrings .=      '<li>List topics</li>';
+    $tabstrings .=      '<li><a href="index.php?type=topiclist">List topics</a></li>';
     $tabstrings .=      '</ul>';
 
     $tabstrings .= '<li>Login</li>';

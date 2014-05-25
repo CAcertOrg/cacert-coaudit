@@ -70,6 +70,7 @@ function tablerow_user_rights($roles, $read, $write){
     return $tabstring;
 
 }
+
 function tablefooter_user($cols, $uid){
     if ($uid == 0 ) {
         $label = 'New user';
@@ -130,5 +131,43 @@ function start_div($class=''){
 function end_div(){
     $tabstring = '</div>';
     return $tabstring;
+}
+
+function tablerow_topicslist_header(){
+    $tabstring = '<tr>';
+    $tabstring .=   '<td class="DataTD">Topic</td>';
+    $tabstring .=   '<td class="DataTD">Explaination</td>';
+    $tabstring .=   '<td class="DataTD">active</td>';
+    $tabstring .= '</tr>';
+    return $tabstring;
+}
+
+function tablerow_topicslist($topic){
+    $tabstring = '<tr>';
+    $tabstring .=   '<td class="DataTD"><a href="../www/index.php?type=topic&tid='.$topic['session_topic_id'].'">'.$topic['session_topic'].'</a></td>';
+    $tabstring .=   '<td class="DataTD">'.$topic['topic_explaination'].'</td>';
+    $tabstring .=   '<td class="DataTD">'.$topic['activ'].'</td>';
+    $tabstring .= '</tr>';
+    return $tabstring;
+}
+
+function tablerow_topicslist_new(){
+    $tabstring = '<tr>';
+    $tabstring .=   '<td class="DataTD" colspan="3"><a href="../www/index.php?type=topic&tid=0">New entry</a></td>';
+    $tabstring .= '</tr>';
+    return $tabstring;
+}
+function tablerow_topics_active($active){
+    if ($active == 1) {
+        $checked = 'checked';
+    }else{
+        $checked = '';
+    }
+    $tabstring = '</tr>';
+    $tabstring .=   '<td class="DataTD">Active</td>';
+    $tabstring .=   '<td class="DataTD"><input type="checkbox" name="active" '.$checked.'/></td>';
+    $tabstring .= '</tr>';
+    return $tabstring;
+
 }
 ?>

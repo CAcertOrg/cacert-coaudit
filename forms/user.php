@@ -45,11 +45,11 @@ $hidden[]=array('cid',$userid);
 //buildform
 echo start_div('content');
 echo built_form_header('../www/index.php?type=user');
-echo tableheader('user', 2);
+echo tableheader('user', 3);
 echo tablerow_3col_textbox_2col('User', 'username', $username);
 echo tablerow_3col_textbox_2col('Email', 'email', $usermail);
 echo tablerow_user_rights($roles, $read, $write);
-echo tablefooter_user(2, $userid);
+echo tablefooter_user(3, $userid);
 echo built_form_footer($hidden);
 echo end_div();
 
