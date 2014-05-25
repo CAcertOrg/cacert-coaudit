@@ -89,13 +89,14 @@ function insert_user($username, $email, $readpermission, $writepermission, $uid)
 
 function update_user($username, $email, $readpermission, $writepermission, $uid, $cid){
 
-    $query = "Update `coauditor` Set `coauditor_name` = ,
+    $query = "Update `coauditor` Set `coauditor_name` = '$username',
         `email` = '$email',
         `read_permission` = '$readpermission',
         `write_permission` = '$writepermission',
         `last_change` = Now(),
         `last_change_by` = $uid
         WHERE  `coauditor_id` = $cid";
+    mysql_query($query);
     //write log
 
 }

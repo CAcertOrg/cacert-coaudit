@@ -44,7 +44,7 @@ $hidden[]=array('cid',$userid);
 
 //buildform
 echo start_div('content');
-echo built_form_header('../index.php?type=user');
+echo built_form_header('../www/index.php?type=user');
 echo tableheader('user', 2);
 echo tablerow_3col_textbox_2col('User', 'username', $username);
 echo tablerow_3col_textbox_2col('Email', 'email', $usermail);

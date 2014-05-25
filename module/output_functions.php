@@ -1,7 +1,7 @@
 <?php
 
 function built_form_header($action){
-    return '<form method="post" action="$action">';
+    return '<form method="post" action="'.$action.'">';
 }
 
 function built_form_footer($hidden){

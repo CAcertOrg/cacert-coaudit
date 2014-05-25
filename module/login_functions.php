@@ -86,6 +86,7 @@ function login(){
         return false;
     }
 
+    $_SESSION['user']['id'] = $uid;
     $_SESSION['user']['name'] = $result['name'];
     $_SESSION['user']['email'] = $result['email'];
     $_SESSION['user']['name'] = $result['name'];
