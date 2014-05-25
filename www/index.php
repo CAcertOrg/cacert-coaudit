@@ -76,7 +76,6 @@ if ($type == 'topic') {
         } else {
             $active = 0;
         }
-echo $session_topic." ".$topic_explaination." ". $active." ". $tid. '<br/>';
         if (isset( $_REQUEST['new'])){
             insert_topic($session_topic,$topic_explaination);
         } else {
