@@ -1,0 +1,47 @@
+<?php
+include_once('../module/output_functions.php');
+include_once('../module/db_functions.php');
+
+//Check access to page
+
+
+if (isset($_REQUEST['sid'])) {
+    $sid = intval($_REQUEST['sid']);
+} else {
+    $sid =0;
+}
+
+if ($sid == 0) {
+    //new session
+    $session_id = 0;
+    $session_name = '';
+    $from = '';
+    $to = '';
+    $active = 0;
+} else {
+    //edit session
+    $sessions = get_all_session($sid);
+    $session_id = $sessions['session_id'];
+    $session_name = $sessions['session_name'];
+    $from = $sessions['from'];
+    $to = $sessions['to'];
+    $active = $sessions['active'];
+}
+
+
+$hidden[]=array('sid',$sid);
+
+//buildform
+echo start_div('content');
+echo built_form_header('../www/index.php?type=session');
+echo tableheader('Session', 2);
+echo tablerow_2col_textbox('Session', 'session_name', $session_name);
+echo tablerow_2col_textbox('From', 'from', $from);
+echo tablerow_2col_textbox('To', 'to', $to);
+echo tablerow_topics_active($active);
+echo tablefooter_user(2, $sid);
+echo built_form_footer($hidden);
+echo end_div();
+
+
+?>

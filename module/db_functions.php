@@ -165,5 +165,47 @@ function update_topic($topic, $explain, $active, $tid){
 
 }
 
+function get_all_session($where = ''){
+    if ($where == '') {
+        $where = ' Where 1=1 ';
+    }else{
+        $where = ' Where session_id='.$where.' ';
+    }
+    $query = "select `session_id`, `session_name`, `from`, `to`, `active` from `coauditsession` " . $where . "ORDER BY `session_name`";
+    $res = mysql_query($query);
+    if ($where == ' Where 1=1 ') {
+        return $res;
+    } else {
+        $result = array();
+        while($row = mysql_fetch_assoc($res)){
+            $result['session_id'] = $row['session_id'];
+            $result['session_name'] = $row['session_name'];
+            $result['from'] = $row['from'];
+            $result['to'] = $row['to'];
+            $result['active'] = $row['active'];
+        }
+        return $result;
+    }
+}
 
+function insert_session($session_name, $from, $to){
+    $query = "Insert into `coauditsession` (`session_name`, `from`, `to`, `active`)
+        VALUES ('$session_name', '$from', '$to', 1)";
+    mysql_query($query);
+    $nid =mysql_insert_id();
+    //write log
+
+}
+
+function update_session($session_name, $from, $to, $active, $sid){
+
+    $query = "Update `coauditsession` Set `session_name` = '$session_name',
+        `from` = '$from',
+        `to` = '$to',
+        `active` = '$active'
+        WHERE  `session_id` = $sid";
+    mysql_query($query);
+    //write log
+
+}
 ?>

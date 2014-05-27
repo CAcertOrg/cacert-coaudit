@@ -133,6 +133,8 @@ function end_div(){
     return $tabstring;
 }
 
+//topic
+
 function tablerow_topicslist_header(){
     $tabstring = '<tr>';
     $tabstring .=   '<td class="DataTD">Topic</td>';
@@ -170,4 +172,38 @@ function tablerow_topics_active($active){
     return $tabstring;
 
 }
+
+// session
+function tablerow_sessionslist_header(){
+    $tabstring = '<tr>';
+    $tabstring .=   '<td class="DataTD">Session</td>';
+    $tabstring .=   '<td class="DataTD">From</td>';
+    $tabstring .=   '<td class="DataTD">To</td>';
+    $tabstring .=   '<td class="DataTD">Active</td>';
+    $tabstring .= '</tr>';
+    return $tabstring;
+}
+
+function tablerow_sessionslist($session){
+    $tabstring = '<tr>';
+    $tabstring .=   '<td class="DataTD"><a href="../www/index.php?type=session&sid='.$session['session_id'].'">'.$session['session_name'].'</a></td>';
+    $tabstring .=   '<td class="DataTD">'.$session['from'].'</td>';
+    $tabstring .=   '<td class="DataTD">'.$session['to'].'</td>';
+    $tabstring .=   '<td class="DataTD">'.$session['active'].'</td>';
+    $tabstring .=   '<td class="DataTD"><a href="../www/index.php?type=sessiontopic&sid='.$session['session_id'].'">Topics</a></td>';
+    $tabstring .= '</tr>';
+    return $tabstring;
+}
+
+
+function tablerow_sessionslist_new(){
+    $tabstring = '<tr>';
+    $tabstring .=   '<td class="DataTD" colspan="5"><a href="../www/index.php?type=session&sid=0">New entry</a></td>';
+    $tabstring .= '</tr>';
+    return $tabstring;
+}
+
+
+
+
 ?>
