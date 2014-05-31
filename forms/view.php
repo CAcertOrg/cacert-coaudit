@@ -5,6 +5,8 @@ include_once('../module/db_functions.php');
 $roles = define_roles();
 
 //Check access to page
+$readperm = get_read_permision('user');
+$writeperm = get_write_permision('user');
 /*
    if (isset($_SESSION['user']['cid'])) {
    $cid = intval($_SESSION['user']['cid']);
@@ -45,12 +47,18 @@ $hidden[]=array('vid',$vid);
 
 //buildform
 echo start_div('content');
+
+if ($readperm == 0) {
+    echo error(_('You do not have the right to read this page.'));
+    exit;
+}
+
 echo built_form_header('../www/index.php?type=view');
 echo tableheader(_('View'), 3);
 echo tablerow_3col_textbox_2col(_('Name of view'), 'view_name', $view_name);
 echo tablerow_topics_active($active);
 echo tablerow_user_rights($roles, $read, $write);
-echo tablefooter_user(3, $vid);
+echo tablefooter_user(3, $vid, $writeperm);
 echo built_form_footer($hidden);
 echo end_div();
 

@@ -38,6 +38,11 @@ function builddropdown($result, $value, $valuecol, $displaycol, $all=0){
     return $tabstring;
 }
 
+
+function error($output){
+    $tabstring = _('Error: ') . $output;
+    return $tabstring;
+}
 function tableheader($title,$cols){
     $tabstring = '<table align="center" valign="middle" border="0" cellspacing="0" cellpadding="0" class="wrapper">' . "\n";
     $tabstring .= '<tr>' . "\n";
@@ -103,7 +108,7 @@ function tablerow_user_rights($roles, $read, $write){
 
 }
 
-function tablefooter_user($cols, $uid){
+function tablefooter_user($cols, $uid, $write=0){
     if ($uid == 0 ) {
         $label = 'New entry';
         $name = 'new';
@@ -111,12 +116,16 @@ function tablefooter_user($cols, $uid){
         $label = 'Save entry';
         $name = 'edit';
     }
+    if ($write !=0) {
+        $tabstring = '<tr>' . "\n";
+        $tabstring .=    '<td class="DataTD" colspan="'.$cols.'"><input type="submit" name="'.$name.'" value="'.$label.'"</td>' . "\n";
+        $tabstring .= '</tr>' . "\n";
+        $tabstring .= '</table>' . "\n";
+        return $tabstring;
+    } else {
+        return '';
+    }
 
-    $tabstring = '<tr>' . "\n";
-    $tabstring .=    '<td class="DataTD" colspan="'.$cols.'"><input type="submit" name="'.$name.'" value="'.$label.'"</td>' . "\n";
-    $tabstring .= '</tr>' . "\n";
-    $tabstring .= '</table>' . "\n";
-    return $tabstring;
 }
 
 function tablerow_userlist_header(){

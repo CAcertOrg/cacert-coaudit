@@ -2,6 +2,8 @@
 include_once('../module/output_functions.php');
 include_once('../module/db_functions.php');
 //Check access to page
+$readperm = get_read_permision('user');
+$writeperm = get_write_permision('user');
 
 
 //get data
@@ -9,6 +11,12 @@ $views = get_all_view();
 
 
 echo start_div('content');
+
+if ($readperm == 0) {
+    echo error(_('You do not have the right to read this page.'));
+    exit;
+}
+
 echo tableheader(_('View list'), 4);
 echo tablerow_viewlist_header();
 
@@ -21,9 +29,9 @@ if (mysql_num_rows($views) <= 0 ) {
     }
 }
 
-//echo tablerow_userlist($user);
-
-echo tablerow_viewlist_new();
+if ($writeperm > 0) {
+    echo tablerow_viewlist_new();
+}
 echo end_div();
 
 

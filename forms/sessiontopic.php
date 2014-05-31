@@ -3,13 +3,8 @@
 include_once('../module/output_functions.php');
 include_once('../module/db_functions.php');
 //Check access to page
-/*
-   if (isset($_SESSION['user']['cid'])) {
-   $cid = intval($_SESSION['user']['cid']);
-   } else {
-   $cid =0;
-   }
-*/
+$readperm = get_read_permision('user');
+$writeperm = get_write_permision('user');
 
 if (isset($_REQUEST['stid'])) {
     $stid = intval($_REQUEST['stid']);
@@ -43,13 +38,19 @@ $hidden[]=array('stid',$stid);
 
 //buildform
 echo start_div('content');
+
+if ($readperm == 0) {
+    echo error(_('You do not have the right to read this page.'));
+    exit;
+}
+
 echo built_form_header('../www/index.php?type=sessiontopic');
 echo tableheader(_('Session topic'), 2);
 echo tablerow_2col_dropbox(_('Coaudit session'), $sessionres, $coaudit_session_id, 'session_id', 'session_name', 0);
 echo tablerow_2col_textbox(_('Topic No'), 'topic_no', $topic_no);
 echo tablerow_2col_dropbox(_('Topic'), $topicres, $session_topic_id, 'session_topic_id', 'session_topic', 0);
 echo tablerow_topics_active($active);
-echo tablefooter_user(2, $session_topics_id);
+echo tablefooter_user(2, $session_topics_id, $writeperm);;
 echo built_form_footer($hidden);
 echo end_div();
 

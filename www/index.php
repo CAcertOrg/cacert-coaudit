@@ -7,6 +7,8 @@ include_once('../module/db_functions.php');
 $_SESSION['user']['id']=1;
 dbstart();
 
+test_data();
+
 if (isset( $_REQUEST['type'])) {
     $type = $_REQUEST['type'];
 }else{

@@ -89,7 +89,6 @@ function login(){
     $_SESSION['user']['id'] = $uid;
     $_SESSION['user']['name'] = $result['name'];
     $_SESSION['user']['email'] = $result['email'];
-    $_SESSION['user']['name'] = $result['name'];
     $_SESSION['user']['read_permission'] = $result['read_permission'];
     $_SESSION['user']['write_permission'] = $result['write_permission'];
     return true;

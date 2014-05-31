@@ -333,4 +333,19 @@ function update_view($view_name, $read_permission, $write_permission, $active, $
 
 }
 
+function get_view_right($view){
+    $query = "SELECT `view_name` , `read_permission` , `write_permission`, `active`
+                FROM `view_rights`
+                WHERE `view_name` = '$view'";
+    $res = mysql_query($query);
+    $result = array();
+    while($row = mysql_fetch_assoc($res)){
+        $result['view_name'] = $row['view_name'];
+        $result['read_permission'] = $row['read_permission'];
+        $result['write_permission'] = $row['write_permission'];
+        $result['active'] = $row['active'];
+    }
+    return $result;
+}
+
 ?>
