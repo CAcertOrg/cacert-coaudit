@@ -17,10 +17,28 @@ $title = '';
 
 switch ($type) {
     case 'userlist':
-        ;$title = ' - ' . _('Userlist');
+        ;$title = ' - ' . _('List of user');
         break;
     case 'user':
         ;$title = ' - ' . _('User');
+        break;
+    case 'topiclist':
+        ;$title = ' - ' . _('List of topics');
+        break;
+    case 'topic':
+        ;$title = ' - ' . _('Topic');
+        break;
+    case 'sessionlist':
+        ;$title = ' - ' . _('List of coaudit sessions');
+        break;
+    case 'session':
+        ;$title = ' - ' . _('Coaudit session');
+        break;
+    case 'sessiontopiclist':
+        ;$title = ' - ' . _('List of session topics');
+        break;
+    case 'sessiontopic':
+        ;$title = ' - ' . _('Session topic');
         break;
     default:
         $title = '';
