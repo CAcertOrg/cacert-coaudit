@@ -297,7 +297,6 @@ if ($type == 'result') {
             } else {
                 $r = 0;
             }
-echo "ID " .$tid . " -".$_REQUEST['c' . $i].'-<br/>';
             $c = array_key_exists('c' . $i, $_REQUEST) ? tidystring($_REQUEST['c' . $i]): '';
             $questions[] =array($tid, $r, $c);
             $i +=1;
@@ -306,18 +305,16 @@ echo "ID " .$tid . " -".$_REQUEST['c' . $i].'-<br/>';
 
 
         if (isset( $_REQUEST['new'])){
-
-
-      $assurerid = insert_result_user($primaryemail, $isassurer, $expierencepoints, $country, $location, $coauditdate);
+            $assurerid = insert_result_user($primaryemail, $isassurer, $expierencepoints, $country, $location, $coauditdate);
             foreach($questions as $question){
-                insert_result_topic($question[0], $coauditsession_id, $assurerid, $question[1], $question[2]);
+                insert_result_topic($question[0], $coaudit_session_id, $assurerid, $question[1], $question[2]);
             }
 
         } else {
             update_view($view_name, $read, $write, $active, $vid);
         }
 
-       // include('../forms/resultlist.php');
+        include('../forms/result.php');
         $continue=false;
     }
     if ($continue==true) {

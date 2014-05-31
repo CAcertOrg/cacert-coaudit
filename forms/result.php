@@ -104,7 +104,7 @@ while($row = mysql_fetch_assoc($questions)){
     echo tablerow_label('Q' . $row['topic_no'] . ' ' .$row['session_topic'], 2);
     echo tablerow_2col_checkbox(_('Result (passed - tick)'), 'r'. $i, '');
     echo tablerow_2col_textbox(_('Comment'), 'c'. $i,  '');
-    $hidden[]=array('qid' . $i, $row['session_topics_id']);
+    $hidden[]=array('qid' . $i, $row['session_topic_id']);
     $i +=1;
 }
 echo tablefooter_user(2, $rid, $writeperm);;

@@ -218,7 +218,7 @@ function get_all_sessiontopics($where = ''){
         $where = ' and ' . $where;
     }
 
-    $query = "SELECT `st`.`session_topics_id` , `t`.`session_topic` , `s`.`session_name` , `st`.`topic_no` , `st`.`active`
+    $query = "SELECT `st`.`session_topics_id`, `st`.`session_topic_id` , `t`.`session_topic` , `s`.`session_name` , `st`.`topic_no` , `st`.`active`
                 FROM `session_topics` AS `st` , `coauditsession` AS `s` , `session_topic` AS `t`
                 WHERE `st`.`session_topic_id` = `t`.`session_topic_id`
                 AND `st`.`coaudit_session_id` = `s`.`session_id` " . $where ."
@@ -355,15 +355,13 @@ function get_view_right($view){
 // result management
 
 function insert_result_user($primaryemail, $assurer, $expierencepoints, $country, $location, $coauditdate){
-    $created = Now();
-    $query = "Insert into `view_rights` (`primaryemail`, `webdb_account_id`, `assurer`, `expierencepoints`,
+    $query = "Insert into `cacertuser` (`primaryemail`, `webdb_account_id`, `assurer`, `expierencepoints`,
         `country`, `created_by`, `location`, `coauditdate`, `active`)
         VALUES ('$primaryemail', 0, '$assurer', $expierencepoints,
-        $country, " . Now() . ", " . $_SESSION['user']['id'] . ", '$location', '$coauditdate', 1)";
+        '$country', " . $_SESSION['user']['id'] . ", '$location', '$coauditdate', 1)";
     mysql_query($query);
     $nid =mysql_insert_id();
     //write log
-
     return $nid;
 }
 
@@ -381,10 +379,10 @@ function update_result_user($view_name, $read_permission, $write_permission, $ac
 
 
 function insert_result_topic($session_topic_id, $coauditsession_id, $cacertuser_id, $result, $comment){
-    $query = "Insert into `view_rights` (`session_topic_id`, `coauditsession_id`, `cacertuser_id`, `coauditor_id`,
-        `result`, `comment`, `created`, `active`)
-        VALUES ($session_topic_id, $coauditsession_id, , $cacertuser_id" .$_SESSION['user']['id'] . ",
-        '$result', '$comment', " . Now() . ", 1)";
+    $query = "Insert into `result` (`session_topic_id`, `coauditsession_id`, `cacertuser_id`, `coauditor_id`,
+        `result`, `comment`, `active`)
+        VALUES ($session_topic_id, $coauditsession_id, $cacertuser_id, " .$_SESSION['user']['id'] . ",
+        '$result', '$comment', 1)";
     mysql_query($query);
     $nid =mysql_insert_id();
     //write log
