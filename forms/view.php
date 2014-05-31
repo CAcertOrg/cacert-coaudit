@@ -5,8 +5,8 @@ include_once('../module/db_functions.php');
 $roles = define_roles();
 
 //Check access to page
-$readperm = get_read_permision('user');
-$writeperm = get_write_permision('user');
+$readperm = get_read_permision('view');
+$writeperm = get_write_permision('view');
 /*
    if (isset($_SESSION['user']['cid'])) {
    $cid = intval($_SESSION['user']['cid']);

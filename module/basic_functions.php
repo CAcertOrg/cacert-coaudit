@@ -16,6 +16,9 @@ function define_roles(){
 
 function get_read_permision( $view){
     $view_perm = get_view_right($view);
+    if (!isset($view_perm['read_permission'])) {
+        return 0;
+    }
     $readview = $view_perm['read_permission'];
     if (($_SESSION['user']['read_permission'] & $readview)>0) {
         return 1;
@@ -26,6 +29,9 @@ function get_read_permision( $view){
 
 function get_write_permision( $view){
     $view_perm = get_view_right($view);
+    if (!isset($view_perm['write_permission'])) {
+        return 0;
+    }
     $writeview = $view_perm['write_permission'];
     if (($_SESSION['user']['write_permission'] & $writeview)>0) {
         return 1;

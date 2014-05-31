@@ -2,11 +2,10 @@
 
 include_once('../module/output_functions.php');
 include_once('../module/db_functions.php');
-$roles = array('Guest','Coauditor', 'Admin', 'Auditor');
 
 //Check access to page
-$readperm = get_read_permision('user');
-$writeperm = get_write_permision('user');
+$readperm = get_read_permision('topic');
+$writeperm = get_write_permision('topic');
 
 if (isset($_REQUEST['tid'])) {
     $tid = intval($_REQUEST['tid']);

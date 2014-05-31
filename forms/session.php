@@ -3,8 +3,8 @@ include_once('../module/output_functions.php');
 include_once('../module/db_functions.php');
 
 //Check access to page
-$readperm = get_read_permision('user');
-$writeperm = get_write_permision('user');
+$readperm = get_read_permision('session');
+$writeperm = get_write_permision('session');
 
 
 if (isset($_REQUEST['sid'])) {

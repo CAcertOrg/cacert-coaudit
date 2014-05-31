@@ -4,9 +4,10 @@ include_once('../module/basic_layout.php');
 include_once('../module/basic_functions.php');
 include_once('../module/db_functions.php');
 
-$_SESSION['user']['id']=1;
+
 dbstart();
 
+//to be replaced by login functionality
 test_data();
 
 if (isset( $_REQUEST['type'])) {
@@ -59,6 +60,7 @@ echo titlebar();
 echo menu();
 
 echo footer();
+
 
 $userroles = count(define_roles())-1;
 
