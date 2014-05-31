@@ -21,13 +21,13 @@ function menu(){
     $tabstrings .= '<ul>';
     $tabstrings .= '<li>' . _('Statics') . '</li>';
     $tabstrings .=      '<ul>';
-    $tabstrings .=      '<li>' . _('Overview') . '</li>';
+    $tabstrings .=      '<li><a href="#">' . _('Overview') . '</a></li>';
     $tabstrings .=      '</ul>';
 
     $tabstrings .= '<li>' . _('Coauditors') . '</li>';
     $tabstrings .=      '<ul>';
-    $tabstrings .=      '<li>' . _('Enter new entry') . '</li>';
-    $tabstrings .=      '<li>' . _('List own entries') . '</li>';
+    $tabstrings .=      '<li><a href="index.php?type=result">' . _('Enter new entry') . '</a></li>';
+    $tabstrings .=      '<li><a href="#">' . _('List own entries') . '</a></li>';
     $tabstrings .=      '</ul>';
 
     $tabstrings .= '<li>Admin</li>';
@@ -38,8 +38,8 @@ function menu(){
     $tabstrings .=      '<li><a href="index.php?type=viewlist">' . _('View administration') . '</a></li>';
     $tabstrings .=      '</ul>';
 
-    $tabstrings .= '<li>' . _('Login') . '</li>';
-    $tabstrings .= '<li>' . _('Logout') . '</li>';
+    $tabstrings .= '<li><a href="#">' . _('Login') . '</a></li>';
+    $tabstrings .= '<li><a href="#">' . _('Logout') . '</a></li>';
     $tabstrings .= '</ul>';
     $tabstrings .= '</div >';
 
