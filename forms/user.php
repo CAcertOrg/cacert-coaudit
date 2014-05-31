@@ -1,7 +1,7 @@
 <?php
 include_once('../module/output_functions.php');
 include_once('../module/db_functions.php');
-$roles = array(_('Guest'), _('Coauditor'), _('Admin'), _('Auditor'));
+$roles = define_roles();
 
 //Check access to page
 /*

@@ -35,6 +35,7 @@ function menu(){
     $tabstrings .=      '<li><a href="index.php?type=userlist">' . _('List user') . '</a></li>';
     $tabstrings .=      '<li><a href="index.php?type=sessionlist">' . _('List sessions') . '</a></li>';
     $tabstrings .=      '<li><a href="index.php?type=topiclist">' . _('List topics') . '</a></li>';
+    $tabstrings .=      '<li><a href="index.php?type=viewlist">' . _('View administration') . '</a></li>';
     $tabstrings .=      '</ul>';
 
     $tabstrings .= '<li>' . _('Login') . '</li>';

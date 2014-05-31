@@ -40,6 +40,12 @@ switch ($type) {
     case 'sessiontopic':
         ;$title = ' - ' . _('Session topic');
         break;
+    case 'viewlist':
+        ;$title = ' - ' . _('List of view');
+        break;
+    case 'view':
+        ;$title = ' - ' . _('View');
+        break;
     default:
         $title = '';
 }
@@ -51,6 +57,8 @@ echo titlebar();
 echo menu();
 
 echo footer();
+
+$userroles = count(define_roles())-1;
 
 //user management
 if ($type == 'userlist') {
@@ -65,7 +73,7 @@ if ($type == 'user') {
         $cid = array_key_exists('cid',$_REQUEST) ? intval($_REQUEST['cid']) : '';
         $username = array_key_exists('username',$_REQUEST) ? tidystring($_REQUEST['username']) : '';
         $email = array_key_exists('email',$_REQUEST) ? tidystring($_REQUEST['email']) : '';
-        for ($i = 0; $i <= 3; $i++){
+        for ($i = 0; $i <= $userroles; $i++){
             $readtest = array_key_exists('read'.$i,$_REQUEST) ? tidystring($_REQUEST['read'.$i]) : '';
             $writetest = array_key_exists('write'.$i,$_REQUEST) ? tidystring($_REQUEST['write'.$i]) : '';
             if ($readtest == 'on') {
@@ -202,6 +210,49 @@ if ($type == 'sessiontopic') {
     }
 }
 
+//view management
+if ($type == 'viewlist') {
+    include('../forms/viewlist.php');
+}
+
+if ($type == 'view') {
+    $continue=true;
+    if (isset( $_REQUEST['new']) | isset( $_REQUEST['edit'])) {
+        $read = 0;
+        $write = 0;
+        $vid = array_key_exists('vid',$_REQUEST) ? intval($_REQUEST['vid']) : '';
+        $view_name = array_key_exists('view_name',$_REQUEST) ? tidystring($_REQUEST['view_name']) : '';
+        for ($i = 0; $i <= $userroles; $i++){
+            $readtest = array_key_exists('read'.$i,$_REQUEST) ? tidystring($_REQUEST['read'.$i]) : '';
+            $writetest = array_key_exists('write'.$i,$_REQUEST) ? tidystring($_REQUEST['write'.$i]) : '';
+            if ($readtest == 'on') {
+                $read +=  pow(2, $i);
+            }
+            if ($writetest == 'on') {
+                $write +=  pow(2, $i);
+            }
+        }
+
+        $activetest = array_key_exists('active',$_REQUEST) ? tidystring($_REQUEST['active']) : '';
+        if ($activetest == 'on') {
+            $active = 1;
+        } else {
+            $active = 0;
+        }
+
+        if (isset( $_REQUEST['new'])){
+            insert_view($view_name, $read, $write);
+        } else {
+            update_view($view_name, $read, $write, $active, $vid);
+        }
+
+        include('../forms/viewlist.php');
+        $continue=false;
+    }
+    if ($continue==true) {
+        include('../forms/view.php');
+    }
+}
 
 
 echo footerend();

@@ -235,7 +235,7 @@ function tablerow_sessionslist_new(){
     return $tabstring;
 }
 
-// sessiontopocs
+// sessiontopics
 function tablerow_sessiontopiclist_header(){
     $tabstring = '<tr>' . "\n";
     $tabstring .=   '<td class="DataTD">' . _('Session') . '</td>' . "\n";
@@ -275,6 +275,35 @@ function tablerow_sessionstopicslist_new(){
     return $tabstring;
 }
 
+// view managemnt
+function tablerow_viewlist_header(){
+    $tabstring = '<tr>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('View') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Read Permission') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Write Permission') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Active') . '</td>' . "\n";
+    $tabstring .= '</tr>' . "\n";
+    return $tabstring;
+}
+
+
+function tablerow_viewlist($view){
+    $tabstring = '<tr>' . "\n";
+    $tabstring .=   '<td class="DataTD"><a href="../www/index.php?type=view&vid='.$view['view_rigths_id'].'">'.$view['view_name'].'</a></td>' . "\n";
+    $tabstring .=   '<td class="DataTD">'.$view['read_permission'].'</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">'.$view['write_permission'].'</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">'.$view['active'].'</td>' . "\n";
+    $tabstring .= '</tr>' . "\n";
+    return $tabstring;
+}
+
+
+function tablerow_viewlist_new(){
+    $tabstring = '<tr>' . "\n";
+    $tabstring .=   '<td class="DataTD" colspan="4"><a href="../www/index.php?type=view&vid=0">New entry</a></td>' . "\n";
+    $tabstring .= '</tr>' . "\n";
+    return $tabstring;
+}
 
 
 ?>

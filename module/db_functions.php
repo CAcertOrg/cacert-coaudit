@@ -288,6 +288,49 @@ function update_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no,
 
 }
 
+// view handling
+function get_all_view($where = ''){
+    if ($where == '') {
+        $where = ' Where 1=1 ';
+    }else{
+        $where = ' Where view_rigths_id='.$where.' ';
+    }
+    $query = "select `view_rigths_id`, `view_name`, `read_permission`, `write_permission`, `active` from `view_rights` " . $where . "ORDER BY `view_name`";
+    $res = mysql_query($query);
+    if ($where == ' Where 1=1 ') {
+        return $res;
+    } else {
+        $result = array();
+        while($row = mysql_fetch_assoc($res)){
+            $result['view_rigths_id'] = $row['view_rigths_id'];
+            $result['view_name'] = $row['view_name'];
+            $result['read_permission'] = $row['read_permission'];
+            $result['write_permission'] = $row['write_permission'];
+            $result['active'] = $row['active'];
+        }
+        return $result;
+    }
+}
 
+function insert_view($view_name, $read_permission, $write_permission){
+    $query = "Insert into `view_rights` (`view_name`, `read_permission`, `write_permission`, `active`)
+        VALUES ('$view_name', '$read_permission', '$write_permission', 1)";
+    mysql_query($query);
+    $nid =mysql_insert_id();
+    //write log
+
+}
+
+function update_view($view_name, $read_permission, $write_permission, $active, $vid){
+
+    $query = "Update `view_rights` Set `view_name` = '$view_name',
+        `read_permission` = '$read_permission',
+        `write_permission` = '$write_permission',
+        `active` = '$active'
+        WHERE `view_rigths_id` = $vid";
+    mysql_query($query);
+    //write log
+
+}
 
 ?>
