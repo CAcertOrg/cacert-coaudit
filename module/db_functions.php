@@ -164,7 +164,7 @@ function update_topic($topic, $explain, $active, $tid){
     //write log
 
 }
-
+// session handling
 function get_all_session($where = ''){
     if ($where == '') {
         $where = ' Where 1=1 ';
@@ -208,4 +208,86 @@ function update_session($session_name, $from, $to, $active, $sid){
     //write log
 
 }
+
+// session topic handling
+function get_all_sessiontopics($where = ''){
+/*
+    if ($where == '') {
+        $where = ' Where 1=1 ';
+    }else{
+        $where = ' Where session_topics_id='.$where.' ';
+    }
+*/
+    $query = "SELECT `st`.`session_topics_id` , `t`.`session_topic` , `s`.`session_name` , `st`.`topic_no` , `st`.`active`
+                FROM `session_topics` AS `st` , `coauditsession` AS `s` , `session_topic` AS `t`
+                WHERE `st`.`session_topic_id` = `t`.`session_topic_id`
+                AND `st`.`coaudit_session_id` = `s`.`session_id`
+                ORDER BY `s`.`session_name` , `st`.`topic_no`";
+    $res = mysql_query($query);
+    if ($where == '') {
+        return $res;
+    } else {
+        $result = array();
+        while($row = mysql_fetch_assoc($res)){
+            $result['session_topics_id'] = $row['session_topics_id'];
+            $result['session_topic'] = $row['session_topic'];
+            $result['session_name'] = $row['session_name'];
+            $result['topic_no'] = $row['topic_no'];
+            $result['active'] = $row['active'];
+        }
+        return $result;
+    }
+
+}
+
+function get_sessiontopic($stid){
+/*
+   if ($where == '') {
+   $where = ' Where 1=1 ';
+   }else{
+   $where = ' Where session_topics_id='.$where.' ';
+   }
+*/
+    $query = "SELECT `session_topics_id` , `session_topic_id` , `coaudit_session_id` ,
+            `topic_no` , `active`
+            FROM `session_topics`
+            WHERE `session_topics_id` = " . $stid;
+    $res = mysql_query($query);
+
+    $result = array();
+    while($row = mysql_fetch_assoc($res)){
+        $result['session_topics_id'] = $row['session_topics_id'];
+        $result['session_topic_id'] = $row['session_topic_id'];
+        $result['coaudit_session_id'] = $row['coaudit_session_id'];
+        $result['topic_no'] = $row['topic_no'];
+        $result['active'] = $row['active'];
+    }
+
+    return $result;
+}
+
+
+function insert_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no){
+    $query = "Insert into `session_topics` (`session_topic_id`, `coaudit_session_id`, `topic_no`, `active`)
+        VALUES ('$session_topic_id', '$coaudit_session_id', '$topic_no', 1)";
+    mysql_query($query);
+    $nid =mysql_insert_id();
+    //write log
+
+}
+
+function update_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no, $active, $stid){
+
+    $query = "Update `session_topics` Set `session_topic_id` = '$session_topic_id',
+        `coaudit_session_id` = '$coaudit_session_id',
+        `topic_no` = '$topic_no',
+        `active` = '$active'
+        WHERE  `session_topics_id` = $stid";
+    mysql_query($query);
+    //write log
+
+}
+
+
+
 ?>

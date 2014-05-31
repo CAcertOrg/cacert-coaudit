@@ -7,7 +7,6 @@ include_once('../module/db_functions.php');
 
 //get data
 $sessions = get_all_session();
-//$user=array(1,'dddd',"www",2,3);
 
 echo start_div('content');
 echo tableheader("Session list", 5);

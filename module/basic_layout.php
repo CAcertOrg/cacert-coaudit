@@ -45,10 +45,10 @@ function menu(){
     return $tabstrings;
 }
 
-function headerstart(){
+function headerstart($title){
     $tabstrings = '<html >';
     $tabstrings .= '<head >';
-    $tabstrings .= '<title>CAcert Coaudit</title>';
+    $tabstrings .= '<title>' . _('CAcert Coaudit'). $title . '</title>';
     $tabstrings .= '<link rel="stylesheet" href="coaudit.css" type="text/css" />';
     $tabstrings .= '</head >';
     $tabstrings .= '<body>';
