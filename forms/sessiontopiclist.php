@@ -10,7 +10,7 @@ $sessiontopics = get_all_sessiontopics();
 
 
 echo start_div('content');
-echo tableheader("Session topics list", 4);
+echo tableheader(_('Session topics list'), 4);
 echo tablerow_sessiontopiclist_header();
 
 

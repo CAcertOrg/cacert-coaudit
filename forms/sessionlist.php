@@ -9,7 +9,7 @@ include_once('../module/db_functions.php');
 $sessions = get_all_session();
 
 echo start_div('content');
-echo tableheader("Session list", 5);
+echo tableheader(_('Session list'), 5);
 echo tablerow_userlist_header();
 
 

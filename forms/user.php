@@ -1,7 +1,7 @@
 <?php
 include_once('../module/output_functions.php');
 include_once('../module/db_functions.php');
-$roles = array('Guest','Coauditor', 'Admin', 'Auditor');
+$roles = array(_('Guest'), _('Coauditor'), _('Admin'), _('Auditor'));
 
 //Check access to page
 /*
@@ -45,9 +45,9 @@ $hidden[]=array('cid',$userid);
 //buildform
 echo start_div('content');
 echo built_form_header('../www/index.php?type=user');
-echo tableheader('user', 3);
-echo tablerow_3col_textbox_2col('User', 'username', $username);
-echo tablerow_3col_textbox_2col('Email', 'email', $usermail);
+echo tableheader(_('User'), 3);
+echo tablerow_3col_textbox_2col(_('User'), 'username', $username);
+echo tablerow_3col_textbox_2col(_('Email'), 'email', $usermail);
 echo tablerow_user_rights($roles, $read, $write);
 echo tablefooter_user(3, $userid);
 echo built_form_footer($hidden);

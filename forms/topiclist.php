@@ -10,7 +10,7 @@ $topics = get_all_topics();
 
 
 echo start_div('content');
-echo tableheader("Topics list", 3);
+echo tableheader(_('Topics list'), 3);
 echo tablerow_topicslist_header();
 
 

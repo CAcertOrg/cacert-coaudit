@@ -113,7 +113,7 @@ function tablefooter_user($cols, $uid){
     }
 
     $tabstring = '<tr>' . "\n";
-    $tabstring .=    '<td class="DataTD" colspan="'.$cols.'"><input type="submit" name="'.$name.'" value="'.$name.'"</td>' . "\n";
+    $tabstring .=    '<td class="DataTD" colspan="'.$cols.'"><input type="submit" name="'.$name.'" value="'.$label.'"</td>' . "\n";
     $tabstring .= '</tr>' . "\n";
     $tabstring .= '</table>' . "\n";
     return $tabstring;
@@ -121,9 +121,9 @@ function tablefooter_user($cols, $uid){
 
 function tablerow_userlist_header(){
     $tabstring = '<tr>' . "\n";
-    $tabstring .=   '<td class="DataTD">Coauditor</td>' . "\n";
-    $tabstring .=   '<td class="DataTD">Read permission</td>' . "\n";
-    $tabstring .=   '<td class="DataTD">Write permission</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Coauditor') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Read permission') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Write permission') . '</td>' . "\n";
     $tabstring .= '</tr>' . "\n";
     return $tabstring;
 }
@@ -169,9 +169,9 @@ function end_div(){
 
 function tablerow_topicslist_header(){
     $tabstring = '<tr>' . "\n";
-    $tabstring .=   '<td class="DataTD">Topic</td>' . "\n";
-    $tabstring .=   '<td class="DataTD">Explaination</td>' . "\n";
-    $tabstring .=   '<td class="DataTD">active</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Topic') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Explaination') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Active') . '</td>' . "\n";
     $tabstring .= '</tr>' . "\n";
     return $tabstring;
 }
@@ -198,7 +198,7 @@ function tablerow_topics_active($active){
         $checked = '';
     }
     $tabstring = '</tr>' . "\n";
-    $tabstring .=   '<td class="DataTD">Active</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Active') . '</td>' . "\n";
     $tabstring .=   '<td class="DataTD"><input type="checkbox" name="active" '.$checked.'/></td>' . "\n";
     $tabstring .= '</tr>' . "\n";
     return $tabstring;
@@ -208,10 +208,10 @@ function tablerow_topics_active($active){
 // session
 function tablerow_sessionslist_header(){
     $tabstring = '<tr>' . "\n";
-    $tabstring .=   '<td class="DataTD">Session</td>' . "\n";
-    $tabstring .=   '<td class="DataTD">From</td>' . "\n";
-    $tabstring .=   '<td class="DataTD">To</td>' . "\n";
-    $tabstring .=   '<td class="DataTD">Active</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Session') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('From') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('To') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Active') . '</td>' . "\n";
     $tabstring .= '</tr>' . "\n";
     return $tabstring;
 }
@@ -238,10 +238,10 @@ function tablerow_sessionslist_new(){
 // sessiontopocs
 function tablerow_sessiontopiclist_header(){
     $tabstring = '<tr>' . "\n";
-    $tabstring .=   '<td class="DataTD">Session</td>' . "\n";
-    $tabstring .=   '<td class="DataTD">No</td>' . "\n";
-    $tabstring .=   '<td class="DataTD">Topic</td>' . "\n";
-    $tabstring .=   '<td class="DataTD">Active</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Session') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Topic No') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Topic') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Active') . '</td>' . "\n";
     $tabstring .= '</tr>' . "\n";
     return $tabstring;
 }

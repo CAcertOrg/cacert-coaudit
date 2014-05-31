@@ -10,7 +10,7 @@ $users = get_all_user();
 //$user=array(1,'dddd',"www",2,3);
 
 echo start_div('content');
-echo tableheader("User list", 3);
+echo tableheader(_('User list'), 3);
 echo tablerow_userlist_header();
 
 

@@ -2,7 +2,7 @@
 
 function titlebar(){
     $tabstrings = '<div class="headerbar">';
-    $tabstrings .= '<h1>Co-Audit system</h1>';
+    $tabstrings .= '<h1>' . _('Co-Audit system') . '</h1>';
     $tabstrings .= '</div >';
 
     return $tabstrings;
@@ -19,26 +19,26 @@ function footer(){
 function menu(){
     $tabstrings = '<div class="menubar">';
     $tabstrings .= '<ul>';
-    $tabstrings .= '<li>Statics</li>';
+    $tabstrings .= '<li>' . _('Statics') . '</li>';
     $tabstrings .=      '<ul>';
-    $tabstrings .=      '<li>Overview</li>';
+    $tabstrings .=      '<li>' . _('Overview') . '</li>';
     $tabstrings .=      '</ul>';
 
-    $tabstrings .= '<li>Coauditors</li>';
+    $tabstrings .= '<li>' . _('Coauditors') . '</li>';
     $tabstrings .=      '<ul>';
-    $tabstrings .=      '<li>Enter new entry</li>';
-    $tabstrings .=      '<li>List own entries</li>';
+    $tabstrings .=      '<li>' . _('Enter new entry') . '</li>';
+    $tabstrings .=      '<li>' . _('List own entries') . '</li>';
     $tabstrings .=      '</ul>';
 
     $tabstrings .= '<li>Admin</li>';
     $tabstrings .=      '<ul>';
-    $tabstrings .=      '<li><a href="index.php?type=userlist">List user</a></li>';
-    $tabstrings .=      '<li><a href="index.php?type=sessionlist">List sessions</a></li>';
-    $tabstrings .=      '<li><a href="index.php?type=topiclist">List topics</a></li>';
+    $tabstrings .=      '<li><a href="index.php?type=userlist">' . _('List user') . '</a></li>';
+    $tabstrings .=      '<li><a href="index.php?type=sessionlist">' . _('List sessions') . '</a></li>';
+    $tabstrings .=      '<li><a href="index.php?type=topiclist">' . _('List topics') . '</a></li>';
     $tabstrings .=      '</ul>';
 
-    $tabstrings .= '<li>Login</li>';
-    $tabstrings .= '<li>Logout</li>';
+    $tabstrings .= '<li>' . _('Login') . '</li>';
+    $tabstrings .= '<li>' . _('Logout') . '</li>';
     $tabstrings .= '</ul>';
     $tabstrings .= '</div >';
 

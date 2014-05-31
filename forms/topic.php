@@ -43,9 +43,9 @@ $hidden[]=array('tid',$tid);
 //buildform
 echo start_div('content');
 echo built_form_header('../www/index.php?type=topic');
-echo tableheader('Topic', 2);
-echo tablerow_2col_textbox('Topic', 'topic', $session_topic);
-echo tablerow_2col_textbox('Explaination', 'explain', $topic_explaination);
+echo tableheader(_('Topic'), 2);
+echo tablerow_2col_textbox(_('Topic'), 'topic', $session_topic);
+echo tablerow_2col_textbox(_('Explaination'), 'explain', $topic_explaination);
 echo tablerow_topics_active($activ);
 echo tablefooter_user(2, $session_topic_id);
 echo built_form_footer($hidden);
