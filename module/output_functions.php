@@ -60,6 +60,13 @@ function tablerow_2col_textbox($label, $name, $value){
     return $tabstring;
 }
 
+function tablerow_label($label, $col){
+    $tabstring = '<tr>' . "\n";
+    $tabstring .=   '<td class="DataTD" colspan="'.$col.'">'.$label.'</td>' . "\n";
+    $tabstring .= '</tr>' . "\n";
+    return $tabstring;
+}
+
 function tablerow_3col_textbox_2col($label, $name, $value){
     $tabstring = '<tr>' . "\n";
     $tabstring .=   '<td class="DataTD">'.$label.'</td>' . "\n";
@@ -106,6 +113,20 @@ function tablerow_user_rights($roles, $read, $write){
 
     return $tabstring;
 
+}
+
+
+function tablerow_2col_checkbox($label, $name, $value){
+    if ($value == 1) {
+        $checked = 'checked';
+    }else{
+        $checked = '';
+    }
+    $tabstring = '</tr>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . $label . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD"><input type="checkbox" name="' .$name .'" '.$checked.'/></td>' . "\n";
+    $tabstring .= '</tr>' . "\n";
+    return $tabstring;
 }
 
 function tablefooter_user($cols, $uid, $write=0){

@@ -1,7 +1,11 @@
 <?php
 include_once('../module/db_functions.php');
 function tidystring($input){
-    return trim(mysql_real_escape_string(stripslashes($input)));
+    if ($input != "") {
+        return trim(mysql_real_escape_string(stripslashes($input)));
+    } else {
+        return '';
+    }
 }
 
 function define_roles(){

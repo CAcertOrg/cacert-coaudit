@@ -211,19 +211,20 @@ function update_session($session_name, $from, $to, $active, $sid){
 
 // session topic handling
 function get_all_sessiontopics($where = ''){
-/*
+
     if ($where == '') {
-        $where = ' Where 1=1 ';
+        $where = '';
     }else{
-        $where = ' Where session_topics_id='.$where.' ';
+        $where = ' and ' . $where;
     }
-*/
+
     $query = "SELECT `st`.`session_topics_id` , `t`.`session_topic` , `s`.`session_name` , `st`.`topic_no` , `st`.`active`
                 FROM `session_topics` AS `st` , `coauditsession` AS `s` , `session_topic` AS `t`
                 WHERE `st`.`session_topic_id` = `t`.`session_topic_id`
-                AND `st`.`coaudit_session_id` = `s`.`session_id`
+                AND `st`.`coaudit_session_id` = `s`.`session_id` " . $where ."
                 ORDER BY `s`.`session_name` , `st`.`topic_no`";
     $res = mysql_query($query);
+/*
     if ($where == '') {
         return $res;
     } else {
@@ -237,7 +238,8 @@ function get_all_sessiontopics($where = ''){
         }
         return $result;
     }
-
+*/
+    return $res;
 }
 
 function get_sessiontopic($stid){
@@ -348,4 +350,56 @@ function get_view_right($view){
     return $result;
 }
 
+
+
+// result management
+
+function insert_result_user($primaryemail, $assurer, $expierencepoints, $country, $location, $coauditdate){
+    $created = Now();
+    $query = "Insert into `view_rights` (`primaryemail`, `webdb_account_id`, `assurer`, `expierencepoints`,
+        `country`, `created_by`, `location`, `coauditdate`, `active`)
+        VALUES ('$primaryemail', 0, '$assurer', $expierencepoints,
+        $country, " . Now() . ", " . $_SESSION['user']['id'] . ", '$location', '$coauditdate', 1)";
+    mysql_query($query);
+    $nid =mysql_insert_id();
+    //write log
+
+    return $nid;
+}
+
+function update_result_user($view_name, $read_permission, $write_permission, $active, $vid){
+
+    $query = "Update `view_rights` Set `view_name` = '$view_name',
+        `read_permission` = '$read_permission',
+        `write_permission` = '$write_permission',
+        `active` = '$active'
+        WHERE `view_rigths_id` = $vid";
+    mysql_query($query);
+    //write log
+
+}
+
+
+function insert_result_topic($session_topic_id, $coauditsession_id, $cacertuser_id, $result, $comment){
+    $query = "Insert into `view_rights` (`session_topic_id`, `coauditsession_id`, `cacertuser_id`, `coauditor_id`,
+        `result`, `comment`, `created`, `active`)
+        VALUES ($session_topic_id, $coauditsession_id, , $cacertuser_id" .$_SESSION['user']['id'] . ",
+        '$result', '$comment', " . Now() . ", 1)";
+    mysql_query($query);
+    $nid =mysql_insert_id();
+    //write log
+
+}
+
+function update_result_topic($view_name, $read_permission, $write_permission, $active, $vid){
+
+    $query = "Update `view_rights` Set `view_name` = '$view_name',
+        `read_permission` = '$read_permission',
+        `write_permission` = '$write_permission',
+        `active` = '$active'
+        WHERE `view_rigths_id` = $vid";
+    mysql_query($query);
+    //write log
+
+}
 ?>
