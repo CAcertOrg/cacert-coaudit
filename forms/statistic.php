@@ -18,7 +18,7 @@ $rowheader2 = '';
 $datarow = '';
 $col = 0;
 $start = 0;
-
+$kpidata = array();
 //buildform
 echo start_div('content');
 
@@ -48,6 +48,7 @@ while($row = mysql_fetch_assoc($res)){
         $rowheader1 .= tablecell('');
         $rowheader2 = tablecell(_('Year'));
         $rowheader2 .= tablecell(_('Tests'));
+        $kpidata[] = array($row['CYear'],$row['Total']);
         $col = 2;
     }
     if ($start == 0) {
@@ -71,6 +72,32 @@ if ($start == 0) {
     $start = 1;
 }
 echo tablerow_start() . $datarow . tablerow_end();
+echo table_end();
+
+
+$res = get_statiscs_kpi(2);
+echo tableheader(_('Coaudit KPI'),5);
+$rowheader = tablerow_start();
+$rowheader .= tablecell(_('Year'));
+$rowheader .= tablecell(_('Tests'));
+$rowheader .= tablecell(_('Assurances'));
+$rowheader .= tablecell(_('Percentage'));
+$rowheader .= tablecell(_('Taget KPI')) . tablerow_end();
+echo $rowheader;
+while($row = mysql_fetch_assoc($res)){
+    $stest = 0;
+    foreach ($kpidata as $syear) {
+        if ($syear[0] == $row['session_year']) {
+            $stest = $syear[1];
+        }
+    }
+    $datarow = tablecell($row['session_year']);
+    $datarow .= tablecell($stest);
+    $datarow .= tablecell($row['assurances']);
+    $datarow .= tablecell(number_format(($stest / $row['assurances']) * 100, 1, '.', '') . '%');
+    $datarow .= tablecell(number_format($row['target'], 1, '.', '') . '%');
+    echo tablerow_start() . $datarow . tablerow_end();
+}
 echo table_end();
 echo end_div();
 ?>

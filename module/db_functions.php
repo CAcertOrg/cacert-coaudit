@@ -417,4 +417,11 @@ function get_statiscs_basic($where =''){
     return $res;
 
 }
+
+function get_statiscs_kpi($where =''){
+    $query = "Select `session_year`, `assurances`, `target` from `coaudit_refdata` where `coaudit_session_id` = " . $where;
+    $res = mysql_query($query);
+    return $res;
+
+}
 ?>
