@@ -21,7 +21,7 @@ function menu(){
     $tabstrings .= '<ul>';
     $tabstrings .= '<li>' . _('Statics') . '</li>';
     $tabstrings .=      '<ul>';
-    $tabstrings .=      '<li><a href="#">' . _('Overview') . '</a></li>';
+    $tabstrings .=      '<li><a href="index.php?type=statistic">' . _('Overview') . '</a></li>';
     $tabstrings .=      '</ul>';
 
     $tabstrings .= '<li>' . _('Coauditors') . '</li>';

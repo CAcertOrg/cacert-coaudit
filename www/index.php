@@ -55,6 +55,9 @@ switch ($type) {
     case 'result':
         ;$title = ' - ' . _('Result');
         break;
+    case 'statistic':
+        ;$title = ' - ' . _('Statisics');
+        break;
     default:
         $title = '';
 }
@@ -264,7 +267,7 @@ if ($type == 'view') {
     }
 }
 
-// entere result management
+// Enter result management
 if ($type == 'resultlist') {
     include('../forms/resultlist.php');
 }
@@ -322,7 +325,10 @@ if ($type == 'result') {
     }
 }
 
-
+// statistic
+if ($type == 'statistic') {
+    include('../forms/statistic.php');
+}
 echo footerend();
 
 ?>

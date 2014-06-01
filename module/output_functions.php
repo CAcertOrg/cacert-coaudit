@@ -60,6 +60,27 @@ function tablerow_2col_textbox($label, $name, $value){
     return $tabstring;
 }
 
+function tablecell($value, $cols=0){
+    $colspan = '';
+    if ($cols > 0) {
+        $colspan = ' colspan="' . $cols . '" ';
+    }
+    $tabstring =   '<td class="DataTD" ' . $colspan . '>' . $value . '</td>' . "\n";
+    return $tabstring;
+}
+function tablerow_start(){
+    $tabstring = '<tr>' . "\n";
+    return $tabstring;
+}
+function tablerow_end(){
+    $tabstring = '</tr>' . "\n";
+    return $tabstring;
+}
+function table_end(){
+    $tabstring = '</table>' . "\n";
+    return $tabstring;
+}
+
 function tablerow_label($label, $col){
     $tabstring = '<tr>' . "\n";
     $tabstring .=   '<td class="DataTD" colspan="'.$col.'">'.$label.'</td>' . "\n";
