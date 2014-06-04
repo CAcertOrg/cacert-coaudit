@@ -44,6 +44,25 @@ function get_write_permision( $view){
     }
 }
 
+/**
+ * validdate()
+ * checks if the string a date in the format yyyy-mm-dd
+ * @param mixed $datestring
+ * @return
+ */
+function validdate($datestring){
+    $test_arr  = explode('-', $datestring);
+    if (count($test_arr) == 3) {
+        if (checkdate($test_arr[1], $test_arr[2], $test_arr[0])) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
 function test_data(){
     $_SESSION['user']['id'] = 1;
     $_SESSION['user']['name'] = 'norbert';

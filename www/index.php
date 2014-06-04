@@ -80,7 +80,7 @@ if ($type == 'userlist') {
 
 if ($type == 'user') {
     $continue=true;
-    if (isset( $_REQUEST['new']) | isset( $_REQUEST['edit'])) {
+    if (isset( $_REQUEST['new']) || isset( $_REQUEST['edit'])) {
         $read = 0;
         $write = 0;
         $cid = array_key_exists('cid',$_REQUEST) ? intval($_REQUEST['cid']) : '';
@@ -96,6 +96,16 @@ if ($type == 'user') {
                 $write +=  pow(2, $i);
             }
         }
+
+        //check valid data
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $email == '';
+        }
+
+        if ($username == '' || $email == '') {
+//missing data
+        }
+
         if (isset( $_REQUEST['new'])){
             insert_user($username, $email, $read, $write, intval($_SESSION['user']['id']));
         } else {
@@ -121,7 +131,7 @@ if ($type == 'topiclist') {
 
 if ($type == 'topic') {
     $continue=true;
-    if (isset( $_REQUEST['new']) | isset( $_REQUEST['edit'])) {
+    if (isset( $_REQUEST['new']) || isset( $_REQUEST['edit'])) {
         $tid = array_key_exists('tid',$_REQUEST) ? intval($_REQUEST['tid']) : '';
         $session_topic = array_key_exists('topic',$_REQUEST) ? tidystring($_REQUEST['topic']) : '';
         $topic_explaination = array_key_exists('explain',$_REQUEST) ? tidystring($_REQUEST['explain']) : '';
@@ -157,7 +167,7 @@ if ($type == 'sessionlist') {
 
 if ($type == 'session') {
     $continue=true;
-    if (isset( $_REQUEST['new']) | isset( $_REQUEST['edit'])) {
+    if (isset( $_REQUEST['new']) || isset( $_REQUEST['edit'])) {
         $sid = array_key_exists('sid',$_REQUEST) ? intval($_REQUEST['sid']) : '';
         $session_name = array_key_exists('session_name',$_REQUEST) ? tidystring($_REQUEST['session_name']) : '';
         $from = array_key_exists('from',$_REQUEST) ? tidystring($_REQUEST['from']) : '';
@@ -230,7 +240,7 @@ if ($type == 'viewlist') {
 
 if ($type == 'view') {
     $continue=true;
-    if (isset( $_REQUEST['new']) | isset( $_REQUEST['edit'])) {
+    if (isset( $_REQUEST['new']) || isset( $_REQUEST['edit'])) {
         $read = 0;
         $write = 0;
         $vid = array_key_exists('vid',$_REQUEST) ? intval($_REQUEST['vid']) : '';
@@ -275,7 +285,7 @@ if ($type == 'resultlist') {
 if ($type == 'result') {
     $continue=true;
 
-    if (isset( $_REQUEST['new']) | isset( $_REQUEST['edit'])) {
+    if (isset( $_REQUEST['new']) || isset( $_REQUEST['edit'])) {
         $rid = array_key_exists('rid',$_REQUEST) ? intval($_REQUEST['rid']) : '';
         $coaudit_session_id = array_key_exists('session_id',$_REQUEST) ? intval($_REQUEST['session_id']) : '';
         $primaryemail = array_key_exists('primaryemail',$_REQUEST) ? tidystring($_REQUEST['primaryemail']) : '';
@@ -286,9 +296,35 @@ if ($type == 'result') {
             $isassurer = 0;
         }
         $expierencepoints = array_key_exists('expierencepoints',$_REQUEST) ? intval($_REQUEST['expierencepoints']) : '';
+        if ($expierencepoints == '') {
+            $expierencepoints = 0;
+        }
         $country = array_key_exists('country',$_REQUEST) ? tidystring($_REQUEST['country']) : '';
         $location = array_key_exists('location',$_REQUEST) ? tidystring($_REQUEST['location']) : '';
         $coauditdate = array_key_exists('coauditdate',$_REQUEST) ? tidystring($_REQUEST['coauditdate']) : '';
+
+        //check valid data
+        if (!filter_var($primaryemail, FILTER_VALIDATE_EMAIL)) {
+            // invalid emailaddress
+            $primaryemail == '';
+        }
+
+        if (strlen($country) > 2) {
+            $country = substr($country, 0, 2);
+        }
+        if (strlen($country) < 2) {
+            $country = '';
+        }
+        $country = strtoupper($country);
+
+        if (!validdate($coauditdate)) {
+            $coauditdate ='';
+        }
+
+
+        if ($primaryemail == '' || $country == '' || $location == '' || $coauditdate == '') {
+//missing data
+        }
 
         $i = 1;
         $questions = array();
@@ -301,8 +337,8 @@ if ($type == 'result') {
                 $r = 0;
             }
             $c = array_key_exists('c' . $i, $_REQUEST) ? tidystring($_REQUEST['c' . $i]): '';
-            $questions[] =array($tid, $r, $c);
-            $i +=1;
+            $questions[] = array($tid, $r, $c);
+            $i += 1;
         }
 
 
