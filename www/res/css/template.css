@@ -1,0 +1,500 @@
+/*
+	Theme Name: magu HTML5/CSS3 Layout
+	Date May 2014
+	Description: Basic HTML5/CSS3 layout build on a responsiv framework
+	Version 1.0
+	Author: Martin Gummi
+	Author URL: http://www.cacert.org
+*/
+body {
+	/*background-image: url('img/bg.png');*/
+	background-image: url('bg.png');
+	/*background-color: #FFFF305;*/
+	color: #000305;
+	font-size: 87,5%; /*Base font is 14 px */
+	font-family: Arial, 'Lucida Sans Unicode';
+	line-height: 1.5;
+	text-align: left;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:link, a:visited {
+	/*color: #CF5C3F;*/
+	color: #FFF;
+}
+
+a:hover, a:active {
+
+	/*color: #CF5C3F;*/
+	color: #FFF;
+}
+
+.body {
+	margin: 0 auto;
+	width: 70%;
+	clear:both;
+}
+
+.mainheader img {
+	width: 30%;
+	height: auto;
+	margin: 2% 0;
+}
+
+/*
+.mainHeader nav {
+	background-color: #666;
+	height: 40px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.mainHeader nav ul{
+	list-style: none;
+	margin: 0 auto;
+
+
+}
+
+
+.mainHeader nav ul li{
+
+	float: left;
+	display: inline;
+}
+
+.mainHeader nav ul li span {
+	color: #FFF;
+	background-color: CornflowerBlue;
+	display: inline-block;
+	padding: 10px 25px;
+	height: 20px;
+
+}
+
+.mainHeader nav a:link, .mainHeader nav a:visited {
+	color: #FFF;
+	display: inline-block;
+	padding: 10px 25px;
+	height: 20px;
+	 Come back here to assign height
+
+}
+.mainHeader nav a:hover, .mainHeader nav a:active,
+.mainHeader nav .active a:link, .mainHeader nav .active a:visited {
+	color: #FFF;
+	background-color: #CF5C3F;
+	color #FFF;
+	text-shadow: none;
+}
+
+
+*/
+/*
+.drop-menu {
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: left;
+	padding: 10px 10px;
+	font-size: 22px;
+	height: 25px;
+	max-height: 25px;
+	width: 400px;
+	background: #fff;
+	cursor: pointer;
+	border: 1px solid #f6f0e4;
+}
+
+.drop-menu:hover .sub-menu {
+	display: inline-block;
+}
+
+.sub-menu {
+	display: none;
+	width: 200px;
+	background: #fff;
+	padding: 10px 10px;
+	margin-left: -11px;
+	margin-top: 10px;
+	border: 1px solid #fff;
+	-webkit-box-shadow: 0px 13px 25px rgba(0,0,0, 0.2);
+	-moz-box-shadow: 0px 13px 25px rgba(0,0,0, 0.2);
+	box-shadow: 0px 13px 25px rgba(0,0,0, 0.2);
+}
+*/
+
+/* basic */
+
+
+nav {
+	width: 960px;
+}
+nav ul {
+	padding: 0px;
+	margin: 0px;
+}
+nav ul:after {
+	clear: both;
+	content: " ";
+	display: block;
+	font-size: 0;
+	height: 0;
+	visibility: hidden;
+}
+nav ul,nav ul li{
+	/*background-color: #FAFAFA;*/
+	background-color: #093D65;
+}
+nav ul li {
+	list-style: none;
+	float:left;
+}
+nav ul li a {
+	text-decoration: none;
+	display: block;
+	color: #333;
+	padding: 14px 34px 14px 34px;
+}
+nav ul li:hover > ul {
+	visibility: visible;
+}
+nav ul li ul{
+	display: inline;
+	visibility: hidden;
+	position: absolute;
+	padding:0px;
+}
+nav ul li ul li{
+	float: none;
+}
+nav ul li ul li a:hover{
+	color: #333;
+}
+
+
+/* extra */
+
+nav ul {
+	padding: 0px;
+	margin: 0px;
+
+	box-shadow: 2px 2px 2px #dfdfdf;
+	-moz-box-shadow: 2px 2px 2px #dfdfdf;
+	-webkit-box-shadow: 2px 2px 2px #dfdfdf;
+}
+nav ul li {
+		list-style: none;
+	float:left;
+	border-right: 1px solid #dfdfdf;
+}
+nav ul li a {
+	text-decoration: none;
+	display: block;
+	color: #333;
+	padding: 14px 34px 14px 34px;
+
+	-webkit-transition: background 0.3s ease-out 0s;
+	-moz-transition: background 0.3s ease-out 0s;
+	-o-transition: background 0.3s ease-out 0s;
+	transition: background 0.3s ease-out 0s;
+}
+nav ul li.cat1:hover a, nav ul li.cat1:hover > ul li a  {
+	background-color: #006CBF;
+
+}
+nav ul li.cat2:hover a, nav ul li.cat2:hover > ul li a  {
+	background-color: #00BE00;
+}
+nav ul li.cat3:hover a, nav ul li.cat3:hover > ul li a {
+	background-color: #00BE00;
+}
+nav ul li.cat4:hover a, nav ul li.cat4:hover > ul li a {
+	background-color: #AAAAAA;
+}
+nav ul li.cat5:hover a, nav ul li.cat5:hover > ul li a {
+	background-color: #999999;
+}
+nav ul li:hover > a {
+	color: #FAFAFA;
+}
+nav ul li ul li a {
+	color: #FAFAFA;
+}
+nav ul li ul li a:hover{
+	color: #333;
+	background-color: #FAFAFA !important;
+}
+
+.logo{
+	float:right;
+}
+
+
+/*
+.mainHeader nav ul li a{
+
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+*/
+
+mainContent {
+	line-height: 25px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	overflow: hidden;
+}
+
+.content{
+	background-color: #FFF;
+	width: 70%;
+	float: left;
+	margin: 10% 10%;
+
+}
+
+.topcontent {
+	background-colors: #FFF;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	padding: 3% 5%;
+	overflow: hidden;
+}
+
+.bottomcontent {
+	background-colors: #FFF;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	padding: 3% 5%;
+	margin-top: 2%;
+}
+
+.top-sidebar {
+	width: 25%;
+	float: left;
+	background-colors: #FFF;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	margin-left: 3%;
+
+}
+
+.middle-sidebar {
+	width: 25%;
+	float: left;
+	background-colors: #FFF;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	margin-left: 3%;
+
+}
+
+.bottom-sidebar {
+	width: 25%;
+	float: left;
+	background-colors: #FFF;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	margin-left: 3%;
+
+}
+
+.mainFooter {
+	width: 100%;
+	float: left;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	background-color: #666;
+	margin: 2% 0;;
+	margin-top: 2%;
+	margin-bottom: 2%;
+
+}
+
+
+
+.mainFooter p {
+	width: 97%;
+	margin: 2% auto;
+	color: #FFF;
+}
+
+/* Table */
+ .DataTD input, .DataTD textarea {
+	font-size: 92%;
+}
+
+.DataTD select, .DataTD option {
+	font-size: 92%;
+}
+
+.DataTD {
+	background-color: #e2e2e2;
+	border-style: inset;
+	border-width: 1px;
+	font-size: 8pt;
+	color: #000000;
+	font-family: Arial, Tahoma, Verdana, Helvetica, sans-serif;
+
+	background: #ffffff;
+	padding: 1px 5px 1px 5px;
+	border: 1px #cfcfcf solid;
+	border-left: 1px #cfcfcf dotted;
+	border-right: 1px #cfcfcf dotted;
+}
+
+.DataTDGrey {
+	background-color: #EFEDED;
+	border-style: inset;
+	border-width: 1px;
+	font-size: 8pt;
+	color: #000000;
+	font-family: Arial, Tahoma, Verdana, Helvetica, sans-serif;
+
+	padding: 1px 5px 1px 5px;
+	border: 1px #CFCFCF solid;
+	border-left: 1px #cfcfcf dotted;
+	border-right: 1px #cfcfcf dotted;
+}
+
+.DataTDNotDotted {
+	background-color: #e2e2e2;
+	border-style: inset;
+	border-width: 1px;
+	font-size: 8pt;
+	color: #000000;
+	font-family: Arial, Tahoma, Verdana, Helvetica, sans-serif;
+
+	background: #ffffff;
+	padding: 1px 5px 1px 5px;
+	border: 1px #CFCFCF solid;
+	border-left: 1px #cfcfcf solid;
+	border-right: 1px #cfcfcf solid;
+}
+
+.wrapper {
+	border-collapse: collapse;
+	font-family: verdana, sans-serif;
+	font-size: 11px;
+	text-align: center;
+}
+
+td.greytxt {
+	color: #cccccc;
+	font-size: smaller;
+	text-align: right;
+	vertical-align: bottom;
+}
+
+.title {
+	background: #e2e2e2;
+	font-weight: bold;
+	padding: 1px 5px 1px 5px;
+	border: 1px solid #cfcfcf;
+	border-bottom: 3px double #cfcfcf;
+	border-top: 1px solid #656565;
+	text-align: center;
+}
+
+.errmsg {
+	font-weight: bold;
+	color: #FF0000;
+}
+
+
+
+@media only screen and (min-width: 150px) and (max-width: 600px){
+
+	.body {
+	width: 95%;
+	}
+
+	.mainheader img {
+	width: 100%;
+	}
+
+	.mainHeader nav {
+		height: 440px;
+
+	}
+
+	.mainHeader nav ul{
+		padding-left: 0;
+
+	}
+
+
+	.mainHeader nav ul li{
+
+		width: 100%;
+		text-align: center;
+	}
+
+	.mainHeader nav a:link, .mainHeader nav a:visited {
+		padding: 10px 25px;
+		height: 20px;
+		display: block;
+		/* Come back here to assign height */
+
+	}
+
+
+	.mainHeader nav ul li span {
+		color: #FFF;
+		background-color: CornflowerBlue;
+		display: block;
+		padding: 10px 25px;
+		height: 20px;
+
+	}
+
+
+	.content{
+		width: 100%;
+		float: left;
+		margin-top: 2%;
+
+	}
+
+	.post-info {
+		display: none;
+	}
+
+	.topcontent {
+		background-colors: #FFF;
+		border-radius: 5px;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		padding: 3% 5%;
+		margin-top: 2%;
+		margin-bottom: 4%;
+	}
+
+	.bottomcontent {
+		margin-top: 2%;
+	}
+
+
+	.top-sidebar, .middle-sidebar, .bottom-sidebar {
+	width: 100%;
+	margin: 2% 0 2% 0;
+	padding: 2% 3%;
+	}
+
+
+
+
+}
