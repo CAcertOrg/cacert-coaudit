@@ -18,7 +18,7 @@ if ($readperm == 0) {
 }
 
 echo tableheader(_('Session list'), 5);
-echo tablerow_userlist_header();
+echo tablerow_sessionslist_header();
 
 
 if (mysql_num_rows($sessions) <= 0 ) {

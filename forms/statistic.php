@@ -74,6 +74,8 @@ if ($start == 0) {
 echo tablerow_start() . $datarow . tablerow_end();
 echo table_end();
 
+echo empty_line();
+echo empty_line();
 
 $res = get_statiscs_kpi(2);
 echo tableheader(_('Coaudit KPI'),5);

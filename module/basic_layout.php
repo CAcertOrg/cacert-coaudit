@@ -24,7 +24,7 @@ function footer(){
 }
 
 function menu(){
-    $statics = _('Statics');
+    $statistics = _('Statistics');
     $overview = _('Overview');
     $coauditors = _('Co-Auditors');
     $newEntry = _('Enter new entry');
@@ -36,7 +36,7 @@ function menu(){
 		<!--div class="menubar"-->
 		    <ul>
 			<li class="cat1">
-				<a href="#">$statics</a>
+				<a href="#">$statistics</a>
 			    <ul>
 				<li><a href="index.php?type=statistic">$overview</a></li>
 			    </ul>

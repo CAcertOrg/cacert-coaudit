@@ -1,7 +1,7 @@
 <?php
 
 function built_form_header($action){
-    return '<form method="post" action="'.$action.'">' . "\n";;
+    return '<form method="post" action="'.$action.'">' . "\n";
 }
 
 function built_form_footer($hidden){
@@ -43,6 +43,11 @@ function error($output){
     $tabstring = _('Error: ') . $output;
     return $tabstring;
 }
+
+function empty_line(){
+    return '<br/>' . "\n";
+}
+
 function tableheader($title,$cols){
     $tabstring = '<table align="center" valign="middle" border="0" cellspacing="0" cellpadding="0" class="wrapper">' . "\n";
     $tabstring .= '<tr>' . "\n";
@@ -263,6 +268,7 @@ function tablerow_sessionslist_header(){
     $tabstring .=   '<td class="DataTD">' . _('From') . '</td>' . "\n";
     $tabstring .=   '<td class="DataTD">' . _('To') . '</td>' . "\n";
     $tabstring .=   '<td class="DataTD">' . _('Active') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Define Topics') . '</td>' . "\n";
     $tabstring .= '</tr>' . "\n";
     return $tabstring;
 }
