@@ -7,6 +7,10 @@ include_once('../module/db_functions.php');
 $readperm = get_read_permision('result');
 $writeperm = get_write_permision('result');
 
+if ($readperm == 0) {
+    echo error(_('You do not have the right to read this page.'));
+    exit;
+}
 
 $primaryemail = '';
 $isassurer = '';

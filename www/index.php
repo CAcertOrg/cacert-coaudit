@@ -25,6 +25,13 @@ if (isset( $_REQUEST['type'])) {
     $type='';
 }
 
+if (!isset($_SESSION['user']['read_permission'])) {
+    $_SESSION['user']['read_permission'] =1;
+}
+if (!isset($_SESSION['user']['write_permission'])) {
+    $_SESSION['user']['write_permission'] =1;
+}
+
 $title = '';
 
 switch ($type) {
