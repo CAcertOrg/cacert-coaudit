@@ -71,7 +71,7 @@ function get_uid($emails){
 function login(){
 
     if (check_cert() === false) {
-        printf(_('It is not possilble to log you in. May be there is a problem with the certificate link to your user account.'));
+        $_SESSION['error'] =_('It is not possilble to log you in. May be there is a problem with the certificate link to your user account.');
         return false;
     }
 
@@ -79,13 +79,13 @@ function login(){
 
     $uid = get_uid($emails);
     if ($uid == 0) {
-        printf(_('It is not possilble to log you in. May be there is a problem with your user account.'));
+        $_SESSION['error'] =_('It is not possilble to log you in. May be there is a problem with your user account.');
         return false;
     }
 
     $result = get_userdata($uid);
     if (isset($result)) {
-        printf(_('It is not possilble to log you in. May be there is a problem with your user account.'));
+       $_SESSION['error'] =_('It is not possilble to log you in. May be there is a problem with your user account.');
         return false;
     }
 
