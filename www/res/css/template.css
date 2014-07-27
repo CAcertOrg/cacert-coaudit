@@ -23,13 +23,13 @@ a {
 
 a:link, a:visited {
 	/*color: #CF5C3F;*/
-	color: #FFF;
+	color: #000;
 }
 
 a:hover, a:active {
 
 	/*color: #CF5C3F;*/
-	color: #FFF;
+	color: #000;
 }
 
 .body {
@@ -157,7 +157,7 @@ nav ul li {
 nav ul li a {
 	text-decoration: none;
 	display: block;
-	color: #333;
+	color: #fff;
 	padding: 14px 34px 14px 34px;
 }
 nav ul li:hover > ul {
