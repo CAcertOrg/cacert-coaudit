@@ -57,9 +57,9 @@ function menu(){
 			    </ul>
 			</li>
 
-			<li class="cat4"><a href="#">Login</a></li>
+			<li class="cat4"><a href="index.php?login=login">Login</a></li>
 
-			<li class="cat5"><a href="#">Logout</a></li>
+			<li class="cat5"><a href="index.php?login=logout">Logout</a></li>
 		    </ul>
 			<!--/div-->
 		</nav>

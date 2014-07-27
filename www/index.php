@@ -3,12 +3,21 @@ session_start();
 include_once('../module/basic_layout.php');
 include_once('../module/basic_functions.php');
 include_once('../module/db_functions.php');
-
+include_once('../module/login_functions.php');
 
 dbstart();
 
 //to be replaced by login functionality
-test_data();
+if (isset( $_REQUEST['login'])) {
+    $login = $type = $_REQUEST['login'];
+    if ( $login == 'login') {
+        login();
+    }
+    if ( $login == 'logout') {
+        logout();
+    }}
+
+//test_data();
 
 if (isset( $_REQUEST['type'])) {
     $type = $_REQUEST['type'];
@@ -112,6 +121,8 @@ if ($type == 'user') {
             update_user($username, $email, $read, $write, intval($_SESSION['user']['id']), $cid);
         }
         include('../forms/userlist.php');
+  //      http_redirect("index.php", array("type" => "userlist"), true, HTTP_REDIRECT_PERM);
+
         $continue=false;
     }
     if (isset( $_REQUEST['cid'])) {

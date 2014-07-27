@@ -5,8 +5,11 @@ include_once('db_functions.php');
 function check_cert(){
     $emails = array();
 
+    if (!isset($_SERVER['SSL_CLIENT_VERIFY'])) {
+         return false;
+    }
     //certificate given
-    if ($_SERVER['SSL_CLIENT_VERIFY'] != SUCCES) {
+    if ($_SERVER['SSL_CLIENT_VERIFY'] != 'SUCCESS') {
         return false;
     }
 
