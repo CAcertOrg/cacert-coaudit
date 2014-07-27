@@ -1,15 +1,9 @@
 <?php
 
-$mysqli = new mysqli('localhost', 'coaudit', 'CAcert', 'coauditdb');
-function test(){
-    $mysqli = new mysqli('localhost', 'coaudit', 'CAcert', 'coauditdb');
-    if (mysqli_connect_error()) {
-        die('Connect Error (' . mysqli_connect_errno() . ') '
-                . mysqli_connect_error());
-    }
+include_once('dbconfig.php');
 
-    echo 'Success... ' . $mysqli->host_info . "\n";
-}
+$mysqli = new mysqli($dbhost, $dbuser, $dbpw, $dbdatabase);
+
 function dbstart(){
     mysql_connect('localhost', 'coaudit', 'CAcert');
     mysql_select_db( 'coauditdb');
