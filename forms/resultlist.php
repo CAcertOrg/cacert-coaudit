@@ -4,14 +4,19 @@ include_once('../module/output_functions.php');
 include_once('../module/db_functions.php');
 
 //Check access to page
-$readperm = get_read_permision('result');
-$writeperm = get_write_permision('result');
+$readperm = get_read_permision('resultlist');
+$writeperm = get_write_permision('resultlist');
 
 if ($readperm == 0) {
     echo error(_('You do not have the right to read this page.'));
     exit;
 }
 
+$cid = array_key_exists('coauditor',$_SESSION) ? $_SESSION['coauditor'] : '';
+
+if ($cid == 'true') {
+    $cid = $_SESSION['user']['id'];
+}
 
 $year = 0;
 $session = '';
@@ -24,7 +29,7 @@ $col = 0;
 $start = 0;
 $assurer = '';
 
-$res = get_results();
+$res = get_results($session, $cid);
 
 echo start_div('content');
 

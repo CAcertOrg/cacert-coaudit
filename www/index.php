@@ -300,6 +300,8 @@ if ($type == 'view') {
 
 // Enter result management
 if ($type == 'resultlist') {
+    $_SESSION['coauditor'] = array_key_exists('cid',$_REQUEST) ? $_REQUEST['cid'] : '';
+
     include('../forms/resultlist.php');
 }
 
