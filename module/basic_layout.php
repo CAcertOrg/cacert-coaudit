@@ -36,6 +36,7 @@ function menu(){
     $adminresult = _('List results');
     $login = _('Login');
     $logout = _('Logout');
+    $username = array_key_exists('name', $_SESSION['user']) ? ' [' . tidystring( $_SESSION['user']['name']) . ']': '';
     //$Admin
 
     $tabstrings1 = <<<foohtmlnav1
@@ -71,7 +72,7 @@ foohtmlnav3;
 			<li class="cat4"><a href="index.php?login=login">$login</a></li>
 foohtmlnav4;
     $tabstrings5 = <<<foohtmlnav5
-			<li class="cat5"><a href="index.php?login=logout">$logout</a></li>
+			<li class="cat5"><a href="index.php?login=logout">$logout $username</a></li>
 foohtmlnav5;
     $tabstrings6 = <<<foohtmlnav6
 		    </ul>
@@ -80,7 +81,8 @@ foohtmlnav5;
 foohtmlnav6;
 
 
-if ($_SESSION['user']['id'] == 1) {
+
+if ($_SESSION['user']['read_permission'] == 1) {
     $tabstrings2 = '';
     $tabstrings3 = '';
     $tabstrings5 = '';
