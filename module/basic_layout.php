@@ -45,7 +45,7 @@ function menu(){
 			<li class="cat2"><a href="#">$coauditors</a>
 			    <ul>
 				<li><a href="index.php?type=result">$newEntry</a></li>
-				<li><a href="#">$ownEntry</a></li>
+				<li><a href="index.php?type=resultlist">$ownEntry</a></li>
 			    </ul>
 			</li>
 

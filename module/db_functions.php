@@ -371,6 +371,30 @@ function update_result_user($view_name, $read_permission, $write_permission, $ac
 
 }
 
+function get_results($session = '', $coauditid = ''){
+    $where = '';
+    if ($session != '') {
+        $where .= ' and `co`.`session_id` = ' . intval($session);
+    }
+    if ($coauditid != '') {
+        $where .= ' and `aud`.`coauditor_id` = ' . intval($coauditid);
+    }
+    $query = "SELECT `co`.`session_name` AS `Session` , year( `c`.`coauditdate` ) AS `CYear` ,
+                `sts`.`topic_no` AS `Topic_No` , `st`.`session_topic` AS `Topic` ,
+                `r`.`result` AS `Result`, `st`.`session_topic_id` AS `TopicID` ,
+                `r`.`coauditsession_id` AS `SessionID`,
+                `c`.`primaryemail` as `Assurer` , `aud`.`coauditor_name` as `Coauditor`
+                FROM `cacertuser` AS `c` , `result` AS `r` , `session_topic` AS `st` , `coauditsession` AS `co` , `session_topics` AS `sts`, `coauditor` AS `aud`
+                WHERE `c`.`cacertuser_id` = `r`.`cacertuser_id` AND `r`.`session_topic_id` = `st`.`session_topic_id`
+                    AND `r`.`coauditsession_id` = `co`.`session_id`
+                    AND (`sts`.`session_topic_id` = `r`.`session_topic_id` AND `sts`.`coaudit_session_id` = `r`.`coauditsession_id`)
+                    AND `r`.`coauditor_id` = `aud`.`coauditor_id`
+                    $where
+                ORDER BY `CYear` , `Session` , `Assurer`, `Coauditor`, `Topic_No`";
+    $res = mysql_query($query);
+    return $res;
+}
+
 
 function insert_result_topic($session_topic_id, $coauditsession_id, $cacertuser_id, $result, $comment){
     $query = "Insert into `result` (`session_topic_id`, `coauditsession_id`, `cacertuser_id`, `coauditor_id`,
@@ -384,7 +408,6 @@ function insert_result_topic($session_topic_id, $coauditsession_id, $cacertuser_
 }
 
 function update_result_topic($view_name, $read_permission, $write_permission, $active, $vid){
-
     $query = "Update `view_rights` Set `view_name` = '$view_name',
         `read_permission` = '$read_permission',
         `write_permission` = '$write_permission',
@@ -394,6 +417,8 @@ function update_result_topic($view_name, $read_permission, $write_permission, $a
     //write log
 
 }
+
+
 
 //statistics
 
