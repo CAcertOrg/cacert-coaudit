@@ -17,7 +17,7 @@ if (isset( $_REQUEST['login'])) {
         logout();
     }}
 
-test_data();
+//test_data();
 
 if (isset( $_REQUEST['type'])) {
     $type = $_REQUEST['type'];

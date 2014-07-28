@@ -100,7 +100,7 @@ function login(){
 }
 
 function logout(){
-    $_SESSION['user']['name'] = '';
+    $_SESSION['user']['id'] = '';
     $_SESSION['user']['email'] = '';
     $_SESSION['user']['name'] = '';
     $_SESSION['user']['read_permission'] = '';

@@ -38,7 +38,7 @@ function menu(){
     $logout = _('Logout');
     //$Admin
 
-    $tabstrings = <<<foohtmlnav
+    $tabstrings1 = <<<foohtmlnav1
 		<nav>
 		<!--div class="menubar"-->
 		    <ul>
@@ -48,14 +48,16 @@ function menu(){
 				<li><a href="index.php?type=statistic">$overview</a></li>
 			    </ul>
 			</li>
-
+foohtmlnav1;
+    $tabstrings2 = <<<foohtmlnav2
 			<li class="cat2"><a href="#">$coauditors</a>
 			    <ul>
 				<li><a href="index.php?type=result">$newEntry</a></li>
 				<li><a href="index.php?type=resultlist&cid=true">$ownEntry</a></li>
 			    </ul>
 			</li>
-
+foohtmlnav2;
+    $tabstrings3 = <<<foohtmlnav3
 			<li class="cat3"><a href="#"><span>$admin</span></a>
 			    <ul class="sub-menu">
 				<li><a href="index.php?type=userlist">$adminuser</a></li>
@@ -64,46 +66,35 @@ function menu(){
 				<li><a href="index.php?type=resultlist">$adminresult</a></li>
 			    </ul>
 			</li>
-
+foohtmlnav3;
+    $tabstrings4 = <<<foohtmlnav4
 			<li class="cat4"><a href="index.php?login=login">$login</a></li>
-
+foohtmlnav4;
+    $tabstrings5 = <<<foohtmlnav5
 			<li class="cat5"><a href="index.php?login=logout">$logout</a></li>
+foohtmlnav5;
+    $tabstrings6 = <<<foohtmlnav6
 		    </ul>
 			<!--/div-->
 		</nav>
-foohtmlnav;
+foohtmlnav6;
 
 
-/*
-    $tabstrings = '<nav>';
-    //$tabstrings = '<div class="menubar">';
-    $tabstrings .= '<ul>';
-    $tabstrings .= '<li class="cat1">' . _('Statics');
-    $tabstrings .=      '<ul>';
-    $tabstrings .=      '<li><a href=" ">' . _('Overview') . '</a></li>';
-    $tabstrings .=      '</ul></li>';
+if ($_SESSION['user']['id'] == 1) {
+    $tabstrings2 = '';
+    $tabstrings3 = '';
+    $tabstrings5 = '';
+} else {
+    if (get_read_permision('adminmenue') == 0){
+        $tabstrings3 = '';
+    }
+    $tabstrings4 = '';
+}
 
-    $tabstrings .= '<li>' . _('Coauditors') . '</li>';
-    $tabstrings .=      '<ul>';
-    $tabstrings .=      '<li><a href="index.php?type=result">' . _('Enter new entry') . '</a></li>';
-    $tabstrings .=      '<li><a href="#">' . _('List own entries') . '</a></li>';
-    $tabstrings .=      '</ul>';
 
-    $tabstrings .= '<li>Admin</li>';
-    $tabstrings .=      '<ul>';
-    $tabstrings .=      '<li><a href="index.php?type=userlist">' . _('List user') . '</a></li>';
-    $tabstrings .=      '<li><a href="index.php?type=sessionlist">' . _('List sessions') . '</a></li>';
-    $tabstrings .=      '<li><a href="index.php?type=topiclist">' . _('List topics') . '</a></li>';
-    $tabstrings .=      '<li><a href="index.php?type=viewlist">' . _('View administration') . '</a></li>';
-    $tabstrings .=      '</ul>';
 
-    $tabstrings .= '<li><a href="#">' . _('Login') . '</a></li>';
-    $tabstrings .= '<li><a href="#">' . _('Logout') . '</a></li>';
-    $tabstrings .= '</ul>';
-    $tabstrings .= '</nav>';
-    //$tabstrings .= '</div >';
-*/
-    return $tabstrings;
+
+    return $tabstrings1 . $tabstrings2 . $tabstrings3 . $tabstrings4 . $tabstrings5 . $tabstrings6 ;
 }
 
 function headerstart($title){
