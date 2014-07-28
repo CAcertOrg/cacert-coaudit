@@ -29,6 +29,13 @@ function menu(){
     $coauditors = _('Co-Auditors');
     $newEntry = _('Enter new entry');
     $ownEntry = _('List own entries');
+    $admin = _('Administrative view');
+    $adminuser = _('List user');
+    $adminsession = _('List sessions');
+    $admintopic = _('List topics');
+    $adminresult = _('List results');
+    $login = _('Login');
+    $logout = _('Logout');
     //$Admin
 
     $tabstrings = <<<foohtmlnav
@@ -45,21 +52,22 @@ function menu(){
 			<li class="cat2"><a href="#">$coauditors</a>
 			    <ul>
 				<li><a href="index.php?type=result">$newEntry</a></li>
-				<li><a href="index.php?type=resultlist">$ownEntry</a></li>
+				<li><a href="index.php?type=resultlist&cid=true">$ownEntry</a></li>
 			    </ul>
 			</li>
 
-			<li class="cat3"><a href="#"><span>Admin</span></a>
+			<li class="cat3"><a href="#"><span>$admin</span></a>
 			    <ul class="sub-menu">
-				<li><a href="index.php?type=userlist">List user</a></li>
-				<li><a href="index.php?type=sessionlist">List sessions</a></li>
-				<li><a href="index.php?type=topiclist">List topics</a></li>
+				<li><a href="index.php?type=userlist">$adminuser</a></li>
+				<li><a href="index.php?type=sessionlist">$adminsession</a></li>
+				<li><a href="index.php?type=topiclist">$admintopic</a></li>
+				<li><a href="index.php?type=resultlist">$adminresult</a></li>
 			    </ul>
 			</li>
 
-			<li class="cat4"><a href="index.php?login=login">Login</a></li>
+			<li class="cat4"><a href="index.php?login=login">$login</a></li>
 
-			<li class="cat5"><a href="index.php?login=logout">Logout</a></li>
+			<li class="cat5"><a href="index.php?login=logout">$logout</a></li>
 		    </ul>
 			<!--/div-->
 		</nav>
