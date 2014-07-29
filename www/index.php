@@ -86,8 +86,9 @@ echo menu();
 
 echo footer();
 
-echo '<div class="error">' . $_SESSION['error'] . '</div>';
-
+if (array_key_exists('error', $_SESSION)) {
+    echo '<div class="error">' . $_SESSION['error'] . '</div>';
+}
 $_SESSION['error'] = '';
 
 $userroles = count(define_roles())-1;
