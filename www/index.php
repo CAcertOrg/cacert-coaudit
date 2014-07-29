@@ -389,6 +389,11 @@ if ($type == 'result') {
 if ($type == 'statistic') {
     include('../forms/statistic.php');
 }
+
+//user management
+if ($type == 'imprint') {
+    include('../forms/imprint.php');
+}
 echo footerend();
 
 ?>

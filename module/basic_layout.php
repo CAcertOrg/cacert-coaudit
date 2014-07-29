@@ -14,12 +14,13 @@ foohtmlheader;
 }
 
 function footer(){
-    $tabstrings = '';
-    /*
-    $tabstrings = '<div class="footerbar">';
-    $tabstrings .= '<h3>Links to mmmm</h3>';
-    $tabstrings .= '</div >';
-    */
+    $tabstrings = <<<foohtmlfooter
+        <div class="footerbar">
+            <a href="#">Data Protection</a>
+            <a href="index.php?type=imprint">Imprint</a>
+        </div>
+foohtmlfooter;
+
     return $tabstrings;
 }
 
