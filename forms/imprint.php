@@ -4,7 +4,7 @@
 <h2>Postal Address<h2></h2>
 <p>CAcert Inc.
 P.O. Box 66<br/>
-PO Box 66 - Oatley NSW 2223<br/>
+Oatley NSW 2223<br/>
 Australia</p>
 
 <p>represented by the Secretary: Etienne Ruedin</p>
