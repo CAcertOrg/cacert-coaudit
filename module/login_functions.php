@@ -71,7 +71,7 @@ function get_uid($emails){
 function login(){
 
     if (check_cert() === false) {
-        $_SESSION['error'] =_('It is not possilble to log you in. May be there is a problem with the certificate link to your user account.');
+        $_SESSION['error'] =_('It is not possilble to log you in. May be there is a problem with the certificate linked to your user account.');
         return false;
     }
 
