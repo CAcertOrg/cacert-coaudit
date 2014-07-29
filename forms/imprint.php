@@ -1,8 +1,8 @@
 <?php ?>
 
 <h1>Imprint</h1>
-<h2>Postal Address<h2></h2>
-<p>CAcert Inc.
+<h2>Postal Address</h2>
+<p>CAcert Inc.<br/>
 P.O. Box 66<br/>
 Oatley NSW 2223<br/>
 Australia</p>
