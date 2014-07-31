@@ -389,6 +389,7 @@ function get_results($session = '', $coauditid = ''){
                     AND `r`.`coauditsession_id` = `co`.`session_id`
                     AND (`sts`.`session_topic_id` = `r`.`session_topic_id` AND `sts`.`coaudit_session_id` = `r`.`coauditsession_id`)
                     AND `r`.`coauditor_id` = `aud`.`coauditor_id`
+                    AND `c`.`deleted` IS NULL
                     $where
                 ORDER BY `CYear` , `Session` , `Assurer`, `Coauditor`, `Topic_No`";
     $res = mysql_query($query);
@@ -429,7 +430,8 @@ function get_statiscs_basic($where =''){
         FROM `cacertuser` AS `c` , `result` AS `r` , `session_topic` AS `st` , `coauditsession` AS `co` , `session_topics` AS `sts`
         WHERE `c`.`cacertuser_id` = `r`.`cacertuser_id` AND `r`.`session_topic_id` = `st`.`session_topic_id`
             AND `r`.`coauditsession_id` = `co`.`session_id`
-            AND (`sts`.`session_topic_id` = `r`.`session_topic_id` AND `sts`.`coaudit_session_id` = `r`.`coauditsession_id`)" . $where ."
+            AND (`sts`.`session_topic_id` = `r`.`session_topic_id` AND `sts`.`coaudit_session_id` = `r`.`coauditsession_id`)
+            AND `c`.`deleted` is Null " . $where ."
         GROUP BY `CYear` , `Topic` , `Session` , `TopicID` , `Topic_No` , `SessionID`
         ORDER BY `CYear` , `Session` , `Topic_No`";
     $res = mysql_query($query);
