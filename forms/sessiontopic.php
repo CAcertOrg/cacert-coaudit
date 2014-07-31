@@ -50,7 +50,7 @@ echo tablerow_2col_dropbox(_('Coaudit session'), $sessionres, $coaudit_session_i
 echo tablerow_2col_textbox(_('Topic No'), 'topic_no', $topic_no);
 echo tablerow_2col_dropbox(_('Topic'), $topicres, $session_topic_id, 'session_topic_id', 'session_topic', 0);
 echo tablerow_topics_active($active);
-echo tablefooter_user(2, $session_topics_id, $writeperm);;
+echo tablefooter_user(2, $session_topics_id, $writeperm);
 echo built_form_footer($hidden);
 echo end_div();
 
