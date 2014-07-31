@@ -371,12 +371,12 @@ function update_result_user($view_name, $read_permission, $write_permission, $ac
 
 }
 
-function get_results($session = '', $coauditid = ''){
+function get_results($session = 0, $coauditid = 0){
     $where = '';
-    if ($session != '') {
+    if ($session != 0) {
         $where .= ' and `co`.`session_id` = ' . intval($session);
     }
-    if ($coauditid != '') {
+    if ($coauditid != 0) {
         $where .= ' and `aud`.`coauditor_id` = ' . intval($coauditid);
     }
     $query = "SELECT `co`.`session_name` AS `Session` , year( `c`.`coauditdate` ) AS `CYear` ,

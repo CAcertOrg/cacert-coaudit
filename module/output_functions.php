@@ -14,6 +14,15 @@ function built_form_footer($hidden){
 
 }
 
+
+function tablefooter_filter($cols, $label){
+        $tabstring = '<tr>' . "\n";
+        $tabstring .=    '<td class="DataTD" colspan="' . $cols . '"><input type="submit" name="filter" value="' . $label . '"</td>' . "\n";
+        $tabstring .= '</tr>' . "\n";
+        $tabstring .= '</table>' . "\n";
+        return $tabstring;
+}
+
 /**
  * builddropdown()
  *
@@ -104,7 +113,7 @@ function tablerow_3col_textbox_2col($label, $name, $value){
 function tablerow_2col_dropbox($label, $result, $value, $valuecol, $displaycol, $all=0){
     $tabstring = '<tr>' . "\n";
     $tabstring .=   '<td class="DataTD">'.$label.'</td>' . "\n";
-    $tabstring .=   '<td class="DataTD">' . builddropdown($result, $value, $valuecol, $displaycol, $all=0) . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . builddropdown($result, $value, $valuecol, $displaycol, $all) . '</td>' . "\n";
     $tabstring .= '</tr>' . "\n";
     return $tabstring;
 }

@@ -18,6 +18,7 @@ if ($cid == 'true') {
     $cid = $_SESSION['user']['id'];
 }
 
+
 $year = 0;
 $session = '';
 $sessionold = '';
@@ -29,10 +30,44 @@ $col = 0;
 $start = 0;
 $assurer = '';
 
-$res = get_results($session, $cid);
+$session_topic_id = 0;
+$coauditor_id = 0;
+
+
+if (isset($_REQUEST['session_id'])) {
+    $session = intval($_REQUEST['session_id']);
+} else {
+    $session = 0 ;
+}
+
+if (isset($_REQUEST['coauditor_id'])) {
+    $coaudid = intval($_REQUEST['coauditor_id']);
+} else {
+    $coaudid = $cid;
+}
+
+$res = get_results($session, $coaudid);
+
+$sessionres = get_all_session();
+$coauditorres = get_all_user();
+$hidden[]=array('cid',$cid);
+
 
 echo start_div('content');
 
+// build filter form
+echo built_form_header('../www/index.php?type=resultlist');
+echo tableheader(_('Filter'), 2);
+echo tablerow_2col_dropbox(_('Coaudit session'), $sessionres, $session, 'session_id', 'session_name', 1);
+if ($cid == '') {
+    echo tablerow_2col_dropbox(_('Co-Auditor'), $coauditorres, $coaudid, 'coauditor_id', 'coauditor_name', 1);
+}
+echo tablefooter_filter(2, _('Apply'));
+echo built_form_footer($hidden);
+echo empty_line();
+
+
+// build result table
 while($row = mysql_fetch_assoc($res)){
     if ($session != $row['Session'] ) {
         $sessionold = $session;
