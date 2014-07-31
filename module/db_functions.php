@@ -383,7 +383,8 @@ function get_results($session = 0, $coauditid = 0){
                 `sts`.`topic_no` AS `Topic_No` , `st`.`session_topic` AS `Topic` ,
                 `r`.`result` AS `Result`, `st`.`session_topic_id` AS `TopicID` ,
                 `r`.`coauditsession_id` AS `SessionID`,
-                `c`.`primaryemail` as `Assurer` , `aud`.`coauditor_name` as `Coauditor`
+                `c`.`primaryemail` as `Assurer` , `aud`.`coauditor_name` as `Coauditor`,
+                `r`.`comment` AS `Comment`
                 FROM `cacertuser` AS `c` , `result` AS `r` , `session_topic` AS `st` , `coauditsession` AS `co` , `session_topics` AS `sts`, `coauditor` AS `aud`
                 WHERE `c`.`cacertuser_id` = `r`.`cacertuser_id` AND `r`.`session_topic_id` = `st`.`session_topic_id`
                     AND `r`.`coauditsession_id` = `co`.`session_id`

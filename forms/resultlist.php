@@ -79,11 +79,14 @@ while($row = mysql_fetch_assoc($res)){
         $start = 0;
     }
 
-
     if ($start == 0 && $col == 0) {
-        $rowheader1 = tablecell(_('Year'));
-        $rowheader1 .= tablecell(_('Assurer'));
-        $rowheader1 .= tablecell(_('Co-Auditor'));
+        $rowheader1 = tablecell(_(''));
+        $rowheader1 .= tablecell(_(''));
+        $rowheader1 .= tablecell(_(''));
+        $rowheader2 = tablecell(_('Year'));
+        $rowheader2 .= tablecell(_('Assurer'));
+        $rowheader2 .= tablecell(_('Co-Auditor'));
+
         $datarow = tablecell($row['CYear']);
         $datarow .= tablecell($row['Assurer']);
         $datarow .= tablecell($row['Coauditor']);
@@ -93,6 +96,7 @@ while($row = mysql_fetch_assoc($res)){
         if ($col >0 && $start == 0) {
             echo tableheader(sprintf(_('Coaudit results for %s'), $sessionold), $col);
             echo tablerow_start() . $rowheader1 . tablerow_end();
+            echo tablerow_start() . $rowheader2 . tablerow_end();
             $start = 1;
         }
         $assurer = $row['Assurer'];
@@ -106,11 +110,13 @@ while($row = mysql_fetch_assoc($res)){
 
 
     if ($start == 0) {
-        $rowheader1 .= tablecell($row['Topic'],1);
+        $rowheader1 .= tablecell($row['Topic'],2);
+        $rowheader2 .= tablecell(_('Result'));
+        $rowheader2 .= tablecell(_('Comment'));
     }
     $datarow .= tablecell($row['Result']);
-    //    $datarow .= tablecell($row['Perc'] . '%');
-    $col +=1;
+    $datarow .= tablecell($row['Comment'] . '%');
+    $col +=2;
 }
 
 if ($start == 0) {
