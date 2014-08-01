@@ -22,26 +22,39 @@ function get_userid_from_mail($email){
 }
 
 
-function get_userdata($uid){
-    $uid = intval($uid);
-    $result = array();
-    $query = "select `coauditor_id`, `coauditor_name`, `email`, `read_permission`, `write_permission` from `coauditor` where  `coauditor_id`='$uid'";
-    $res = mysql_query($query);
-    if(mysql_num_rows($res) <= 0)
-    {
-        return $result;
-    } else {
-        while($row = mysql_fetch_assoc($res)){
-            $result['coauditid'] = $row['coauditor_id'];
-            $result['coauditor_name'] = $row['coauditor_name'];
-            $result['email'] = $row['email'];
-            $result['read_permission'] = $row['read_permission'];
-            $result['write_permission'] = $row['write_permission'];
+    public function get_userdata($uid){
+        $uid = intval($uid);
+        $result = array();
+        $query = "select `coauditor_id`, `coauditor_name`, `email`, `read_permission`, `write_permission` from `coauditor` where  `coauditor_id`='$uid'";
+        $res = $this -> db -> query($query);
+        if($res){
+            return $res->fetch();
+        } else {
+            return $result;
         }
-    }
-    return $result;
-}
 
+        $res = mysql_query($query);
+        if(mysql_num_rows($res) <= 0)
+        {
+            return $result;
+        } else {
+            while($row = mysql_fetch_assoc($res)){
+                $result['coauditid'] = $row['coauditor_id'];
+                $result['coauditor_name'] = $row['coauditor_name'];
+                $result['email'] = $row['email'];
+                $result['read_permission'] = $row['read_permission'];
+                $result['write_permission'] = $row['write_permission'];
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * db_function::get_user_write_permission()
+     * returns the write permissions for a coauditor
+     * @param mixed $uid
+     * @return
+     */
     public function get_user_write_permission($uid){
         $uid = intval($uid);
         $query = "select  `read_permission`, `write_permission` from `coauditor` where  `coauditor_id`='$uid'";
@@ -65,33 +78,56 @@ function get_user_read_permission($uid){
     return $res[0]['write_permission'];
 }
 
-function insert_user($username, $email, $readpermission, $writepermission, $uid){
+    /**
+     * db_function::insert_user()
+     * inserts new user data
+     * @param mixed $username
+     * @param mixed $email
+     * @param mixed $readpermission
+     * @param mixed $writepermission
+     * @param mixed $uid    id of user adding the data
+     * @return
+     */
+    public function insert_user($username, $email, $readpermission, $writepermission, $uid){
 
-    $query = "Insert into `coauditor` (`coauditor_name`, `email`,
-        `read_permission`, `write_permission`,
-        `created_by`, `last_change`, `last_change_by`)
-        VALUES ('$username', '$email',
-        '$readpermission', '$writepermission',
-        $uid, Now(), $uid)";
-    mysql_query($query);
-    $nid =mysql_insert_id();
-    //write log
+        $query = "Insert into `coauditor` (`coauditor_name`, `email`,
+            `read_permission`, `write_permission`,
+            `created_by`, `last_change`, `last_change_by`)
+            VALUES ('$username', '$email',
+            '$readpermission', '$writepermission',
+            $uid, Now(), $uid)";
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
+        //$nid = $smt -> lastInsertedId();
+        //write log
 
-}
+    }
 
-function update_user($username, $email, $readpermission, $writepermission, $uid, $cid){
+    /**
+     * db_function::update_user()
+     *updates the data of a given user
+     * @param mixed $username
+     * @param mixed $email
+     * @param mixed $readpermission
+     * @param mixed $writepermission
+     * @param mixed $uid    id of user adding the data
+     * @param mixed $cid    id of dataset changed
+     * @return
+     */
+    public function update_user($username, $email, $readpermission, $writepermission, $uid, $cid){
 
-    $query = "Update `coauditor` Set `coauditor_name` = '$username',
-        `email` = '$email',
-        `read_permission` = '$readpermission',
-        `write_permission` = '$writepermission',
-        `last_change` = Now(),
-        `last_change_by` = $uid
-        WHERE  `coauditor_id` = $cid";
-    mysql_query($query);
-    //write log
+        $query = "Update `coauditor` Set `coauditor_name` = '$username',
+            `email` = '$email',
+            `read_permission` = '$readpermission',
+            `write_permission` = '$writepermission',
+            `last_change` = Now(),
+            `last_change_by` = $uid
+            WHERE  `coauditor_id` = $cid";
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
+        //write log
 
-}
+    }
 
 function update_userrights($readpermission, $writepermission, $uid, $cid){
 
@@ -331,6 +367,12 @@ function update_view($view_name, $read_permission, $write_permission, $active, $
 
 }
 
+    /**
+     * db_function::get_view_right()
+     *  retruns the permmisons for a given view
+     * @param mixed $view name of the view
+     * @return
+     */
     public function get_view_right($view){
         $query = "SELECT `view_name` , `read_permission` , `write_permission`, `active`
                     FROM `view_rights`

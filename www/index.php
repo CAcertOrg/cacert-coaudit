@@ -5,9 +5,12 @@ include_once('../module/basic_functions.php');
 include_once('../module/db_functions.php');
 include_once('../module/login_functions.php');
 
+include_once('../module/class.db_functions.php');
+
+$db = new db_function();
 dbstart();
 
-//to be replaced by login functionality
+// login routine
 if (isset( $_REQUEST['login'])) {
     $login = $type = $_REQUEST['login'];
     if ( $login == 'login') {
@@ -127,9 +130,9 @@ if ($type == 'user') {
         }
 
         if (isset( $_REQUEST['new'])){
-            insert_user($username, $email, $read, $write, intval($_SESSION['user']['id']));
+            $db -> insert_user($username, $email, $read, $write, intval($_SESSION['user']['id']));
         } else {
-            update_user($username, $email, $read, $write, intval($_SESSION['user']['id']), $cid);
+            $db -> update_user($username, $email, $read, $write, intval($_SESSION['user']['id']), $cid);
         }
         include('../forms/userlist.php');
   //      http_redirect("index.php", array("type" => "userlist"), true, HTTP_REDIRECT_PERM);

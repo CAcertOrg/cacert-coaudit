@@ -1,11 +1,15 @@
 <?php
 include_once('../module/output_functions.php');
-include_once('../module/db_functions.php');
+//include_once('../module/db_functions.php');
+include_once('../module/class.db_functions.php');
+
+$db = new db_function();
+
 $roles = define_roles();
 
 //Check access to page
-$readperm = get_read_permision('user');
-$writeperm = get_write_permision('user');
+$readperm = get_read_permission('user');
+$writeperm = get_write_permission('user');
 
 if (isset($_REQUEST['cid'])) {
     $cid = intval($_REQUEST['cid']);
@@ -23,8 +27,8 @@ if ($cid == 0) {
     $write = 0;
 } else {
     //edit user
-    $user = get_userdata($cid);
-    $userid = $user['coauditid'];
+    $user = $db -> get_userdata($cid);
+    $userid = $user['coauditor_id'];
     $username = $user['coauditor_name'];
     $usermail = $user['email'];
     $read = $user['read_permission'];

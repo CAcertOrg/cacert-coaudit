@@ -1,7 +1,6 @@
 <?php
 
 include_once('../module/output_functions.php');
-//include_once('../module/db_functions.php');
 include_once('../module/class.db_functions.php');
 
 $db = new db_function();
