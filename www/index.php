@@ -204,9 +204,9 @@ if ($type == 'session') {
             $active = 0;
         }
         if (isset( $_REQUEST['new'])){
-            insert_session($session_name, $from, $to );
+            $db -> insert_session($session_name, $from, $to );
         } else {
-            update_session($session_name, $from, $to, $active, $sid);
+            $db -> update_session($session_name, $from, $to, $active, $sid);
         }
         include('../forms/sessionlist.php');
         $continue=false;

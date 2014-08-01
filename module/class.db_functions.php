@@ -220,26 +220,44 @@ function update_userrights($readpermission, $writepermission, $uid, $cid){
         }
     }
 
-function insert_session($session_name, $from, $to){
-    $query = "Insert into `coauditsession` (`session_name`, `from`, `to`, `active`)
-        VALUES ('$session_name', '$from', '$to', 1)";
-    mysql_query($query);
-    $nid =mysql_insert_id();
-    //write log
+    /**
+     * db_function::insert_session()
+     * adds a new session
+     * @param mixed $session_name   session name
+     * @param mixed $from           date showing the start date for the session
+     * @param mixed $to             date showing the end date for the session
+     * @return
+     */
+    public function insert_session($session_name, $from, $to){
+        $query = "Insert into `coauditsession` (`session_name`, `from`, `to`, `active`)
+            VALUES ('$session_name', '$from', '$to', 1)";
+        mysql_query($query);
+        $nid =mysql_insert_id();
+        //write log
 
-}
+    }
 
-function update_session($session_name, $from, $to, $active, $sid){
+    /**
+     * db_function::update_session()
+     *  update the session information
+     * @param mixed $session_name   session name
+     * @param mixed $from           date showing the start date for the session
+     * @param mixed $to             date showing the end date for the session
+     * @param mixed $active         shows if the session is visible for choices
+     * @param mixed $sid            id of the session
+     * @return
+     */
+    public function update_session($session_name, $from, $to, $active, $sid){
 
-    $query = "Update `coauditsession` Set `session_name` = '$session_name',
-        `from` = '$from',
-        `to` = '$to',
-        `active` = '$active'
-        WHERE  `session_id` = $sid";
-    mysql_query($query);
-    //write log
+        $query = "Update `coauditsession` Set `session_name` = '$session_name',
+            `from` = '$from',
+            `to` = '$to',
+            `active` = '$active'
+            WHERE  `session_id` = $sid";
+        mysql_query($query);
+        //write log
 
-}
+    }
 
     // session topic handling
     /**

@@ -1,10 +1,12 @@
 <?php
 include_once('../module/output_functions.php');
-include_once('../module/db_functions.php');
+include_once('../module/class.db_functions.php');
+
+$db = new db_function();
 
 //Check access to page
-$readperm = get_read_permision('session');
-$writeperm = get_write_permision('session');
+$readperm = get_read_permission('session');
+$writeperm = get_write_permission('session');
 
 
 if (isset($_REQUEST['sid'])) {
@@ -22,7 +24,7 @@ if ($sid == 0) {
     $active = 0;
 } else {
     //edit session
-    $sessions = get_all_session($sid);
+    $sessions = $db -> get_all_session($sid);
     $session_id = $sessions['session_id'];
     $session_name = $sessions['session_name'];
     $from = $sessions['from'];
