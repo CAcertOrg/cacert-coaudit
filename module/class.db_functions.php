@@ -139,27 +139,26 @@ function update_userrights($readpermission, $writepermission, $uid, $cid){
     }
 
 //topics handling
-function get_all_topics($where = ''){
-    if ($where == '') {
-        $where = ' Where 1=1 ';
-    }else{
-        $where = ' Where session_topic_id='.$where.' ';
-    }
-    $query = "select `session_topic_id`, `session_topic`, `topic_explaination`, `activ` from `session_topic` " . $where . "ORDER BY `session_topic`";
-    $res = mysql_query($query);
-    if ($where == ' Where 1=1 ') {
-            return $res;
-    } else {
-        $result = array();
-        while($row = mysql_fetch_assoc($res)){
-            $result['session_topic_id'] = $row['session_topic_id'];
-            $result['session_topic'] = $row['session_topic'];
-            $result['topic_explaination'] = $row['topic_explaination'];
-            $result['activ'] = $row['activ'];
+    /**
+     * db_function::get_all_topics()
+     * returns all recorded topics, if where is not given all topics, if given only the requested topic
+     * @param string $where
+     * @return
+     */
+    public function get_all_topics($where = ''){
+        if ($where == '') {
+            $where = ' Where 1=1 ';
+        }else{
+            $where = ' Where session_topic_id='.$where.' ';
         }
-        return $result;
+        $query = "select `session_topic_id`, `session_topic`, `topic_explaination`, `activ` from `session_topic` " . $where . "ORDER BY `session_topic`";
+        $res = $this -> db -> query($query);
+        if($where == ' Where 1=1 '){
+            return $res->fetchAll();
+        } else {
+            return $res->fetch();
+        }
     }
-}
 
 
 function insert_topic($topic, $explain){

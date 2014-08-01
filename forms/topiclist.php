@@ -1,14 +1,16 @@
 <?php
 
 include_once('../module/output_functions.php');
-include_once('../module/db_functions.php');
+include_once('../module/class.db_functions.php');
+
+$db = new db_function();
 //Check access to page
-$readperm = get_read_permision('topiclist');
-$writeperm = get_write_permision('topiclist');
+$readperm = get_read_permission('topiclist');
+$writeperm = get_write_permission('topiclist');
 
 
 //get data
-$topics = get_all_topics();
+$topics = $db -> get_all_topics();
 
 
 echo start_div('content');
@@ -21,10 +23,10 @@ if ($readperm == 0) {
 echo tableheader(_('Topics list'), 3);
 echo tablerow_topicslist_header();
 
-if (mysql_num_rows($topics) <= 0 ) {
+if (count($topics) <= 0 ) {
     echo tablerow_no_entry(2);
 } else {
-    while($topic = mysql_fetch_assoc($topics)){
+    foreach ($topics as $topic) {
         echo tablerow_topicslist($topic);
     }
 }
