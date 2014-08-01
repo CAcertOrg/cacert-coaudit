@@ -2,9 +2,7 @@
 session_start();
 include_once('../module/basic_layout.php');
 include_once('../module/basic_functions.php');
-include_once('../module/db_functions.php');
 include_once('../module/login_functions.php');
-
 include_once('../module/class.db_functions.php');
 
 $db = new db_function();
