@@ -1,14 +1,17 @@
 <?php
 
 include_once('../module/output_functions.php');
-include_once('../module/db_functions.php');
+include_once('../module/class.db_functions.php');
+
+$db = new db_function();
+
 //Check access to page
-$readperm = get_read_permision('sessionlist');
-$writeperm = get_write_permision('sessionlist');
+$readperm = get_read_permission('sessionlist');
+$writeperm = get_write_permission('sessionlist');
 
 
 //get data
-$sessions = get_all_session();
+$sessions = $db -> get_all_session();
 
 echo start_div('content');
 
@@ -21,10 +24,10 @@ echo tableheader(_('Session list'), 5);
 echo tablerow_sessionslist_header();
 
 
-if (mysql_num_rows($sessions) <= 0 ) {
+if (count($sessions) <= 0 ) {
     echo tablerow_no_entry(5);
 } else {
-    while($session = mysql_fetch_assoc($sessions)){
+    foreach($sessions as $session){
         echo tablerow_sessionslist($session);
     }
 }
