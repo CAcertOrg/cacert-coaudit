@@ -4,24 +4,41 @@ class db_function{
 
     public $db;
 
-    function __construct(){
+    /**
+     * db_function::__construct()
+     * constructor of the class
+     */
+    public function __construct(){
         include('dbconfig.php');
         $this -> db = New PDO("mysql:host=$dbhost;dbname=$dbdatabase", "$dbuser", "$dbpw");
     }
 
 // user handling
-function get_userid_from_mail($email){
+    /**
+     * db_function::get_userid_from_mail()
+     * returns the id of a coauditor entry if the email matches
+     * @param mixed $email
+     * @return
+     */
+    public function get_userid_from_mail($email){
 
-    $query = "select `coauditor_id` from `coauditor` where  ` `email``='$email'";
-    $res = mysql_query($query);
-    if(mysql_num_rows($res) > 0)
-    {
-        return $res[0]['coauditor_id'];
+        $query = "select `coauditor_id` from `coauditor` where  ` `email``='$email'";
+        $res = $this -> db -> query($query);
+        if($res){
+            $result =  $res->fetch();
+            return $result[0]['coauditor_id'];
+        } else {
+            return 0;
+        }
     }
-    return 0;
-}
 
 
+    /**
+     * db_function::get_userdata()
+     * returns the data of a coauditor
+     * @param mixed $uid
+     * @return
+     */
     public function get_userdata($uid){
         $uid = intval($uid);
         $result = array();
@@ -51,17 +68,22 @@ function get_userid_from_mail($email){
     }
 
 
-function get_user_read_permission($uid){
-    $uid = intval($uid);
-    $result = array();
-    $query = "select`read_permission` from `coauditor` where  `coauditor_id`='$uid'";
-    $res = mysql_query($query);
-    if(mysql_num_rows($res) <= 0)
-    {
-        return 0;
+    /**
+     * db_function::get_user_read_permission()
+     * returns the read permissions for a coauditor
+     * @param mixed $uid
+     * @return
+     */
+    public function get_user_read_permission($uid){
+        $uid = intval($uid);
+        $result = array();
+        $query = "select`read_permission` from `coauditor` where  `coauditor_id`='$uid'";
+        if($res = $this->db->query(query)){
+            return $res[0]['read_permission'];
+        } else{
+            return 0;
+        }
     }
-    return $res[0]['write_permission'];
-}
 
     /**
      * db_function::insert_user()
@@ -114,16 +136,6 @@ function get_user_read_permission($uid){
 
     }
 
-function update_userrights($readpermission, $writepermission, $uid, $cid){
-
-    $query = "Update `coauditor` Set `read_permission` = '$readpermission',
-        `write_permission` = '$writepermission',
-        `last_change` = Now(),
-        `last_change_by` = $uid
-        WHERE  `coauditor_id` = $cid";
-    //write log
-
-}
 
     /**
      * db_function::get_all_user()
@@ -422,6 +434,17 @@ function update_userrights($readpermission, $writepermission, $uid, $cid){
 
 // result management
 
+    /**
+     * db_function::insert_result_user()
+     *
+     * @param mixed $primaryemail
+     * @param mixed $assurer
+     * @param mixed $expierencepoints
+     * @param mixed $country
+     * @param mixed $location
+     * @param mixed $coauditdate
+     * @return
+     */
     public function insert_result_user($primaryemail, $assurer, $expierencepoints, $country, $location, $coauditdate){
         $query = "Insert into `cacertuser` (`primaryemail`, `webdb_account_id`, `assurer`, `expierencepoints`,
             `country`, `created_by`, `location`, `coauditdate`, `active`)
@@ -434,6 +457,18 @@ function update_userrights($readpermission, $writepermission, $uid, $cid){
         return $nid;
     }
 
+    /**
+     * db_function::update_result_user()
+     *
+     * @param mixed $primaryemail
+     * @param mixed $assurer
+     * @param mixed $expierencepoints
+     * @param mixed $country
+     * @param mixed $location
+     * @param mixed $coauditdate
+     * @param mixed $userid
+     * @return
+     */
     public function update_result_user($primaryemail, $assurer, $expierencepoints, $country, $location, $coauditdate, $userid){
 
         $query = "Update `cacertuser` Set `primaryemail` = '$primaryemail',
@@ -483,6 +518,16 @@ function update_userrights($readpermission, $writepermission, $uid, $cid){
     }
 
 
+    /**
+     * db_function::insert_result_topic()
+     *
+     * @param mixed $session_topic_id
+     * @param mixed $coauditsession_id
+     * @param mixed $cacertuser_id
+     * @param mixed $result
+     * @param mixed $comment
+     * @return
+     */
     public function insert_result_topic($session_topic_id, $coauditsession_id, $cacertuser_id, $result, $comment){
         $query = "Insert into `result` (`session_topic_id`, `coauditsession_id`, `cacertuser_id`, `coauditor_id`,
             `result`, `comment`, `active`)
@@ -495,6 +540,17 @@ function update_userrights($readpermission, $writepermission, $uid, $cid){
 
     }
 
+    /**
+     * db_function::update_result_topic()
+     *
+     * @param mixed $session_topic_id
+     * @param mixed $coauditsession_id
+     * @param mixed $cacertuser_id
+     * @param mixed $result
+     * @param mixed $comment
+     * @param mixed $rid
+     * @return
+     */
     public function update_result_topic($session_topic_id, $coauditsession_id, $cacertuser_id, $result, $comment, $rid){
         $query = "Update `result` Set `session_topic_id` = '$session_topic_id',
             `coauditsession_id` = '$coauditsession_id',

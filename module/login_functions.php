@@ -59,7 +59,7 @@ function get_valid_email_from_cert(){
 
 function get_uid($emails){
     foreach ($emails as $email) {
-        $uid = get_userid_from_mail($email);
+        $uid = $db -> get_userid_from_mail($email);
         if ($uid > 0) {
             return $uid;
         }
