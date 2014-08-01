@@ -2,7 +2,7 @@
 
 include_once('dbconfig.php');
 
-$mysqli = new mysqli($dbhost, $dbuser, $dbpw, $dbdatabase);
+//$mysqli = new mysqli($dbhost, $dbuser, $dbpw, $dbdatabase);
 
 function dbstart(){
     mysql_connect('localhost', 'coaudit', 'CAcert');

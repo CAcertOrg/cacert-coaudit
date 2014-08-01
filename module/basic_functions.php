@@ -1,5 +1,7 @@
 <?php
-include_once('../module/db_functions.php');
+include_once('../module/class.db_functions.php');
+
+
 function tidystring($input){
     if ($input != "") {
         return trim(mysql_real_escape_string(stripslashes($input)));
@@ -19,7 +21,9 @@ function define_roles(){
 }
 
 function get_read_permission( $view){
-    $view_perm = get_view_right($view);
+    $db = new db_function();
+
+    $view_perm = $db -> get_view_right($view);
     if (!isset($view_perm['read_permission'])) {
         return 0;
     }
@@ -32,7 +36,9 @@ function get_read_permission( $view){
 }
 
 function get_write_permission( $view){
-    $view_perm = get_view_right($view);
+    $db = new db_function();
+
+    $view_perm = $db -> get_view_right($view);
     if (!isset($view_perm['write_permission'])) {
         return 0;
     }
