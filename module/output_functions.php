@@ -38,8 +38,8 @@ function builddropdown($result, $value, $valuecol, $displaycol, $all=0){
     if ($all >0) {
         $tabstring .= sprintf('<option value="%d"%s>%s</option>',0, 0 == $value ? " selected" : "" ,_("All")) . "\n";
     }
-    if(mysql_num_rows($result) >= 1){
-        while($row = mysql_fetch_assoc($result)){
+    if(count($result) >= 1){
+        foreach($result as $row){
              $tabstring .= sprintf('<option value="%d"%s>%s</option>',$row[$valuecol], $row[$valuecol] == $value ? " selected" : "" , $row[$displaycol]) . "\n";
         }
     }

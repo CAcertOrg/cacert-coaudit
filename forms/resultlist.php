@@ -1,11 +1,13 @@
 <?php
 
 include_once('../module/output_functions.php');
-include_once('../module/db_functions.php');
+include_once('../module/class.db_functions.php');
+
+$db = new db_function();
 
 //Check access to page
-$readperm = get_read_permision('resultlist');
-$writeperm = get_write_permision('resultlist');
+$readperm = get_read_permission('resultlist');
+$writeperm = get_write_permission('resultlist');
 
 if ($readperm == 0) {
     echo error(_('You do not have the right to read this page.'));
@@ -46,10 +48,10 @@ if (isset($_REQUEST['coauditor_id'])) {
     $coaudid = $cid;
 }
 
-$res = get_results($session, $coaudid);
+$res = $db -> get_results($session, $coaudid);
 
-$sessionres = get_all_session();
-$coauditorres = get_all_user();
+$sessionres = $db -> get_all_session();
+$coauditorres = $db -> get_all_user();
 $hidden[]=array('cid',$cid);
 
 
@@ -68,7 +70,7 @@ echo empty_line();
 
 
 // build result table
-while($row = mysql_fetch_assoc($res)){
+foreach($res as $row){
     if ($session != $row['Session'] ) {
         $sessionold = $session;
         $session = $row['Session'];

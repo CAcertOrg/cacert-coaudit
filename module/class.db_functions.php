@@ -199,28 +199,26 @@ function update_userrights($readpermission, $writepermission, $uid, $cid){
     }
 
 // session handling
-function get_all_session($where = ''){
-    if ($where == '') {
-        $where = ' Where 1=1 ';
-    }else{
-        $where = ' Where session_id='.$where.' ';
-    }
-    $query = "select `session_id`, `session_name`, `from`, `to`, `active` from `coauditsession` " . $where . "ORDER BY `session_name`";
-    $res = mysql_query($query);
-    if ($where == ' Where 1=1 ') {
-        return $res;
-    } else {
-        $result = array();
-        while($row = mysql_fetch_assoc($res)){
-            $result['session_id'] = $row['session_id'];
-            $result['session_name'] = $row['session_name'];
-            $result['from'] = $row['from'];
-            $result['to'] = $row['to'];
-            $result['active'] = $row['active'];
+    /**
+     * db_function::get_all_session()
+     * returns all recorded sessions, if where is not given all sessions, if given only the requested session
+     * @param string $where
+     * @return
+     */
+    function get_all_session($where = ''){
+        if ($where == '') {
+            $where = ' Where 1=1 ';
+        }else{
+            $where = ' Where session_id='.$where.' ';
         }
-        return $result;
+        $query = "select `session_id`, `session_name`, `from`, `to`, `active` from `coauditsession` " . $where . "ORDER BY `session_name`";
+        $res = $this -> db -> query($query);
+        if($where == ' Where 1=1 '){
+            return $res->fetchAll();
+        } else {
+            return $res->fetch();
+        }
     }
-}
 
 function insert_session($session_name, $from, $to){
     $query = "Insert into `coauditsession` (`session_name`, `from`, `to`, `active`)
@@ -400,18 +398,6 @@ function update_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no,
         $res = $this -> db -> query($query);
 
         $result = $res->fetch();
-/*
-        }
-
-        $res = mysql_query($query);
-        $result = array();
-        while($row = mysql_fetch_assoc($res)){
-            $result['view_name'] = $row['view_name'];
-            $result['read_permission'] = $row['read_permission'];
-            $result['write_permission'] = $row['write_permission'];
-            $result['active'] = $row['active'];
-        }
-*/
         return $result;
     }
 
@@ -442,31 +428,38 @@ function update_result_user($view_name, $read_permission, $write_permission, $ac
 
 }
 
-function get_results($session = 0, $coauditid = 0){
-    $where = '';
-    if ($session != 0) {
-        $where .= ' and `co`.`session_id` = ' . intval($session);
+    /**
+     * db_function::get_results()
+     * returns tke results
+     * @param integer $session      if given filter on the session
+     * @param integer $coauditid    if given filter on the co-auditor
+     * @return
+     */
+    public function get_results($session = 0, $coauditid = 0){
+        $where = '';
+        if ($session != 0) {
+            $where .= ' and `co`.`session_id` = ' . intval($session);
+        }
+        if ($coauditid != 0) {
+            $where .= ' and `aud`.`coauditor_id` = ' . intval($coauditid);
+        }
+        $query = "SELECT `co`.`session_name` AS `Session` , year( `c`.`coauditdate` ) AS `CYear` ,
+                    `sts`.`topic_no` AS `Topic_No` , `st`.`session_topic` AS `Topic` ,
+                    `r`.`result` AS `Result`, `st`.`session_topic_id` AS `TopicID` ,
+                    `r`.`coauditsession_id` AS `SessionID`,
+                    `c`.`primaryemail` as `Assurer` , `aud`.`coauditor_name` as `Coauditor`,
+                    `r`.`comment` AS `Comment`
+                    FROM `cacertuser` AS `c` , `result` AS `r` , `session_topic` AS `st` , `coauditsession` AS `co` , `session_topics` AS `sts`, `coauditor` AS `aud`
+                    WHERE `c`.`cacertuser_id` = `r`.`cacertuser_id` AND `r`.`session_topic_id` = `st`.`session_topic_id`
+                        AND `r`.`coauditsession_id` = `co`.`session_id`
+                        AND (`sts`.`session_topic_id` = `r`.`session_topic_id` AND `sts`.`coaudit_session_id` = `r`.`coauditsession_id`)
+                        AND `r`.`coauditor_id` = `aud`.`coauditor_id`
+                        AND `c`.`deleted` IS NULL
+                        $where
+                    ORDER BY `CYear` , `Session` , `Assurer`, `Coauditor`, `Topic_No`";
+        $res = $this -> db -> query($query);
+        return $res;
     }
-    if ($coauditid != 0) {
-        $where .= ' and `aud`.`coauditor_id` = ' . intval($coauditid);
-    }
-    $query = "SELECT `co`.`session_name` AS `Session` , year( `c`.`coauditdate` ) AS `CYear` ,
-                `sts`.`topic_no` AS `Topic_No` , `st`.`session_topic` AS `Topic` ,
-                `r`.`result` AS `Result`, `st`.`session_topic_id` AS `TopicID` ,
-                `r`.`coauditsession_id` AS `SessionID`,
-                `c`.`primaryemail` as `Assurer` , `aud`.`coauditor_name` as `Coauditor`,
-                `r`.`comment` AS `Comment`
-                FROM `cacertuser` AS `c` , `result` AS `r` , `session_topic` AS `st` , `coauditsession` AS `co` , `session_topics` AS `sts`, `coauditor` AS `aud`
-                WHERE `c`.`cacertuser_id` = `r`.`cacertuser_id` AND `r`.`session_topic_id` = `st`.`session_topic_id`
-                    AND `r`.`coauditsession_id` = `co`.`session_id`
-                    AND (`sts`.`session_topic_id` = `r`.`session_topic_id` AND `sts`.`coaudit_session_id` = `r`.`coauditsession_id`)
-                    AND `r`.`coauditor_id` = `aud`.`coauditor_id`
-                    AND `c`.`deleted` IS NULL
-                    $where
-                ORDER BY `CYear` , `Session` , `Assurer`, `Coauditor`, `Topic_No`";
-    $res = mysql_query($query);
-    return $res;
-}
 
 
 function insert_result_topic($session_topic_id, $coauditsession_id, $cacertuser_id, $result, $comment){
