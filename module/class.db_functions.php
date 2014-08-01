@@ -32,21 +32,6 @@ function get_userid_from_mail($email){
         } else {
             return $result;
         }
-
-        $res = mysql_query($query);
-        if(mysql_num_rows($res) <= 0)
-        {
-            return $result;
-        } else {
-            while($row = mysql_fetch_assoc($res)){
-                $result['coauditid'] = $row['coauditor_id'];
-                $result['coauditor_name'] = $row['coauditor_name'];
-                $result['email'] = $row['email'];
-                $result['read_permission'] = $row['read_permission'];
-                $result['write_permission'] = $row['write_permission'];
-            }
-        }
-        return $result;
     }
 
     /**
@@ -322,29 +307,27 @@ function update_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no,
 
 }
 
-// view handling
-function get_all_view($where = ''){
-    if ($where == '') {
-        $where = ' Where 1=1 ';
-    }else{
-        $where = ' Where view_rigths_id='.$where.' ';
-    }
-    $query = "select `view_rigths_id`, `view_name`, `read_permission`, `write_permission`, `active` from `view_rights` " . $where . "ORDER BY `view_name`";
-    $res = mysql_query($query);
-    if ($where == ' Where 1=1 ') {
-        return $res;
-    } else {
-        $result = array();
-        while($row = mysql_fetch_assoc($res)){
-            $result['view_rigths_id'] = $row['view_rigths_id'];
-            $result['view_name'] = $row['view_name'];
-            $result['read_permission'] = $row['read_permission'];
-            $result['write_permission'] = $row['write_permission'];
-            $result['active'] = $row['active'];
+    // view handling
+    /**
+     * db_function::get_all_view()
+     * returns all recorded views
+     * @param string $where
+     * @return
+     */
+    public function get_all_view($where = ''){
+        if ($where == '') {
+            $where = ' Where 1=1 ';
+        }else{
+            $where = ' Where view_rigths_id='.$where.' ';
         }
-        return $result;
+        $query = "select `view_rigths_id`, `view_name`, `read_permission`, `write_permission`, `active` from `view_rights` " . $where . "ORDER BY `view_name`";
+        $res = $this -> db -> query($query);
+        if($where == ' Where 1=1 '){
+            return $res->fetchAll();
+        } else {
+            return $res->fetch();
+        }
     }
-}
 
 function insert_view($view_name, $read_permission, $write_permission){
     $query = "Insert into `view_rights` (`view_name`, `read_permission`, `write_permission`, `active`)

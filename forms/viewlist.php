@@ -1,13 +1,16 @@
 <?php
 include_once('../module/output_functions.php');
-include_once('../module/db_functions.php');
+include_once('../module/class.db_functions.php');
+
+$db = new db_function();
+
 //Check access to page
-$readperm = get_read_permision('viewlist');
-$writeperm = get_write_permision('viewlist');
+$readperm = get_read_permission('viewlist');
+$writeperm = get_write_permission('viewlist');
 
 
 //get data
-$views = get_all_view();
+$views = $db -> get_all_view();
 
 
 echo start_div('content');
@@ -21,11 +24,11 @@ echo tableheader(_('View list'), 4);
 echo tablerow_viewlist_header();
 
 
-if (mysql_num_rows($views) <= 0 ) {
+if (count($views) <= 0 ) {
     echo tablerow_no_entry(4);
 } else {
-    while($view = mysql_fetch_assoc($views)){
-        echo tablerow_viewlist($view);
+    foreach ($views as $row) {
+        echo tablerow_viewlist($row);
     }
 }
 
