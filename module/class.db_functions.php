@@ -83,7 +83,7 @@ function get_user_read_permission($uid){
             $uid, Now(), $uid)";
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
-        //$nid = $smt -> lastInsertedId();
+        //$nid = $this -> db -> lastInsertId();
         //write log
 
     }
@@ -173,7 +173,7 @@ function update_userrights($readpermission, $writepermission, $uid, $cid){
             VALUES ('$topic', '$explain', 1)";
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
-        //$nid = $smt -> lastInsertedId();
+        //$nid = $this -> db -> lastInsertId();
         //write log
 
     }
@@ -241,38 +241,29 @@ function update_session($session_name, $from, $to, $active, $sid){
 
 }
 
-// session topic handling
-function get_all_sessiontopics($where = ''){
+    // session topic handling
+    /**
+     * db_function::get_all_sessiontopics()
+     * returns all recorded topics linked to sessions, if where is not given all data, if given only the requested values
+     * @param string $where
+     * @return
+     */
+    public function get_all_sessiontopics($where = ''){
 
-    if ($where == '') {
-        $where = '';
-    }else{
-        $where = ' and ' . $where;
-    }
-
-    $query = "SELECT `st`.`session_topics_id`, `st`.`session_topic_id` , `t`.`session_topic` , `s`.`session_name` , `st`.`topic_no` , `st`.`active`
-                FROM `session_topics` AS `st` , `coauditsession` AS `s` , `session_topic` AS `t`
-                WHERE `st`.`session_topic_id` = `t`.`session_topic_id`
-                AND `st`.`coaudit_session_id` = `s`.`session_id` " . $where ."
-                ORDER BY `s`.`session_name` , `st`.`topic_no`";
-    $res = mysql_query($query);
-/*
-    if ($where == '') {
-        return $res;
-    } else {
-        $result = array();
-        while($row = mysql_fetch_assoc($res)){
-            $result['session_topics_id'] = $row['session_topics_id'];
-            $result['session_topic'] = $row['session_topic'];
-            $result['session_name'] = $row['session_name'];
-            $result['topic_no'] = $row['topic_no'];
-            $result['active'] = $row['active'];
+        if ($where == '') {
+            $where = '';
+        }else{
+            $where = ' and ' . $where;
         }
-        return $result;
+
+        $query = "SELECT `st`.`session_topics_id`, `st`.`session_topic_id` , `t`.`session_topic` , `s`.`session_name` , `st`.`topic_no` , `st`.`active`
+                    FROM `session_topics` AS `st` , `coauditsession` AS `s` , `session_topic` AS `t`
+                    WHERE `st`.`session_topic_id` = `t`.`session_topic_id`
+                    AND `st`.`coaudit_session_id` = `s`.`session_id` " . $where ."
+                    ORDER BY `s`.`session_name` , `st`.`topic_no`";
+        $res = $this -> db -> query($query);
+        return $res;
     }
-*/
-    return $res;
-}
 
 function get_sessiontopic($stid){
 /*
@@ -301,26 +292,26 @@ function get_sessiontopic($stid){
 }
 
 
-function insert_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no){
-    $query = "Insert into `session_topics` (`session_topic_id`, `coaudit_session_id`, `topic_no`, `active`)
-        VALUES ('$session_topic_id', '$coaudit_session_id', '$topic_no', 1)";
-    mysql_query($query);
-    $nid =mysql_insert_id();
-    //write log
+    function insert_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no){
+        $query = "Insert into `session_topics` (`session_topic_id`, `coaudit_session_id`, `topic_no`, `active`)
+            VALUES ('$session_topic_id', '$coaudit_session_id', '$topic_no', 1)";
+        mysql_query($query);
+        $nid =mysql_insert_id();
+        //write log
 
-}
+    }
 
-function update_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no, $active, $stid){
+    function update_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no, $active, $stid){
 
-    $query = "Update `session_topics` Set `session_topic_id` = '$session_topic_id',
-        `coaudit_session_id` = '$coaudit_session_id',
-        `topic_no` = '$topic_no',
-        `active` = '$active'
-        WHERE  `session_topics_id` = $stid";
-    mysql_query($query);
-    //write log
+        $query = "Update `session_topics` Set `session_topic_id` = '$session_topic_id',
+            `coaudit_session_id` = '$coaudit_session_id',
+            `topic_no` = '$topic_no',
+            `active` = '$active'
+            WHERE  `session_topics_id` = $stid";
+        mysql_query($query);
+        //write log
 
-}
+    }
 
     // view handling
     /**
@@ -357,7 +348,7 @@ function update_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no,
             VALUES ('$view_name', '$read_permission', '$write_permission', 1)";
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
-        //$nid = $smt -> lastInsertedId();
+        //$nid = $this -> db -> lastInsertId();
         //write log
 
     }
@@ -405,28 +396,32 @@ function update_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no,
 
 // result management
 
-function insert_result_user($primaryemail, $assurer, $expierencepoints, $country, $location, $coauditdate){
-    $query = "Insert into `cacertuser` (`primaryemail`, `webdb_account_id`, `assurer`, `expierencepoints`,
-        `country`, `created_by`, `location`, `coauditdate`, `active`)
-        VALUES ('$primaryemail', 0, '$assurer', $expierencepoints,
-        '$country', " . $_SESSION['user']['id'] . ", '$location', '$coauditdate', 1)";
-    mysql_query($query);
-    $nid =mysql_insert_id();
-    //write log
-    return $nid;
-}
+    public function insert_result_user($primaryemail, $assurer, $expierencepoints, $country, $location, $coauditdate){
+        $query = "Insert into `cacertuser` (`primaryemail`, `webdb_account_id`, `assurer`, `expierencepoints`,
+            `country`, `created_by`, `location`, `coauditdate`, `active`)
+            VALUES ('$primaryemail', 0, '$assurer', $expierencepoints,
+            '$country', " . $_SESSION['user']['id'] . ", '$location', '$coauditdate', 1)";
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
+        $nid = $this -> db -> lastInsertId();
+        //write log
+        return $nid;
+    }
 
-function update_result_user($view_name, $read_permission, $write_permission, $active, $vid){
+    public function update_result_user($primaryemail, $assurer, $expierencepoints, $country, $location, $coauditdate, $userid){
 
-    $query = "Update `view_rights` Set `view_name` = '$view_name',
-        `read_permission` = '$read_permission',
-        `write_permission` = '$write_permission',
-        `active` = '$active'
-        WHERE `view_rigths_id` = $vid";
-    mysql_query($query);
-    //write log
+        $query = "Update `cacertuser` Set `primaryemail` = '$primaryemail',
+            `assurer` = '$assurer',
+            `expierencepoints` = '$expierencepoints',
+            `country` = '$country',
+            `location` = '$location',
+            `coauditdate` = '$coauditdate',
+            WHERE `cacertuser_id` = $userid";
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
+        //write log
 
-}
+    }
 
     /**
      * db_function::get_results()
@@ -462,27 +457,31 @@ function update_result_user($view_name, $read_permission, $write_permission, $ac
     }
 
 
-function insert_result_topic($session_topic_id, $coauditsession_id, $cacertuser_id, $result, $comment){
-    $query = "Insert into `result` (`session_topic_id`, `coauditsession_id`, `cacertuser_id`, `coauditor_id`,
-        `result`, `comment`, `active`)
-        VALUES ($session_topic_id, $coauditsession_id, $cacertuser_id, " .$_SESSION['user']['id'] . ",
-        '$result', '$comment', 1)";
-    mysql_query($query);
-    $nid =mysql_insert_id();
-    //write log
+    public function insert_result_topic($session_topic_id, $coauditsession_id, $cacertuser_id, $result, $comment){
+        $query = "Insert into `result` (`session_topic_id`, `coauditsession_id`, `cacertuser_id`, `coauditor_id`,
+            `result`, `comment`, `active`)
+            VALUES ($session_topic_id, $coauditsession_id, $cacertuser_id, " .$_SESSION['user']['id'] . ",
+            '$result', '$comment', 1)";
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
+        $nid = $this -> db -> lastInsertId();
+        //write log
 
-}
+    }
 
-function update_result_topic($view_name, $read_permission, $write_permission, $active, $vid){
-    $query = "Update `view_rights` Set `view_name` = '$view_name',
-        `read_permission` = '$read_permission',
-        `write_permission` = '$write_permission',
-        `active` = '$active'
-        WHERE `view_rigths_id` = $vid";
-    mysql_query($query);
-    //write log
+    public function update_result_topic($session_topic_id, $coauditsession_id, $cacertuser_id, $result, $comment, $rid){
+        $query = "Update `result` Set `session_topic_id` = '$session_topic_id',
+            `coauditsession_id` = '$coauditsession_id',
+            `cacertuser_id` = '$cacertuser_id',
+            `coauditor_id` = " .$_SESSION['user']['id'] . ",
+            `result` = '$result',
+            `comment` = '$comment',
+            WHERE `result_id` = $rid";
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
+        //write log
 
-}
+    }
 
 
 

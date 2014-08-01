@@ -371,13 +371,14 @@ if ($type == 'result') {
 
 
         if (isset( $_REQUEST['new'])){
-            $assurerid = insert_result_user($primaryemail, $isassurer, $expierencepoints, $country, $location, $coauditdate);
+            $assurerid = $db -> insert_result_user($primaryemail, $isassurer, $expierencepoints, $country, $location, $coauditdate);
             foreach($questions as $question){
-                insert_result_topic($question[0], $coaudit_session_id, $assurerid, $question[1], $question[2]);
+                $db -> insert_result_topic($question[0], $coaudit_session_id, $assurerid, $question[1], $question[2]);
             }
 
         } else {
-            update_view($view_name, $read, $write, $active, $vid);
+            // $db -> update_result_user($view_name, $read_permission, $write_permission, $active, $vid)
+            // update_view($view_name, $read, $write, $active, $vid);
         }
 
         include('../forms/result.php');
