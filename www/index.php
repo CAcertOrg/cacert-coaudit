@@ -167,9 +167,9 @@ if ($type == 'topic') {
             $active = 0;
         }
         if (isset( $_REQUEST['new'])){
-            insert_topic($session_topic,$topic_explaination);
+            $db -> insert_topic($session_topic,$topic_explaination);
         } else {
-            update_topic($session_topic, $topic_explaination, $active, $tid);
+            $db -> update_topic($session_topic, $topic_explaination, $active, $tid);
         }
         include('../forms/topiclist.php');
         $continue=false;

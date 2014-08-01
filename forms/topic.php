@@ -1,11 +1,12 @@
 <?php
 
 include_once('../module/output_functions.php');
-include_once('../module/db_functions.php');
+include_once('../module/class.db_functions.php');
 
+$db = new db_function();
 //Check access to page
-$readperm = get_read_permision('topic');
-$writeperm = get_write_permision('topic');
+$readperm = get_read_permission('topic');
+$writeperm = get_write_permission('topic');
 
 if (isset($_REQUEST['tid'])) {
     $tid = intval($_REQUEST['tid']);
@@ -21,7 +22,7 @@ if ($tid == 0) {
     $activ = 0;
 } else {
     //edit user
-    $topic = get_all_topics($tid);
+    $topic = $db -> get_all_topics($tid);
     $session_topic_id = $topic['session_topic_id'];
     $session_topic = $topic['session_topic'];
     $topic_explaination = $topic['topic_explaination'];

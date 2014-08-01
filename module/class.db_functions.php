@@ -161,25 +161,43 @@ function update_userrights($readpermission, $writepermission, $uid, $cid){
     }
 
 
-function insert_topic($topic, $explain){
-    $query = "Insert into `session_topic` (`session_topic`, `topic_explaination`, `activ`)
-        VALUES ('$topic', '$explain', 1)";
-    mysql_query($query);
-    $nid =mysql_insert_id();
-    //write log
+    /**
+     * db_function::insert_topic()
+     * inserts a new topic
+     * @param mixed $topic
+     * @param mixed $explain
+     * @return
+     */
+    public function insert_topic($topic, $explain){
+        $query = "Insert into `session_topic` (`session_topic`, `topic_explaination`, `activ`)
+            VALUES ('$topic', '$explain', 1)";
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
+        //$nid = $smt -> lastInsertedId();
+        //write log
 
-}
+    }
 
-function update_topic($topic, $explain, $active, $tid){
+    /**
+     * db_function::update_topic()
+     *  updates the data of a topic
+     * @param mixed $topic
+     * @param mixed $explain
+     * @param mixed $active
+     * @param mixed $tid
+     * @return
+     */
+    public function update_topic($topic, $explain, $active, $tid){
 
-    $query = "Update `session_topic` Set `session_topic` = '$topic',
-        `topic_explaination` = '$explain',
-        `activ` = '$active'
-        WHERE  `session_topic_id` = $tid";
-    mysql_query($query);
-    //write log
+        $query = "Update `session_topic` Set `session_topic` = '$topic',
+            `topic_explaination` = '$explain',
+            `activ` = '$active'
+            WHERE  `session_topic_id` = $tid";
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
+        //write log
+    }
 
-}
 // session handling
 function get_all_session($where = ''){
     if ($where == '') {
