@@ -310,8 +310,8 @@ function update_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no,
     // view handling
     /**
      * db_function::get_all_view()
-     * returns all recorded views
-     * @param string $where
+     * returns all recorded views, if where is not given all views, if given only the requested view
+     * @param string $where name of the requested view
      * @return
      */
     public function get_all_view($where = ''){
@@ -329,26 +329,46 @@ function update_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no,
         }
     }
 
-function insert_view($view_name, $read_permission, $write_permission){
-    $query = "Insert into `view_rights` (`view_name`, `read_permission`, `write_permission`, `active`)
-        VALUES ('$view_name', '$read_permission', '$write_permission', 1)";
-    mysql_query($query);
-    $nid =mysql_insert_id();
-    //write log
+    /**
+     * db_function::insert_view()
+     * inserts a new view
+     * @param mixed $view_name
+     * @param mixed $read_permission
+     * @param mixed $write_permission
+     * @return
+     */
+    public function insert_view($view_name, $read_permission, $write_permission){
+        $query = "Insert into `view_rights` (`view_name`, `read_permission`, `write_permission`, `active`)
+            VALUES ('$view_name', '$read_permission', '$write_permission', 1)";
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
+        //$nid = $smt -> lastInsertedId();
+        //write log
 
-}
+    }
 
-function update_view($view_name, $read_permission, $write_permission, $active, $vid){
+    /**
+     * db_function::update_view()
+     * updates the data of a view
+     * @param mixed $view_name
+     * @param mixed $read_permission
+     * @param mixed $write_permission
+     * @param mixed $active
+     * @param mixed $vid
+     * @return
+     */
+    public function update_view($view_name, $read_permission, $write_permission, $active, $vid){
 
-    $query = "Update `view_rights` Set `view_name` = '$view_name',
-        `read_permission` = '$read_permission',
-        `write_permission` = '$write_permission',
-        `active` = '$active'
-        WHERE `view_rigths_id` = $vid";
-    mysql_query($query);
-    //write log
+        $query = "Update `view_rights` Set `view_name` = '$view_name',
+            `read_permission` = '$read_permission',
+            `write_permission` = '$write_permission',
+            `active` = '$active'
+            WHERE `view_rigths_id` = $vid";
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
+        //write log
 
-}
+    }
 
     /**
      * db_function::get_view_right()

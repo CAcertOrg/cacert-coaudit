@@ -289,9 +289,9 @@ if ($type == 'view') {
         }
 
         if (isset( $_REQUEST['new'])){
-            insert_view($view_name, $read, $write);
+            $db -> insert_view($view_name, $read, $write);
         } else {
-            update_view($view_name, $read, $write, $active, $vid);
+            $db -> update_view($view_name, $read, $write, $active, $vid);
         }
 
         include('../forms/viewlist.php');

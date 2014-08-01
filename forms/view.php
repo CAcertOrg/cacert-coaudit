@@ -1,19 +1,15 @@
 <?php
 
 include_once('../module/output_functions.php');
-include_once('../module/db_functions.php');
+include_once('../module/class.db_functions.php');
+
+$db = new db_function();
+
 $roles = define_roles();
 
 //Check access to page
-$readperm = get_read_permision('view');
-$writeperm = get_write_permision('view');
-/*
-   if (isset($_SESSION['user']['cid'])) {
-   $cid = intval($_SESSION['user']['cid']);
-   } else {
-   $cid =0;
-   }
-*/
+$readperm = get_read_permission('view');
+$writeperm = get_write_permission('view');
 
 if (isset($_REQUEST['vid'])) {
     $vid = intval($_REQUEST['vid']);
@@ -31,7 +27,7 @@ if ($vid == 0) {
     $active = '';
 } else {
     //edit user
-    $view = get_all_view($vid);
+    $view = $db -> get_all_view($vid);
     $view_rigths_id = $view['view_rigths_id'];
     $view_name = $view['view_name'];
     $read = $view['read_permission'];
