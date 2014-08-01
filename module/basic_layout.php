@@ -88,7 +88,7 @@ if ($_SESSION['user']['read_permission'] == 1) {
     $tabstrings3 = '';
     $tabstrings5 = '';
 } else {
-    if (get_read_permision('adminmenue') == 0){
+    if (get_read_permission('adminmenue') == 0){
         $tabstrings3 = '';
     }
     $tabstrings4 = '';

@@ -2,13 +2,16 @@
 
 include_once('../module/output_functions.php');
 include_once('../module/db_functions.php');
+include_once('../module/class.db_functions.php');
+
+$db = new db_function();
 //Check access to page
-$readperm = get_read_permision('userlist');
-$writeperm = get_write_permision('userlist');
+$readperm = get_read_permission('userlist');
+$writeperm = get_write_permission('userlist');
 
 
 //get data
-$users = get_all_user();
+$users = $db->get_all_user();
 //$user=array(1,'dddd',"www",2,3);
 
 echo start_div('content');
@@ -21,11 +24,10 @@ if ($readperm == 0) {
 echo tableheader(_('User list'), 3);
 echo tablerow_userlist_header();
 
-
-if (mysql_num_rows($users) <= 0 ) {
+if (count($users) <= 0 ) {
     echo tablerow_no_entry(2);
 } else {
-    while($user = mysql_fetch_assoc($users)){
+    foreach($users as $user){
         echo tablerow_userlist($user);
     }
 }
