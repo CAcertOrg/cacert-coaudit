@@ -513,28 +513,38 @@ function update_userrights($readpermission, $writepermission, $uid, $cid){
 
 //statistics
 
-function get_statiscs_basic($where =''){
-    $query = "SELECT `co`.`session_name` AS `Session` , year( `c`.`coauditdate` ) AS `CYear` , `sts`.`topic_no` AS `Topic_No` ,
-        `st`.`session_topic` AS `Topic` , sum( `r`.`result` ) AS `res` , count( `r`.`result` ) AS `Total` ,  (sum(`r`.`result`) /  count(`r`.`result`))*100 as `Perc`,
-        `st`.`session_topic_id` AS `TopicID` , `r`.`coauditsession_id` AS `SessionID`
-        FROM `cacertuser` AS `c` , `result` AS `r` , `session_topic` AS `st` , `coauditsession` AS `co` , `session_topics` AS `sts`
-        WHERE `c`.`cacertuser_id` = `r`.`cacertuser_id` AND `r`.`session_topic_id` = `st`.`session_topic_id`
-            AND `r`.`coauditsession_id` = `co`.`session_id`
-            AND (`sts`.`session_topic_id` = `r`.`session_topic_id` AND `sts`.`coaudit_session_id` = `r`.`coauditsession_id`)
-            AND `c`.`deleted` is Null " . $where ."
-        GROUP BY `CYear` , `Topic` , `Session` , `TopicID` , `Topic_No` , `SessionID`
-        ORDER BY `CYear` , `Session` , `Topic_No`";
-    $res = mysql_query($query);
-    return $res;
+    /**
+     * db_function::get_statiscs_basic()
+     * returns the result statistics, if where is given filtered
+     * @param string $where
+     * @return
+     */
+    public function get_statiscs_basic($where =''){
+        $query = "SELECT `co`.`session_name` AS `Session` , year( `c`.`coauditdate` ) AS `CYear` , `sts`.`topic_no` AS `Topic_No` ,
+            `st`.`session_topic` AS `Topic` , sum( `r`.`result` ) AS `res` , count( `r`.`result` ) AS `Total` ,  (sum(`r`.`result`) /  count(`r`.`result`))*100 as `Perc`,
+            `st`.`session_topic_id` AS `TopicID` , `r`.`coauditsession_id` AS `SessionID`
+            FROM `cacertuser` AS `c` , `result` AS `r` , `session_topic` AS `st` , `coauditsession` AS `co` , `session_topics` AS `sts`
+            WHERE `c`.`cacertuser_id` = `r`.`cacertuser_id` AND `r`.`session_topic_id` = `st`.`session_topic_id`
+                AND `r`.`coauditsession_id` = `co`.`session_id`
+                AND (`sts`.`session_topic_id` = `r`.`session_topic_id` AND `sts`.`coaudit_session_id` = `r`.`coauditsession_id`)
+                AND `c`.`deleted` is Null " . $where ."
+            GROUP BY `CYear` , `Topic` , `Session` , `TopicID` , `Topic_No` , `SessionID`
+            ORDER BY `CYear` , `Session` , `Topic_No`";
+        $res = $this -> db -> query($query);
+        return $res;
+    }
 
-}
-
-function get_statiscs_kpi($where =''){
-    $query = "Select `session_year`, `assurances`, `target` from `coaudit_refdata` where `coaudit_session_id` = " . $where;
-    $res = mysql_query($query);
-    return $res;
-
-}
+    /**
+     * db_function::get_statiscs_kpi()
+     * returns the kpi, if where is given filtered
+     * @param string $where
+     * @return
+     */
+    public function get_statiscs_kpi($where =''){
+        $query = "Select `session_year`, `assurances`, `target` from `coaudit_refdata` where `coaudit_session_id` = " . $where;
+        $res = $this -> db -> query($query);
+        return $res;
+    }
 
 }
 ?>

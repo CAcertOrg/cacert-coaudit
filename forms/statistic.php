@@ -1,13 +1,15 @@
 <?php
 
 include_once('../module/output_functions.php');
-include_once('../module/db_functions.php');
+include_once('../module/class.db_functions.php');
+
+$db = new db_function();
 
 //Check access to page
-$readperm = get_read_permision('statistic');
-$writeperm = get_write_permision('statistic');
+$readperm = get_read_permission('statistic');
+$writeperm = get_write_permission('statistic');
 
-$res = get_statiscs_basic();
+$res = $db -> get_statiscs_basic();
 
 $year = 0;
 $session = '';
@@ -22,7 +24,7 @@ $kpidata = array();
 //buildform
 echo start_div('content');
 
-while($row = mysql_fetch_assoc($res)){
+foreach($res as $row){
     if ($session != $row['Session'] ) {
         $sessionold = $session;
         $session = $row['Session'];
@@ -77,7 +79,7 @@ echo table_end();
 echo empty_line();
 echo empty_line();
 
-$res = get_statiscs_kpi(2);
+$res = $db -> get_statiscs_kpi(2);
 echo tableheader(_('Coaudit KPI'),5);
 $rowheader = tablerow_start();
 $rowheader .= tablecell(_('Year'));
@@ -86,7 +88,7 @@ $rowheader .= tablecell(_('Assurances'));
 $rowheader .= tablecell(_('Percentage'));
 $rowheader .= tablecell(_('Taget KPI')) . tablerow_end();
 echo $rowheader;
-while($row = mysql_fetch_assoc($res)){
+foreach($res as $row){
     $stest = 0;
     foreach ($kpidata as $syear) {
         if ($syear[0] == $row['session_year']) {
