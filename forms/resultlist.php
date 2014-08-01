@@ -117,7 +117,7 @@ foreach($res as $row){
         $rowheader2 .= tablecell(_('Comment'));
     }
     $datarow .= tablecell($row['Result']);
-    $datarow .= tablecell($row['Comment'] . '%');
+    $datarow .= tablecell($row['Comment']);
     $col +=2;
 }
 
