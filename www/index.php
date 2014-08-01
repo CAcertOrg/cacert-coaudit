@@ -241,9 +241,9 @@ if ($type == 'sessiontopic') {
             $active = 0;
         }
         if (isset( $_REQUEST['new'])){
-            insert_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no);
+            $db -> insert_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no);
         } else {
-            update_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no, $active, $session_topics_id);
+            $db -> update_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no, $active, $session_topics_id);
         }
         include('../forms/sessiontopiclist.php');
         $continue=false;

@@ -1,10 +1,12 @@
 <?php
 
 include_once('../module/output_functions.php');
-include_once('../module/db_functions.php');
+include_once('../module/class.db_functions.php');
+
+$db = new db_function();
 //Check access to page
-$readperm = get_read_permision('sessiontopic');
-$writeperm = get_write_permision('sessiontopic');
+$readperm = get_read_permission('sessiontopic');
+$writeperm = get_write_permission('sessiontopic');
 
 if (isset($_REQUEST['stid'])) {
     $stid = intval($_REQUEST['stid']);
@@ -21,7 +23,7 @@ if ($stid == 0) {
     $active = 0;
 } else {
     //edit
-    $topic = get_sessiontopic($stid);
+    $topic = $db -> get_sessiontopic($stid);
     $session_topics_id = $topic['session_topics_id'];
     $session_topic_id = $topic['session_topic_id'];
     $coaudit_session_id = $topic['coaudit_session_id'];
@@ -31,8 +33,8 @@ if ($stid == 0) {
 
 
 //get data
-$sessionres = get_all_session();
-$topicres = get_all_topics();
+$sessionres = $db -> get_all_session();
+$topicres = $db -> get_all_topics();
 
 $hidden[]=array('stid',$stid);
 

@@ -231,8 +231,9 @@ function update_userrights($readpermission, $writepermission, $uid, $cid){
     public function insert_session($session_name, $from, $to){
         $query = "Insert into `coauditsession` (`session_name`, `from`, `to`, `active`)
             VALUES ('$session_name', '$from', '$to', 1)";
-        mysql_query($query);
-        $nid =mysql_insert_id();
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
+        //$nid = $this -> db -> lastInsertId();
         //write log
 
     }
@@ -254,7 +255,8 @@ function update_userrights($readpermission, $writepermission, $uid, $cid){
             `to` = '$to',
             `active` = '$active'
             WHERE  `session_id` = $sid";
-        mysql_query($query);
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
         //write log
 
     }
@@ -283,52 +285,58 @@ function update_userrights($readpermission, $writepermission, $uid, $cid){
         return $res;
     }
 
-function get_sessiontopic($stid){
-/*
-   if ($where == '') {
-   $where = ' Where 1=1 ';
-   }else{
-   $where = ' Where session_topics_id='.$where.' ';
-   }
-*/
-    $query = "SELECT `session_topics_id` , `session_topic_id` , `coaudit_session_id` ,
-            `topic_no` , `active`
-            FROM `session_topics`
-            WHERE `session_topics_id` = " . $stid;
-    $res = mysql_query($query);
-
-    $result = array();
-    while($row = mysql_fetch_assoc($res)){
-        $result['session_topics_id'] = $row['session_topics_id'];
-        $result['session_topic_id'] = $row['session_topic_id'];
-        $result['coaudit_session_id'] = $row['coaudit_session_id'];
-        $result['topic_no'] = $row['topic_no'];
-        $result['active'] = $row['active'];
+    /**
+     * db_function::get_sessiontopic()
+     *returns the data for a given session topic
+     * @param mixed $stid
+     * @return
+     */
+    public function get_sessiontopic($stid){
+        $query = "SELECT `session_topics_id` , `session_topic_id` , `coaudit_session_id` ,
+                `topic_no` , `active`
+                FROM `session_topics`
+                WHERE `session_topics_id` = " . $stid;
+        $res = $this -> db -> query($query);
+        return $res->fetch();
     }
 
-    return $result;
-}
 
-
-    function insert_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no){
+    /**
+     * db_function::insert_sessiontopics()
+     * adds a session topic
+     * @param mixed $session_topic_id
+     * @param mixed $coaudit_session_id
+     * @param mixed $topic_no
+     * @return
+     */
+    public function insert_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no){
         $query = "Insert into `session_topics` (`session_topic_id`, `coaudit_session_id`, `topic_no`, `active`)
-            VALUES ('$session_topic_id', '$coaudit_session_id', '$topic_no', 1)";
-        mysql_query($query);
-        $nid =mysql_insert_id();
+                VALUES ('$session_topic_id', '$coaudit_session_id', '$topic_no', 1)";
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
+        //$nid = $this -> db -> lastInsertId();
         //write log
-
     }
 
-    function update_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no, $active, $stid){
-
+    /**
+     * db_function::update_sessiontopics()
+     * updates a session topic
+     * @param mixed $session_topic_id
+     * @param mixed $coaudit_session_id
+     * @param mixed $topic_no
+     * @param mixed $active
+     * @param mixed $stid
+     * @return
+     */
+    public function update_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no, $active, $stid){
         $query = "Update `session_topics` Set `session_topic_id` = '$session_topic_id',
             `coaudit_session_id` = '$coaudit_session_id',
             `topic_no` = '$topic_no',
             `active` = '$active'
             WHERE  `session_topics_id` = $stid";
-        mysql_query($query);
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
         //write log
-
     }
 
     // view handling
