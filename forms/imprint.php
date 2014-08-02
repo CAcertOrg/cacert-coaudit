@@ -13,9 +13,9 @@ Australia</p>
 
 <p>xx (President)<br/>
 xx (Vice President)<br/>
-Michael Tänzer (Treasurer)<br/>
+Michael TÃ¤nzer (Treasurer)<br/>
 Etienne Ruedin (Secretary)<br/>
-Jürgen Bruckner, Benjamin Ball, Dirk Astrath, Guillaume Romagny, Robert Cruisnak </p>
+JÃ¼rgen Bruckner, Benjamin Ball, Dirk Astrath, Guillaume Romagny, Robert Cruisnak </p>
 
 <p>This website is part of the community project <a href="http://cacert.org">CAcert.org</a>.</p>
 
