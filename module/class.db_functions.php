@@ -105,8 +105,9 @@ class db_function{
             $uid, Now(), $uid)";
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
-        //$nid = $this -> db -> lastInsertId();
+        $nid = $this -> db -> lastInsertId();
         //write log
+        write_log('admin', $nid, "added account for $email");
 
     }
 
@@ -133,6 +134,7 @@ class db_function{
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         //write log
+        write_log('admin', $cid, "update account of $email");
 
     }
 
@@ -185,9 +187,9 @@ class db_function{
             VALUES ('$topic', '$explain', 1)";
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
-        //$nid = $this -> db -> lastInsertId();
+        $nid = $this -> db -> lastInsertId();
         //write log
-
+        write_log('admin', $nid, "added topic '$topic'");
     }
 
     /**
@@ -208,6 +210,7 @@ class db_function{
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         //write log
+        write_log('admin', $tid, "update topic '$topic'");
     }
 
 // session handling
@@ -245,9 +248,9 @@ class db_function{
             VALUES ('$session_name', '$from', '$to', 1)";
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
-        //$nid = $this -> db -> lastInsertId();
+        $nid = $this -> db -> lastInsertId();
         //write log
-
+        write_log('admin', $nid, "added session '$session_name'");
     }
 
     /**
@@ -270,7 +273,7 @@ class db_function{
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         //write log
-
+        write_log('admin', $sid, "updated session '$session_name'");
     }
 
     // session topic handling
@@ -326,8 +329,10 @@ class db_function{
                 VALUES ('$session_topic_id', '$coaudit_session_id', '$topic_no', 1)";
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
-        //$nid = $this -> db -> lastInsertId();
+        $nid = $this -> db -> lastInsertId();
         //write log
+        write_log('admin', $nid, "added sessiontopic");
+
     }
 
     /**
@@ -349,6 +354,7 @@ class db_function{
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         //write log
+        write_log('admin', $stid, "updted sessiontopic");
     }
 
     // view handling
@@ -386,8 +392,9 @@ class db_function{
             VALUES ('$view_name', '$read_permission', '$write_permission', 1)";
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
-        //$nid = $this -> db -> lastInsertId();
+        $nid = $this -> db -> lastInsertId();
         //write log
+        write_log('admin', $nid, "added view '$view_name'");
 
     }
 
@@ -411,7 +418,7 @@ class db_function{
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         //write log
-
+        write_log('admin', $nid, "updated view '$view_name'");
     }
 
     /**
@@ -454,6 +461,7 @@ class db_function{
         $smt -> execute();
         $nid = $this -> db -> lastInsertId();
         //write log
+        write_log('user', $nid, "added cacertuser '$primaryemail'");
         return $nid;
     }
 
@@ -481,7 +489,7 @@ class db_function{
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         //write log
-
+        write_log('user', $userid, "updated cacertuser '$primaryemail'");
     }
 
     /**
@@ -537,7 +545,7 @@ class db_function{
         $smt -> execute();
         $nid = $this -> db -> lastInsertId();
         //write log
-
+        write_log('user', $nid, "added result");
     }
 
     /**
@@ -562,7 +570,7 @@ class db_function{
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         //write log
-
+        write_log('user', $rid, "updated result");
     }
 
 

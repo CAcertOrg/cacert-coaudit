@@ -2,6 +2,12 @@
 include_once('../module/class.db_functions.php');
 
 
+/**
+ * tidystring()
+ * cleans a string
+ * @param mixed $input
+ * @return
+ */
 function tidystring($input){
     if ($input != "") {
         return trim(mysql_real_escape_string(stripslashes($input)));
@@ -10,6 +16,11 @@ function tidystring($input){
     }
 }
 
+/**
+ * define_roles()
+ * returns the array for the user roles
+ * @return
+ */
 function define_roles(){
     $result = array();
     $result[] = _('Guest'); // 1
@@ -20,6 +31,12 @@ function define_roles(){
     return $result;
 }
 
+/**
+ * get_read_permission()
+ * returns the reade permission for a requested view
+ * @param mixed $view
+ * @return
+ */
 function get_read_permission( $view){
     $db = new db_function();
 
@@ -35,6 +52,12 @@ function get_read_permission( $view){
     }
 }
 
+/**
+ * get_write_permission()
+ * returns the write permission for a requested view
+ * @param mixed $view
+ * @return
+ */
 function get_write_permission( $view){
     $db = new db_function();
 
@@ -69,11 +92,33 @@ function validdate($datestring){
     }
 }
 
+/**
+ * test_data()
+ * provide test datat started in index.php
+ * @return
+ */
 function test_data(){
     $_SESSION['user']['id'] = 1;
     $_SESSION['user']['name'] = 'norbert';
     $_SESSION['user']['email'] = 'norbert@cacert.org';
     $_SESSION['user']['read_permission'] = 15;
     $_SESSION['user']['write_permission'] = 14;
+}
+
+/**
+ * write_log()
+ * writes an entry to the log file
+ * structure date, userid, itemid, content
+ * @param mixed $file       suffix showing the type of log admin/user
+ * @param mixed $id         itemid
+ * @param mixed $content
+ * @return
+ */
+function write_log($file, $id, $content){
+    $filename ="../log/" . $file . "_" .  date('Y_m') . ".log";
+    $f = fopen($filename, 'a');
+    $output = date('Y_m_d_H_i_s') . ', ' . $_SESSION['user']['id'] . ', $id, "' . $content;
+    fwrite($f, $output);
+    fclose($f);
 }
 ?>
