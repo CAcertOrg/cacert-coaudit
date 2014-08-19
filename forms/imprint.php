@@ -1,15 +1,18 @@
 <?php ?>
+<div class="content">
 
-<h1>Imprint</h1>
-<h2>Postal Address</h2>
-<p>CAcert Inc.<br/>
-P.O. Box 66<br/>
-Oatley NSW 2223<br/>
-Australia</p>
+<h2>Imprint</h2>
+<h3>Postal Address</h3>
+<p>
+	CAcert Inc.<br /> 
+	P.O. Box 66<br /> 
+	Oatley NSW 2223<br /> 
+	Australia
+</p>
 
 <p>represented by the Secretary: Etienne Ruedin</p>
 
-<h2>CAcert Inc. Committee</h2>
+<h3>CAcert Inc. Committee</h3>
 
 <p>xx (President)<br/>
 xx (Vice President)<br/>
@@ -19,3 +22,4 @@ Jürgen Bruckner, Benjamin Ball, Dirk Astrath, Guillaume Romagny, Robert Cruisna
 
 <p>This website is part of the community project <a href="http://cacert.org">CAcert.org</a>.</p>
 
+</div>
