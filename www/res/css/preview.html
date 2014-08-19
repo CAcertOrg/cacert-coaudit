@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>CAcert Coaudit - Result</title>
+<link rel="stylesheet" href="template.css" type="text/css" />
+<meta name=content= "width=device=width, initial-scale=1.0 "/>
+</head>
+<body class="body">
+	<header class="mainHeader">
+		<div class="titlecontainer">
+			<h1>Co-Audit system</h1>
+			<img class="logo" src="../img/CAcert-logo-colour-210tr.png" />
+		</div>
+		<nav>
+			<!--div class="menubar"-->
+			<ul>
+				<li><a href="#">Statistics</a>
+					<ul>
+						<li><a href="index.php?type=statistic">Overview</a></li>
+					</ul></li>
+				<li><a href="#">Co-Auditors</a>
+					<ul>
+						<li><a href="index.php?type=result">Enter new entry</a></li>
+						<li><a href="index.php?type=resultlist&cid=true">List own
+								entries</a></li>
+					</ul></li>
+				<li><a href="#"><span>Administrative view</span></a>
+					<ul class="sub-menu">
+						<li><a href="index.php?type=userlist">List user</a></li>
+						<li><a href="index.php?type=sessionlist">List sessions</a></li>
+						<li><a href="index.php?type=topiclist">List topics</a></li>
+						<li><a href="index.php?type=resultlist">List results</a></li>
+					</ul></li>
+				<li><a href="index.php?login=logout">Logout [norbert]</a></li>
+			</ul>
+			<!--/div-->
+		</nav>
+	</header>
+	<div class="content">
+
+		<h1>Test</h1>
+		<form method="post" action="../www/index.php?type=result">
+			<table>
+				<tr>
+					<td colspan="2" class="title">Enter coaudit result</td>
+				</tr>
+				<tr>
+					<td class="DataTD">Coaudit session</td>
+					<td class="DataTD"><select name="session_id">
+							<option value="1">2009</option>
+							<option value="2" selected>2010</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td class="DataTD">Assurer mail</td>
+					<td class="DataTD"><input name="primaryemail" type="text"
+						value="" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD">Is assuerer?</td>
+					<td class="DataTD"><input type="checkbox" name="assurer" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD">Expierence Points</td>
+					<td class="DataTD"><input name="expierencepoints" type="text"
+						value="" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD">Residence country (ISO 2 letter code)</td>
+					<td class="DataTD"><input name="country" type="text" value="" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD">Location/Event</td>
+					<td class="DataTD"><input name="location" type="text" value="" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD">Date of coaudit</td>
+					<td class="DataTD"><input name="coauditdate" type="text"
+						value="" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD" colspan="2">Q1 CCA</td>
+				</tr>
+				<tr>
+					<td class="DataTD">Result (passed - tick)</td>
+					<td class="DataTD"><input type="checkbox" name="r1" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD">Comment</td>
+					<td class="DataTD"><input name="c1" type="text" value="" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD" colspan="2">Q2 Checked user data</td>
+				</tr>
+				<tr>
+					<td class="DataTD">Result (passed - tick)</td>
+					<td class="DataTD"><input type="checkbox" name="r2" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD">Comment</td>
+					<td class="DataTD"><input name="c2" type="text" value="" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD" colspan="2">Q3 Has Account</td>
+				</tr>
+				<tr>
+					<td class="DataTD">Result (passed - tick)</td>
+					<td class="DataTD"><input type="checkbox" name="r3" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD">Comment</td>
+					<td class="DataTD"><input name="c3" type="text" value="" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD" colspan="2">Q4 Documents</td>
+				</tr>
+				<tr>
+					<td class="DataTD">Result (passed - tick)</td>
+					<td class="DataTD"><input type="checkbox" name="r4" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD">Comment</td>
+					<td class="DataTD"><input name="c4" type="text" value="" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD" colspan="2">Q5 Signature</td>
+				</tr>
+				<tr>
+					<td class="DataTD">Result (passed - tick)</td>
+					<td class="DataTD"><input type="checkbox" name="r5" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD">Comment</td>
+					<td class="DataTD"><input name="c5" type="text" value="" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD" colspan="2">Q6 Privacy</td>
+				</tr>
+				<tr>
+					<td class="DataTD">Result (passed - tick)</td>
+					<td class="DataTD"><input type="checkbox" name="r6" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD">Comment</td>
+					<td class="DataTD"><input name="c6" type="text" value="" /></td>
+				</tr>
+				<tr>
+					<td class="DataTD" colspan="2"><input type="submit" name="new"
+						value="New entry" /></td>
+				</tr>
+			</table>
+			<input type="hidden" name="rid" value="0" /><input type="hidden"
+				name="qid1" value="2" /><input type="hidden" name="qid2" value="5" /><input
+				type="hidden" name="qid3" value="4" /><input type="hidden"
+				name="qid4" value="6" /><input type="hidden" name="qid5" value="7" /><input
+				type="hidden" name="qid6" value="8" />
+	</div>
+	<div class="footerbar">
+		<a href="#">Data Protection</a> <a href="index.php?type=imprint">Imprint</a>
+	</div>
+	<div class="error"></div>
+</body>
+</html>

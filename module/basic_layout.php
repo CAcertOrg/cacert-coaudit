@@ -1,16 +1,16 @@
 <?php
-
 function titlebar(){
     $coauditsystem = _('Co-Audit system');
     $tabstrings = <<<foohtmlheader
     <header class="mainHeader">
-    <img class="logo" src="res/img/CAcert-logo-colour-210tr.png"/>
+    <div class="titlecontainer">
     <h1>$coauditsystem</h1>
+	<img class="logo" alt="CAcert Logo" src="res/img/CAcert-logo-colour-210tr.png"/>
+    	</div>
 foohtmlheader;
-
+    
     return $tabstrings;
 }
-
 function footer(){
     $tabstrings = <<<foohtmlfooter
         <div class="footerbar">
@@ -18,10 +18,9 @@ function footer(){
             <a href="index.php?type=imprint">Imprint</a>
         </div>
 foohtmlfooter;
-
+    
     return $tabstrings;
 }
-
 function menu(){
     $statistics = _('Statistics');
     $overview = _('Overview');
@@ -37,9 +36,9 @@ function menu(){
     $adminkpi = _('List KPIs');
     $login = _('Login');
     $logout = _('Logout');
-    $username = array_key_exists('name', $_SESSION['user']) ? ' [' . tidystring( $_SESSION['user']['name']) . ']': '';
-    //$Admin
-
+    $username = array_key_exists('name', $_SESSION ['user']) ? ' [' . tidystring($_SESSION ['user'] ['name']) . ']' : '';
+    // $Admin
+    
     $tabstrings1 = <<<foohtmlnav1
 		<nav>
 		<!--div class="menubar"-->
@@ -81,43 +80,36 @@ foohtmlnav5;
 		    </ul>
 			<!--/div-->
 		</nav>
+		</header>
 foohtmlnav6;
-
-
-
-if ($_SESSION['user']['read_permission'] == 1) {
-    $tabstrings2 = '';
-    $tabstrings3 = '';
-    $tabstrings5 = '';
-} else {
-    if (get_read_permission('adminmenue') == 0){
+    
+    if ($_SESSION ['user'] ['read_permission'] == 1) {
+        $tabstrings2 = '';
         $tabstrings3 = '';
+        $tabstrings5 = '';
+    } else {
+        if (get_read_permission('adminmenue') == 0) {
+            $tabstrings3 = '';
+        }
+        $tabstrings4 = '';
     }
-    $tabstrings4 = '';
+    
+    return $tabstrings1 . $tabstrings2 . $tabstrings3 . $tabstrings4 . $tabstrings5 . $tabstrings6;
 }
-
-
-
-
-    return $tabstrings1 . $tabstrings2 . $tabstrings3 . $tabstrings4 . $tabstrings5 . $tabstrings6 ;
-}
-
 function headerstart($title){
     $tabstrings = '<!DOCTYPE html>';
     $tabstrings .= '<html lang="en">';
     $tabstrings .= '<head>';
-    $tabstrings .= '<title>' . _('CAcert Coaudit'). $title . '</title>';
+    $tabstrings .= '<title>' . _('CAcert Coaudit') . $title . '</title>';
     $tabstrings .= '<link rel="stylesheet" href="res/css/template.css" type="text/css" />';
-    $tabstrings .= '<meta name=content="width=device=width, initial-scale=1.0"/>';
+    $tabstrings .= '<meta name="viewport" content="width=device-width, initial-scale=1.0"/>';
     $tabstrings .= '</head>';
     $tabstrings .= '<body class="body">';
     return $tabstrings;
 }
-
 function footerend(){
     $tabstrings = '</body>';
     $tabstrings .= '</html>';
     return $tabstrings;
-
 }
 ?>
