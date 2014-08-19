@@ -145,9 +145,8 @@ nav ul li ul li a:hover {
 	color: #11568C;
 }
 
-.content h1:first-of-type {
-	padding-top: 132px;
-	margin: 0;
+.content {
+	padding-top: 100px;
 }
 
 .logo {
