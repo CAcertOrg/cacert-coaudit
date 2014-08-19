@@ -81,11 +81,11 @@ switch ($type) {
 
 echo headerstart($title);
 
+echo footer();
+
 echo titlebar();
 
 echo menu();
-
-echo footer();
 
 if (array_key_exists('error', $_SESSION)) {
     echo '<div class="error">' . $_SESSION['error'] . '</div>';
