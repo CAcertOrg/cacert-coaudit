@@ -4,10 +4,8 @@ function titlebar(){
     $coauditsystem = _('Co-Audit system');
     $tabstrings = <<<foohtmlheader
     <header class="mainHeader">
-    <div class="headerbar">
-    <img class="logo" src="res/img/CAcert-logo-colour-210.png"/>
+    <img class="logo" src="res/img/CAcert-logo-colour-210tr.png"/>
     <h1>$coauditsystem</h1>
-    </div>
 foohtmlheader;
 
     return $tabstrings;
@@ -46,7 +44,7 @@ function menu(){
 		<nav>
 		<!--div class="menubar"-->
 		    <ul>
-			<li class="cat1">
+			<li>
 				<a href="#">$statistics</a>
 			    <ul>
 				<li><a href="index.php?type=statistic">$overview</a></li>
@@ -54,7 +52,7 @@ function menu(){
 			</li>
 foohtmlnav1;
     $tabstrings2 = <<<foohtmlnav2
-			<li class="cat2"><a href="#">$coauditors</a>
+			<li><a href="#">$coauditors</a>
 			    <ul>
 				<li><a href="index.php?type=result">$newEntry</a></li>
 				<li><a href="index.php?type=resultlist&cid=true">$ownEntry</a></li>
@@ -62,7 +60,7 @@ foohtmlnav1;
 			</li>
 foohtmlnav2;
     $tabstrings3 = <<<foohtmlnav3
-			<li class="cat3"><a href="#"><span>$admin</span></a>
+			<li><a href="#"><span>$admin</span></a>
 			    <ul class="sub-menu">
 				<li><a href="index.php?type=userlist">$adminuser</a></li>
 				<li><a href="index.php?type=sessionlist">$adminsession</a></li>
@@ -74,10 +72,10 @@ foohtmlnav2;
 			</li>
 foohtmlnav3;
     $tabstrings4 = <<<foohtmlnav4
-			<li class="cat4"><a href="index.php?login=login">$login</a></li>
+			<li><a href="index.php?login=login">$login</a></li>
 foohtmlnav4;
     $tabstrings5 = <<<foohtmlnav5
-			<li class="cat5"><a href="index.php?login=logout">$logout $username</a></li>
+			<li><a href="index.php?login=logout">$logout $username</a></li>
 foohtmlnav5;
     $tabstrings6 = <<<foohtmlnav6
 		    </ul>
