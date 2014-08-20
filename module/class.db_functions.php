@@ -13,6 +13,9 @@ class db_function{
         $this -> db = New PDO("mysql:host=$dbhost;dbname=$dbdatabase", "$dbuser", "$dbpw");
     }
 
+    public function tidystring($input){
+       return $this -> db -> quote($input);
+    }
 // user handling
     /**
      * db_function::get_userid_from_mail()

@@ -10,7 +10,9 @@ include_once('../module/class.db_functions.php');
  */
 function tidystring($input){
     if ($input != "") {
-        return trim(mysql_real_escape_string(stripslashes($input)));
+        $input = trim(stripslashes($input));
+        $db = new db_function();
+        return $db -> tidystring($input);
     } else {
         return '';
     }
