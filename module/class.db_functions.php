@@ -573,6 +573,75 @@ class db_function{
         write_log('user', $rid, "updated result");
     }
 
+    // kpi handling
+
+    /**
+     * db_function::get_all_kpi()
+     * returns all kpi
+     * @param string $where
+     * @return
+     */
+    function get_all_kpi($where = ''){
+        if ($where == '') {
+            $where = ' and 1=1 ';
+        }else{
+            $where = ' and '.$where.' ';
+        }
+        $query = "SELECT `c`.`coaudit_refdata_id` , `c`.`session_year` , `c`.`assurances` , `c`.`target` , `s`.`session_id`, `s`.`session_name`
+            FROM `coaudit_refdata` AS `c` , `coauditsession` AS `s`
+            WHERE `c`.`coaudit_session_id` = `s`.`session_id` $where
+            ORDER BY `s`.`session_id`,`c`.`session_year`";
+        $res = $this -> db -> query($query);
+        if($where == ' and 1=1 '){
+            return $res->fetchAll();
+        } else {
+            return $res->fetch();
+        }
+    }
+
+
+    /**
+     * db_function::insert_kpi()
+     * adds kpi information
+     * @param mixed $session_id
+     * @param mixed $session_year
+     * @param mixed $assurances
+     * @param mixed $target
+     * @return
+     */
+    public function insert_kpi($session_id, $session_year, $assurances, $target){
+        $query = "Insert into `coaudit_refdata` (`coaudit_session_id`, `session_year`, `assurances`, `target`)
+            VALUES ('$session_id', '$session_year', '$assurances', '$target')";
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
+        $nid = $this -> db -> lastInsertId();
+        //write log
+        write_log('admin', $nid, "added kpi");
+    }
+
+
+    /**
+     * db_function::update_kpi()
+     * update the kpi information
+     * @param mixed $session_id
+     * @param mixed $session_year
+     * @param mixed $assurances
+     * @param mixed $target
+     * @param mixed $kid
+     * @return
+     */
+    public function update_kpi($session_id, $session_year, $assurances, $target, $kid){
+
+        $query = "Update `coaudit_refdata` Set `coaudit_session_id` = '$session_id',
+            `session_year` = '$session_year',
+            `assurances` = '$assurances',
+            `target` = '$target'
+            WHERE  `coaudit_refdata_id` = $kid";
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
+        //write log
+        write_log('admin', $kid, "updated kpi");
+    }
 
 
 //statistics

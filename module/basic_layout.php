@@ -36,6 +36,7 @@ function menu(){
     $admintopic = _('List topics');
     $adminresult = _('List results');
     $adminview = _('List views');
+    $adminkpi = _('List KPIs');
     $login = _('Login');
     $logout = _('Logout');
     $username = array_key_exists('name', $_SESSION['user']) ? ' [' . tidystring( $_SESSION['user']['name']) . ']': '';
@@ -68,7 +69,8 @@ foohtmlnav2;
 				<li><a href="index.php?type=topiclist">$admintopic</a></li>
 				<li><a href="index.php?type=resultlist">$adminresult</a></li>
 				<li><a href="index.php?type=viewlist">$adminview</a></li>
-			    </ul>
+				<li><a href="index.php?type=kpilist">$adminkpi</a></li>
+				    </ul>
 			</li>
 foohtmlnav3;
     $tabstrings4 = <<<foohtmlnav4

@@ -371,5 +371,34 @@ function tablerow_viewlist_new(){
     return $tabstring;
 }
 
+// kpi managemnt
+function tablerow_kpilist_header(){
+    $tabstring = '<tr>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Session name') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Session year') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Assurances') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Target [%]') . '</td>' . "\n";
+    $tabstring .= '</tr>' . "\n";
+    return $tabstring;
+}
+
+function tablerow_kpilist($kpi){
+    $tabstring = '<tr>' . "\n";
+    $tabstring .=   '<td class="DataTD"><a href="../www/index.php?type=kpi&kid='.$kpi['coaudit_refdata_id'].'">'.$kpi['session_name'].'</a></td>' . "\n";
+    $tabstring .=   '<td class="DataTD">'.$kpi['session_year'].'</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">'.$kpi['assurances'].'</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">'.$kpi['target'].'</td>' . "\n";
+    $tabstring .= '</tr>' . "\n";
+    return $tabstring;
+}
+
+
+function tablerow_kpilist_new(){
+    $tabstring = '<tr>' . "\n";
+    $tabstring .=   '<td class="DataTD" colspan="4"><a href="../www/index.php?type=kpi&kid=0">New entry</a></td>' . "\n";
+    $tabstring .= '</tr>' . "\n";
+    return $tabstring;
+}
+
 
 ?>
