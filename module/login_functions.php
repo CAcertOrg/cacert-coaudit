@@ -70,7 +70,7 @@ $db = new db_function();
 
 
 function login(){
-
+$db = new db_function();
     if (check_cert() === false) {
         $_SESSION['error'] =_('It is not possilble to log you in. May be there is a problem with the certificate linked to your user account.');
         return false;
@@ -84,14 +84,14 @@ function login(){
         return false;
     }
 
-    $result = get_userdata($uid);
-    if (isset($result)) {
+    $result = $db -> get_userdata($uid);
+    if (!isset($result)) {
        $_SESSION['error'] =_('It is not possilble to log you in. May be there is a problem with your user account.');
         return false;
     }
 
     $_SESSION['user']['id'] = $uid;
-    $_SESSION['user']['name'] = $result['name'];
+    $_SESSION['user']['name'] = $result['coauditor_name'];
     $_SESSION['user']['email'] = $result['email'];
     $_SESSION['user']['read_permission'] = $result['read_permission'];
     $_SESSION['user']['write_permission'] = $result['write_permission'];
