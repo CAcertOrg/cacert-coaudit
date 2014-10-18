@@ -88,7 +88,7 @@ foohtmlnav6;
         $tabstrings3 = '';
         $tabstrings5 = '';
     } else {
-        if (get_read_permission('adminmenue') == 0) {
+        if (get_read_permission('adminmenue') == 1) {
             $tabstrings3 = '';
         }
         $tabstrings4 = '';
