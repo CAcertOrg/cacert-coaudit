@@ -40,19 +40,19 @@ function check_cert(){
     return true;
 }
 
-
 function get_valid_email_from_cert(){
-    $result = arr();
+
+    $result = array();
 
     $i = 0;
-    $test = 'SSL_CLIENT_S_AN';
-
-    while (isset($_SERVER[$test.$i])) {
-        if (strpos($_SERVER[$test.$i], '@cacert.org') > 0) {
-            $pos = strpos($_SERVER[$test.$i], ':');
-            $result[] = substr($_SERVER[$test.$i], $pos);
+    $test = 'SSL_CLIENT_S_DN_Email';
+    $testaddress = $test;
+    while (isset($_SERVER[ $testaddress ])) {
+        if (strpos($_SERVER[ $testaddress ], '@cacert.org') > 0) {
+            $result[] = $_SERVER[ $testaddress ];
         }
         $i += 1;
+        $testaddress  = $test . '_' . $i;
     }
     return $result;
 }
