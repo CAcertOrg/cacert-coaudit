@@ -25,11 +25,11 @@ class db_function{
      */
     public function get_userid_from_mail($email){
 
-        $query = "select `coauditor_id` from `coauditor` where  ` `email``='$email'";
+        $query = "select `coauditor_id` from `coauditor` where `email`='$email'";
         $res = $this -> db -> query($query);
         if($res){
             $result =  $res->fetch();
-            return $result[0]['coauditor_id'];
+            return $result['coauditor_id'];
         } else {
             return 0;
         }
