@@ -36,7 +36,7 @@ function menu(){
     $adminkpi = _('List KPIs');
     $login = _('Login');
     $logout = _('Logout');
-    $username = array_key_exists('name', $_SESSION ['user']) ? ' [' . tidystring($_SESSION ['user'] ['name']) . ']' : '';
+    $username = array_key_exists('name', $_SESSION ['user']) ? ' [ ' . $_SESSION ['user'] ['name'] . ' ]' : '';
     // $Admin
     
     $tabstrings1 = <<<foohtmlnav1
