@@ -1,6 +1,6 @@
 <?php
 
-include_once('db_functions.php');
+include_once('class.db_functions.php');
 
 function check_cert(){
     $emails = array();
