@@ -15,7 +15,9 @@ if (isset( $_REQUEST['login'])) {
     }
     if ( $login == 'logout') {
         logout();
-    }}
+	header("location: https://" .  $_SERVER['HTTP_HOST'] . "/");
+    }
+}
 
 //test_data();
 
