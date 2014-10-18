@@ -34,7 +34,7 @@ echo start_div('content');
 //get data
 $questions = $db -> get_all_sessiontopics(' `st`.`coaudit_session_id` = ' . $coaudit_session_id . ' and `st`.`active` = 1');
 
-echo built_form_header('../www/index.php?type=result');
+echo built_form_header('../index.php?type=result');
 echo tableheader(_('Enter coaudit result'), 2);
 echo tablerow_2col_dropbox(_('Coaudit session'), $sessionres, $coaudit_session_id, 'session_id', 'session_name', 0);
 echo tablerow_2col_textbox(_('Assurer mail'), 'primaryemail', $primaryemail);

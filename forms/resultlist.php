@@ -58,7 +58,7 @@ $hidden[]=array('cid',$cid);
 echo start_div('content');
 
 // build filter form
-echo built_form_header('../www/index.php?type=resultlist');
+echo built_form_header('../index.php?type=resultlist');
 echo tableheader(_('Filter'), 2);
 echo tablerow_2col_dropbox(_('Coaudit session'), $sessionres, $session, 'session_id', 'session_name', 1);
 if ($cid == '') {

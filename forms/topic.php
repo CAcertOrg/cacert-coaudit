@@ -43,7 +43,7 @@ if ($readperm == 0) {
     exit;
 }
 
-echo built_form_header('../www/index.php?type=topic');
+echo built_form_header('../index.php?type=topic');
 echo tableheader(_('Topic'), 2);
 echo tablerow_2col_textbox(_('Topic'), 'topic', $session_topic);
 echo tablerow_2col_textbox(_('Explaination'), 'explain', $topic_explaination);

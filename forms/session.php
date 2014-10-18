@@ -43,7 +43,7 @@ if ($readperm == 0) {
     exit;
 }
 
-echo built_form_header('../www/index.php?type=session');
+echo built_form_header('../index.php?type=session');
 echo tableheader(_('Session'), 2);
 echo tablerow_2col_textbox(_('Session'), 'session_name', $session_name);
 echo tablerow_2col_textbox(_('From'), 'from', $from);

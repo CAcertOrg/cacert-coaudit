@@ -49,7 +49,7 @@ if ($readperm == 0) {
     exit;
 }
 
-echo built_form_header('../www/index.php?type=view');
+echo built_form_header('../index.php?type=view');
 echo tableheader(_('View'), 3);
 echo tablerow_3col_textbox_2col(_('Name of view'), 'view_name', $view_name);
 echo tablerow_topics_active($active);
