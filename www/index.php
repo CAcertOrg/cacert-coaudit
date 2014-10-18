@@ -6,7 +6,6 @@ include_once('../module/login_functions.php');
 include_once('../module/class.db_functions.php');
 
 $db = new db_function();
-dbstart();
 
 // login routine
 if (isset( $_REQUEST['login'])) {
