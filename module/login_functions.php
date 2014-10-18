@@ -20,8 +20,8 @@ function check_cert(){
 
     //cert issued by CAcert
     switch ($_SERVER['SSL_CLIENT_I_DN']) {
-        case 'O=Root CA,OU=http://www.cacert.org,CN=CA Cert Signing Authority,EMAIL=support@cacert.org':
-        case 'O=CAcert Inc.,OU=http://www.CAcert.org,CN=CAcert Class 3 Root':
+        case '/O=Root CA/OU=http://www.cacert.org/CN=CA Cert Signing Authority/emailAddress=support@cacert.org':
+        case '/O=CAcert Inc./OU=http://www.CAcert.org/CN=CAcert Class 3 Root':
             ;
             break;
         default:
