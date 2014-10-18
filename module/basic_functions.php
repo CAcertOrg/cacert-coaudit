@@ -119,7 +119,7 @@ function test_data(){
 function write_log($file, $id, $content){
     $filename ="../log/" . $file . "_" .  date('Y_m') . ".log";
     $f = fopen($filename, 'a');
-    $output = date('Y_m_d_H_i_s') . ', ' . $_SESSION['user']['id'] . ', $id, ' . $content . '\r\n';
+    $output = date('Y_m_d_H_i_s') . ', ' . $_SESSION['user']['id'] . ', ' . $id . ' ,' . $content . "\r\n";
     fwrite($f, $output);
     fclose($f);
 }

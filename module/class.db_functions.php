@@ -421,7 +421,7 @@ class db_function{
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         //write log
-        write_log('admin', $nid, "updated view '$view_name'");
+        write_log('admin', $vid, "updated view '$view_name'");
     }
 
     /**
