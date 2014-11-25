@@ -401,4 +401,19 @@ function tablerow_kpilist_new(){
 }
 
 
+//debug output
+/**
+ * output_debug_box()
+ * retruns the debug information if present
+ * @param mixed $message
+ * @return
+ */
+function output_debug_box($message){
+    $message = trim($message);
+    if (isset($message)) {
+        echo '<div class="debug_box">';
+        echo $message;
+        echo '</div>';
+   }
+}
 ?>
