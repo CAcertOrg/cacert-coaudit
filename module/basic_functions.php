@@ -77,14 +77,18 @@ function get_write_permission( $view){
 
 /**
  * validdate()
- * checks if the string a date in the format yyyy-mm-dd
+ * checks if the string a date in the format yyyy-mm-dd or empty
  * @param mixed $datestring
  * @return
  */
 function validdate($datestring){
+    $datestring = str_replace("'", "", $datestring);
+    if ( $datestring == '0000-00-00'  || $datestring == '') {
+        return true;
+    }
     $test_arr  = explode('-', $datestring);
-    if (count($test_arr) == 3) {
-        if (checkdate($test_arr[1], $test_arr[2], $test_arr[0])) {
+    if ((count($test_arr) == 3) && (is_numeric($test_arr[0]) && is_numeric($test_arr[1]) && is_numeric($test_arr[2]))) {
+        if (checkdate(intval($test_arr[1]), intval($test_arr[2]), intval($test_arr[0]))) {
             return true;
         } else {
             return false;
