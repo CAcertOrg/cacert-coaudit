@@ -114,10 +114,10 @@ if ($type == 'user') {
         for ($i = 0; $i <= $userroles; $i++){
             $readtest = array_key_exists('read'.$i,$_REQUEST) ? tidystring($_REQUEST['read'.$i]) : '';
             $writetest = array_key_exists('write'.$i,$_REQUEST) ? tidystring($_REQUEST['write'.$i]) : '';
-            if ($readtest == 'on') {
+            if ($readtest == "'on'") {
                 $read +=  pow(2, $i);
             }
-            if ($writetest == 'on') {
+            if ($writetest == "'on'") {
                 $write +=  pow(2, $i);
             }
         }
@@ -163,7 +163,7 @@ if ($type == 'topic') {
         $session_topic = array_key_exists('topic',$_REQUEST) ? tidystring($_REQUEST['topic']) : '';
         $topic_explaination = array_key_exists('explain',$_REQUEST) ? tidystring($_REQUEST['explain']) : '';
         $activetest = array_key_exists('active',$_REQUEST) ? tidystring($_REQUEST['active']) : '';
-        if ($activetest == 'on') {
+        if ($activetest == "'on'") {
             $active = 1;
         } else {
             $active = 0;
@@ -200,7 +200,7 @@ if ($type == 'session') {
         $from = array_key_exists('from',$_REQUEST) ? tidystring($_REQUEST['from']) : '';
         $to = array_key_exists('to',$_REQUEST) ? tidystring($_REQUEST['to']) : '';
         $activetest = array_key_exists('active',$_REQUEST) ? tidystring($_REQUEST['active']) : '';
-        if ($activetest == 'on') {
+        if ($activetest == "'on'") {
             $active = 1;
         } else {
             $active = 0;
@@ -237,7 +237,7 @@ if ($type == 'sessiontopic') {
         $coaudit_session_id = array_key_exists('session_id',$_REQUEST) ? intval($_REQUEST['session_id']) : '';
         $topic_no = array_key_exists('topic_no',$_REQUEST) ? intval($_REQUEST['topic_no']) : '';
         $activetest = array_key_exists('active',$_REQUEST) ? tidystring($_REQUEST['active']) : '';
-        if ($activetest == 'on') {
+        if ($activetest == "'on'") {
             $active = 1;
         } else {
             $active = 0;
@@ -275,16 +275,16 @@ if ($type == 'view') {
         for ($i = 0; $i <= $userroles; $i++){
             $readtest = array_key_exists('read'.$i,$_REQUEST) ? tidystring($_REQUEST['read'.$i]) : '';
             $writetest = array_key_exists('write'.$i,$_REQUEST) ? tidystring($_REQUEST['write'.$i]) : '';
-            if ($readtest == 'on') {
+            if ($readtest == "'on'") {
                 $read +=  pow(2, $i);
             }
-            if ($writetest == 'on') {
+            if ($writetest == "'on'") {
                 $write +=  pow(2, $i);
             }
         }
 
         $activetest = array_key_exists('active',$_REQUEST) ? tidystring($_REQUEST['active']) : '';
-        if ($activetest == 'on') {
+        if ($activetest == "'on'") {
             $active = 1;
         } else {
             $active = 0;
@@ -319,7 +319,7 @@ if ($type == 'result') {
         $coaudit_session_id = array_key_exists('session_id',$_REQUEST) ? intval($_REQUEST['session_id']) : '';
         $primaryemail = array_key_exists('primaryemail',$_REQUEST) ? tidystring($_REQUEST['primaryemail']) : '';
         $isassurer = array_key_exists('assurer',$_REQUEST) ? tidystring($_REQUEST['assurer']) : '';
-        if ($isassurer == 'on') {
+        if ($isassurer == "'on'") {
             $isassurer = 1;
         } else {
             $isassurer = 0;
@@ -360,7 +360,7 @@ if ($type == 'result') {
         while (isset($_REQUEST['qid' . $i])) {
             $tid = array_key_exists('qid' . $i, $_REQUEST) ? tidystring($_REQUEST['qid' . $i]): '';
             $chktest = array_key_exists('r' . $i,$_REQUEST) ? tidystring($_REQUEST['r' . $i]) : '';
-            if ($chktest == 'on') {
+            if ($chktest == "'on'") {
                 $r = 1;
             } else {
                 $r = 0;
