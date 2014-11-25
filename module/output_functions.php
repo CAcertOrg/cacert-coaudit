@@ -413,7 +413,7 @@ function tablerow_kpilist_new(){
  */
 function output_debug_box($message){
     $message = trim($message);
-    if (isset($message)) {
+    if ($message != '') {
         echo '<div class="debug_box">';
         echo $message;
         echo '</div>';
