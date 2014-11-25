@@ -392,12 +392,12 @@ class db_function{
      */
     public function insert_view($view_name, $read_permission, $write_permission){
         $query = "Insert into `view_rights` (`view_name`, `read_permission`, `write_permission`, `active`)
-            VALUES ('$view_name', '$read_permission', '$write_permission', 1)";
+            VALUES ($view_name, '$read_permission', '$write_permission', 1)";
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         $nid = $this -> db -> lastInsertId();
         //write log
-        write_log('admin', $nid, "added view '$view_name'");
+        write_log('admin', $nid, "added view $view_name");
 
     }
 
@@ -413,7 +413,7 @@ class db_function{
      */
     public function update_view($view_name, $read_permission, $write_permission, $active, $vid){
 
-        $query = "Update `view_rights` Set `view_name` = '$view_name',
+        $query = "Update `view_rights` Set `view_name` = $view_name,
             `read_permission` = '$read_permission',
             `write_permission` = '$write_permission',
             `active` = '$active'
@@ -421,7 +421,7 @@ class db_function{
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         //write log
-        write_log('admin', $vid, "updated view '$view_name'");
+        write_log('admin', $vid, "updated view $view_name");
     }
 
     /**
