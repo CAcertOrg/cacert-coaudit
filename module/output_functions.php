@@ -49,7 +49,10 @@ function builddropdown($result, $value, $valuecol, $displaycol, $all=0){
 
 
 function error($output){
-    $tabstring = _('Error: ') . $output;
+    $tabstring = '<div class="error_box">';
+    $tabstring .= _('Error: ') . $output;
+    $tabstring .= '</div>';
+    output_debug_box($_SESSION ['debug']);
     return $tabstring;
 }
 
