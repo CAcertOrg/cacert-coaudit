@@ -8,7 +8,7 @@ function titlebar(){
 	<img class="logo" alt="CAcert Logo" src="res/img/CAcert-logo-colour-210tr.png"/>
     	</div>
 foohtmlheader;
-    
+
     return $tabstrings;
 }
 function footer(){
@@ -18,7 +18,7 @@ function footer(){
             <a href="index.php?type=imprint">Imprint</a>
         </div>
 foohtmlfooter;
-    
+
     return $tabstrings;
 }
 function menu(){
@@ -38,7 +38,7 @@ function menu(){
     $logout = _('Logout');
     $username = array_key_exists('name', $_SESSION ['user']) ? ' [ ' . $_SESSION ['user'] ['name'] . ' ]' : '';
     // $Admin
-    
+
     $tabstrings1 = <<<foohtmlnav1
 		<nav>
 		<!--div class="menubar"-->
@@ -82,18 +82,18 @@ foohtmlnav5;
 		</nav>
 		</header>
 foohtmlnav6;
-    
+
     if ($_SESSION ['user'] ['read_permission'] == 1) {
         $tabstrings2 = '';
         $tabstrings3 = '';
         $tabstrings5 = '';
     } else {
-        if (get_read_permission('adminmenue') == 1) {
+        if (get_read_permission('adminmenue') < 1) {
             $tabstrings3 = '';
         }
         $tabstrings4 = '';
     }
-    
+
     return $tabstrings1 . $tabstrings2 . $tabstrings3 . $tabstrings4 . $tabstrings5 . $tabstrings6;
 }
 function headerstart($title){
