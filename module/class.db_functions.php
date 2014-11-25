@@ -103,7 +103,7 @@ class db_function{
         $query = "Insert into `coauditor` (`coauditor_name`, `email`,
             `read_permission`, `write_permission`,
             `created_by`, `last_change`, `last_change_by`)
-            VALUES ('$username', '$email',
+            VALUES ($username, $email,
             '$readpermission', '$writepermission',
             $uid, Now(), $uid)";
         $smt = $this -> db -> prepare($query);
@@ -127,8 +127,8 @@ class db_function{
      */
     public function update_user($username, $email, $readpermission, $writepermission, $uid, $cid){
 
-        $query = "Update `coauditor` Set `coauditor_name` = '$username',
-            `email` = '$email',
+        $query = "Update `coauditor` Set `coauditor_name` = $username,
+            `email` = $email,
             `read_permission` = '$readpermission',
             `write_permission` = '$writepermission',
             `last_change` = Now(),
