@@ -248,12 +248,12 @@ class db_function{
      */
     public function insert_session($session_name, $from, $to){
         $query = "Insert into `coauditsession` (`session_name`, `from`, `to`, `active`)
-            VALUES ('$session_name', '$from', '$to', 1)";
+            VALUES ($session_name, $from, $to, 1)";
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         $nid = $this -> db -> lastInsertId();
         //write log
-        write_log('admin', $nid, "added session '$session_name'");
+        write_log('admin', $nid, "added session $session_name");
     }
 
     /**
@@ -268,15 +268,16 @@ class db_function{
      */
     public function update_session($session_name, $from, $to, $active, $sid){
 
-        $query = "Update `coauditsession` Set `session_name` = '$session_name',
-            `from` = '$from',
-            `to` = '$to',
-            `active` = '$active'
+        $query = "Update `coauditsession` Set `session_name` = $session_name,
+            `from` = $from,
+            `to` = $to,
+            `active` = $active
             WHERE  `session_id` = $sid";
+$_SESSION ['debug'] .= $query . '</br>';
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         //write log
-        write_log('admin', $sid, "updated session '$session_name'");
+        write_log('admin', $sid, "updated session $session_name");
     }
 
     // session topic handling
