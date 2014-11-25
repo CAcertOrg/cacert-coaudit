@@ -3,9 +3,12 @@ session_start();
 include_once('../module/basic_layout.php');
 include_once('../module/basic_functions.php');
 include_once('../module/login_functions.php');
+include_once('../module/output_functions.php');
 include_once('../module/class.db_functions.php');
 
 $db = new db_function();
+
+$_SESSION ['debug'] = '';
 
 // login routine
 if (isset( $_REQUEST['login'])) {
@@ -437,6 +440,9 @@ if ($type == 'kpi') {
         include('../forms/kpi.php');
     }
 }
+
+
+output_debug_box($_SESSION ['debug']);
 
 echo footerend();
 
