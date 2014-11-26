@@ -272,6 +272,19 @@ function tablerow_topics_active($active){
     return $tabstring;
 
 }
+function tablerow_topics_checkbox($checkboxname, $checkboxlabel, $value){
+    if ($value == 1) {
+        $checked = 'checked';
+    }else{
+        $checked = '';
+    }
+    $tabstring = '</tr>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . $checkboxlabel . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD"><input type="checkbox" name="'. $checkboxname . '" '.$checked.'/></td>' . "\n";
+    $tabstring .= '</tr>' . "\n";
+    return $tabstring;
+
+}
 
 // session
 function tablerow_sessionslist_header(){
@@ -279,6 +292,7 @@ function tablerow_sessionslist_header(){
     $tabstring .=   '<td class="DataTD">' . _('Session') . '</td>' . "\n";
     $tabstring .=   '<td class="DataTD">' . _('From') . '</td>' . "\n";
     $tabstring .=   '<td class="DataTD">' . _('To') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Default') . '</td>' . "\n";
     $tabstring .=   '<td class="DataTD">' . _('Active') . '</td>' . "\n";
     $tabstring .=   '<td class="DataTD">' . _('Define Topics') . '</td>' . "\n";
     $tabstring .= '</tr>' . "\n";
@@ -290,6 +304,7 @@ function tablerow_sessionslist($session){
     $tabstring .=   '<td class="DataTD"><a href="../index.php?type=session&sid='.$session['session_id'].'">'.$session['session_name'].'</a></td>' . "\n";
     $tabstring .=   '<td class="DataTD">'.$session['from'].'</td>' . "\n";
     $tabstring .=   '<td class="DataTD">'.$session['to'].'</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">'.$session['default'].'</td>' . "\n";
     $tabstring .=   '<td class="DataTD">'.$session['active'].'</td>' . "\n";
     $tabstring .=   '<td class="DataTD"><a href="../index.php?type=sessiontopiclist&sid='.$session['session_id'].'">Topics</a></td>' . "\n";
     $tabstring .= '</tr>' . "\n";
@@ -299,7 +314,7 @@ function tablerow_sessionslist($session){
 
 function tablerow_sessionslist_new(){
     $tabstring = '<tr>' . "\n";
-    $tabstring .=   '<td class="DataTD" colspan="5"><a href="../index.php?type=session&sid=0">New entry</a></td>' . "\n";
+    $tabstring .=   '<td class="DataTD" colspan="6"><a href="../index.php?type=session&sid=0">New entry</a></td>' . "\n";
     $tabstring .= '</tr>' . "\n";
     return $tabstring;
 }
@@ -310,6 +325,7 @@ function tablerow_sessiontopiclist_header(){
     $tabstring .=   '<td class="DataTD">' . _('Session') . '</td>' . "\n";
     $tabstring .=   '<td class="DataTD">' . _('Topic No') . '</td>' . "\n";
     $tabstring .=   '<td class="DataTD">' . _('Topic') . '</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . _('Default') . '</td>' . "\n";
     $tabstring .=   '<td class="DataTD">' . _('Active') . '</td>' . "\n";
     $tabstring .= '</tr>' . "\n";
     return $tabstring;
