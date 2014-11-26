@@ -5,8 +5,8 @@ include_once('../module/class.db_functions.php');
 
 $db = new db_function();
 //Check access to page
-$readperm = get_read_permission('topic');
-$writeperm = get_write_permission('topic');
+$readperm = get_read_permission('kpi');
+$writeperm = get_write_permission('kpi');
 
 if (isset($_REQUEST['kid'])) {
     $kid = intval($_REQUEST['kid']);
