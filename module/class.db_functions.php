@@ -227,9 +227,9 @@ class db_function{
         if ($where == '') {
             $where = ' Where 1=1 ';
         }else{
-            $where = ' Where session_id='.$where.' ';
+            $where = ' Where session_id=' . $where . ' ';
         }
-        $query = "select `session_id`, `session_name`, `from`, `to`, `active` from `coauditsession` " . $where . "ORDER BY `session_name`";
+        $query = "select `session_id`, `session_name`, `from`, `to`, `default`, `active` from `coauditsession` " . $where . "ORDER BY `session_name`";
         $res = $this -> db -> query($query);
         if($where == ' Where 1=1 '){
             return $res->fetchAll();
@@ -246,8 +246,8 @@ class db_function{
      * @param mixed $to             date showing the end date for the session
      * @return
      */
-    public function insert_session($session_name, $from, $to){
-        $query = "Insert into `coauditsession` (`session_name`, `from`, `to`, `active`)
+    public function insert_session($session_name, $from, $to, $default){
+        $query = "Insert into `coauditsession` (`session_name`, `from`, `to`, `default`, `active`)
             VALUES ($session_name, $from, $to, 1)";
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
@@ -266,11 +266,12 @@ class db_function{
      * @param mixed $sid            id of the session
      * @return
      */
-    public function update_session($session_name, $from, $to, $active, $sid){
+    public function update_session($session_name, $from, $to, $default, $active, $sid){
 
         $query = "Update `coauditsession` Set `session_name` = $session_name,
             `from` = $from,
             `to` = $to,
+            `default` = $default;
             `active` = $active
             WHERE  `session_id` = $sid";
 $_SESSION ['debug'] .= $query . '</br>';
