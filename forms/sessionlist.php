@@ -20,12 +20,12 @@ if ($readperm == 0) {
     exit;
 }
 
-echo tableheader(_('Session list'), 5);
+echo tableheader(_('Session list'), 6);
 echo tablerow_sessionslist_header();
 
 
 if (count($sessions) <= 0 ) {
-    echo tablerow_no_entry(5);
+    echo tablerow_no_entry(6);
 } else {
     foreach($sessions as $session){
         echo tablerow_sessionslist($session);
