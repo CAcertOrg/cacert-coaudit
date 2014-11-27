@@ -7,10 +7,14 @@ $db = new db_function();
 //Check access to page
 $readperm = get_read_permission('sessiontopiclist');
 $writeperm = get_write_permission('sessiontopiclist');
-
-
+$sid = 0;
+if (isset( $_REQUEST['sid'])) {
+    $sid = $_REQUEST['sid'];
+}else{
+    echo error(_('You do not have the right to read this page.'));
+    exit;}
 //get data
-$sessiontopics = $db -> get_all_sessiontopics();
+$sessiontopics = $db -> get_all_sessiontopics(' `s`.`session_id` = ' . $sid);
 
 
 echo start_div('content');
