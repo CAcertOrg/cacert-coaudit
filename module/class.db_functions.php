@@ -166,7 +166,7 @@ class db_function{
         if ($where == '') {
             $where = ' Where 1=1 ';
         }else{
-            $where = ' Where session_topic_id='.$where.' ';
+            $where = ' Where session_topic_id=' . $where . ' ';
         }
         $query = "select `session_topic_id`, `session_topic`, `topic_explaination`, `activ` from `session_topic` " . $where . "ORDER BY `session_topic`";
         $res = $this -> db -> query($query);
@@ -187,12 +187,12 @@ class db_function{
      */
     public function insert_topic($topic, $explain){
         $query = "Insert into `session_topic` (`session_topic`, `topic_explaination`, `activ`)
-            VALUES ('$topic', '$explain', 1)";
+            VALUES ($topic, $explain, 1)";
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         $nid = $this -> db -> lastInsertId();
         //write log
-        write_log('admin', $nid, "added topic '$topic'");
+        write_log('admin', $nid, "added topic $topic");
     }
 
     /**
@@ -206,14 +206,14 @@ class db_function{
      */
     public function update_topic($topic, $explain, $active, $tid){
 
-        $query = "Update `session_topic` Set `session_topic` = '$topic',
-            `topic_explaination` = '$explain',
-            `activ` = '$active'
+        $query = "Update `session_topic` Set `session_topic` = $topic,
+            `topic_explaination` = $explain,
+            `activ` = $active
             WHERE  `session_topic_id` = $tid";
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         //write log
-        write_log('admin', $tid, "update topic '$topic'");
+        write_log('admin', $tid, "update topic $topic");
     }
 
 // session handling
