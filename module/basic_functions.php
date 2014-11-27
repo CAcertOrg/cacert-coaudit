@@ -68,7 +68,7 @@ function get_write_permission( $view){
         return 0;
     }
     $writeview = $view_perm['write_permission'];
-    if ((intval($_SESSION['user']['read_permission']) & intval($writeview))>0) {
+    if ((intval($_SESSION['user']['write_permission']) & intval($writeview))>0) {
         return 1;
     } else {
         return 0;
