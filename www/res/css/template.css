@@ -196,3 +196,10 @@ nav ul li ul li a:hover {
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
+.back_enabled{
+    color: #000
+}
+
+.back_disabled, .back_disabled:hover{
+    color: #ccc
+}
