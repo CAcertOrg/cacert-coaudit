@@ -79,19 +79,25 @@ foreach($res as $row){
             $sessionold = $session;
         }
         $start = 0;
+        $linkadress = '../index.php?type=result&sid=' .  $row['SessionID'] .'&rid=';
     }
+
+        $editcell = tablecell( '<a href="' .$linkadress . $row['uid'] .'">' . _('View') .' ' . $row['uid'] . '</a>');
 
     if ($start == 0 && $col == 0) {
         $rowheader1 = tablecell(_(''));
         $rowheader1 .= tablecell(_(''));
         $rowheader1 .= tablecell(_(''));
+        $rowheader1 .= tablecell(_(''));
         $rowheader2 = tablecell(_('Year'));
         $rowheader2 .= tablecell(_('Assurer'));
         $rowheader2 .= tablecell(_('Co-Auditor'));
+        $rowheader2 .= tablecell(_('View'));
 
         $datarow = tablecell($row['CYear']);
         $datarow .= tablecell($row['Assurer']);
         $datarow .= tablecell($row['Coauditor']);
+        $datarow .= $editcell;
         $col = 3;
     }
     if ($assurer != $row['Assurer'] ) {
@@ -107,6 +113,7 @@ foreach($res as $row){
         $datarow = tablecell($row['CYear']);
         $datarow .= tablecell($row['Assurer']);
         $datarow .= tablecell($row['Coauditor']);
+        $datarow .= $editcell;
         $col = 3;
     }
 
