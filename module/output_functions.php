@@ -121,6 +121,13 @@ function tablerow_2col_dropbox($label, $result, $value, $valuecol, $displaycol, 
     return $tabstring;
 }
 
+function tablerow_2col_dropbox_apply($label, $result, $value, $valuecol, $displaycol, $buttonname, $buttonlabel, $all=0){
+    $tabstring = '<tr>' . "\n";
+    $tabstring .=   '<td class="DataTD">'.$label.'</td>' . "\n";
+    $tabstring .=   '<td class="DataTD">' . builddropdown($result, $value, $valuecol, $displaycol, $all) . '<input type="submit" name="' . $buttonname . '" value="' . $buttonlabel . '"> </td>' . "\n";
+    $tabstring .= '</tr>' . "\n";
+    return $tabstring;
+}
 function tablerow_user_rights($roles, $read, $write){
     $tabstring = '<tr>' . "\n";
     $tabstring .=   '<td class="DataTD"></td>' . "\n";
