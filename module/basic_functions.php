@@ -75,6 +75,25 @@ function get_write_permission( $view){
     }
 }
 
+
+/**
+ * check_role_access()
+ *  returns true if the role is asigned to a permission value
+ * @param mixed $role           the role, case senstive
+ * @param mixed $permission     permission value
+ * @return
+ */
+function check_role_access($role, $permission){
+    $roles = define_roles();
+    $value = array_search($role, $roles);
+    $value = pow(2,$value);
+    if ((intval($permission) & intval($value))>0) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 /**
  * validdate()
  * checks if the string a date in the format yyyy-mm-dd or empty
@@ -97,6 +116,8 @@ function validdate($datestring){
         return false;
     }
 }
+
+
 
 /**
  * test_data()
