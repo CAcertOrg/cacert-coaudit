@@ -176,22 +176,25 @@ function tablerow_2col_checkbox($label, $name, $value){
 
 function tablefooter_user($cols, $uid, $write=0){
     if ($uid == 0 ) {
-        $label = 'New entry';
+        $label = _('New entry');
         $name = 'new';
     }else{
-        $label = 'Save entry';
+        $label = _('Save entry');
         $name = 'edit';
+    }
+    if ($write == 2) {
+        $label = _('Delete entry');
+        $name = 'delete';
     }
     if ($write !=0) {
         $tabstring = '<tr>' . "\n";
-        $tabstring .=    '<td class="DataTD" colspan="'.$cols.'"><input type="submit" name="'.$name.'" value="'.$label.'"</td>' . "\n";
+        $tabstring .= '<td class="DataTD" colspan="'.$cols.'"><input type="submit" name="'.$name.'" value="'.$label.'"></td>' . "\n";
         $tabstring .= '</tr>' . "\n";
         $tabstring .= '</table>' . "\n";
-        return $tabstring;
     } else {
-        return '';
+        $tabstring = '</table>' . "\n";
     }
-
+    return $tabstring;
 }
 
 function tablerow_userlist_header(){
