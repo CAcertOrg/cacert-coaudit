@@ -22,6 +22,7 @@ foohtmlfooter;
     return $tabstrings;
 }
 function menu(){
+    $back = _('back');
     $statistics = _('Statistics');
     $overview = _('Overview');
     $coauditors = _('Co-Auditors');
@@ -39,10 +40,22 @@ function menu(){
     $username = array_key_exists('name', $_SESSION ['user']) ? ' [ ' . $_SESSION ['user'] ['name'] . ' ]' : '';
     // $Admin
 
+    if ( strpos($_SERVER['HTTP_REFERER'], 'list') >0 ) {
+        $url = explode('?', $_SERVER['HTTP_REFERER']);
+        $backurl = $url[1];
+        $backclass = 'back_enabled';
+    } else {
+        $backurl = "#";
+        $backclass = 'back_disabled';
+
+    }
     $tabstrings1 = <<<foohtmlnav1
 		<nav>
 		<!--div class="menubar"-->
-		    <ul>
+		    <ul >
+			<li id="back" class="$backclass">
+				<a href="$backurl" class="$backclass">$back</a>
+			</li>
 			<li>
 				<a href="#">$statistics</a>
 			    <ul>
