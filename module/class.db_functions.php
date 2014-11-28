@@ -498,6 +498,22 @@ $_SESSION ['debug'] .= $query . '</br>';
     }
 
     /**
+     * db_function::get_result_user()
+     *  returns the data for a cacert user
+     * @param mixed $uid
+     * @return
+     */
+    public function get_result_user($uid){
+        $query = "SELECT `primaryemail` , `assurer` , `expierencepoints`, `country`, `location`, `coauditdate`
+                    FROM `cacertuser`
+                    WHERE `cacertuser_id` = '$uid'";
+        $res = $this -> db -> query($query);
+
+        $result = $res->fetch();
+        return $result;
+   }
+
+    /**
      * db_function::get_results()
      * returns tke results
      * @param integer $session      if given filter on the session
