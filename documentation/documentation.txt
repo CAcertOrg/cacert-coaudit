@@ -1,0 +1,15 @@
+Used session variables
+$_SESSION[debug]        stores debug information for output
+
+$_SESSION[user]
+    [read_permission]   holds read permission of current user
+    [write_permission]  holds write permission of current user
+    [name]              holds name of current user
+    [email]             holds email of current user
+    [id]                holds id of current user
+    [coauditor]         holds if current user is coauditor
+    [error]             holds information about errors
+
+    [coaudit_session]   holds information of the last coauditsession used in session
+    [rid]               holds information of the last result_id used in session
+    [sid]               holds information of the last session_id used in session
