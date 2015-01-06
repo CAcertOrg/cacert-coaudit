@@ -308,6 +308,20 @@ class db_function{
         return $res;
     }
 
+    public function get_result_topics($sid, $uid){
+        $query = "SELECT `st`.`session_topics_id`, `st`.`session_topic_id` , `t`.`session_topic` , `s`.`session_name` ,
+                    `st`.`topic_no` , `st`.`active`,  `r`.`result`, `r`.`comment` ,  `r`.`cacertuser_id`
+                    FROM `session_topics` AS `st` , `coauditsession` AS `s` , `session_topic` AS `t`, `result` AS `r`
+                    WHERE `st`.`session_topic_id` = `t`.`session_topic_id`
+                        AND `st`.`coaudit_session_id` = `s`.`session_id`
+                        AND `st`.`session_topic_id` = `r`.`session_topic_id`
+                        AND `r`.`cacertuser_id` = " . $uid . "
+                        AND `s`.`session_id` = " . $sid . "
+                    ORDER BY `s`.`session_name` , `st`.`topic_no`";
+        $res = $this -> db -> query($query);
+        return $res;
+    }
+
     /**
      * db_function::get_sessiontopic()
      *returns the data for a given session topic
@@ -492,7 +506,7 @@ class db_function{
             `expierencepoints` = '$expierencepoints',
             `country` = '$country',
             `location` = '$location',
-            `coauditdate` = '$coauditdate',
+            `coauditdate` = '$coauditdate'
             WHERE `cacertuser_id` = $userid";
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
@@ -535,7 +549,7 @@ class db_function{
                     `sts`.`topic_no` AS `Topic_No` , `st`.`session_topic` AS `Topic` ,
                     `r`.`result` AS `Result`, `st`.`session_topic_id` AS `TopicID` ,
                     `r`.`coauditsession_id` AS `SessionID`,
-                    `c`.`primaryemail` as `Assurer` , `aud`.`coauditor_name` as `Coauditor`,
+                    `c`.`primaryemail` as `Assurer` , `c`.`cacertuser_id` as `uid`, `aud`.`coauditor_name` as `Coauditor`,
                     `r`.`comment` AS `Comment`
                     FROM `cacertuser` AS `c` , `result` AS `r` , `session_topic` AS `st` , `coauditsession` AS `co` , `session_topics` AS `sts`, `coauditor` AS `aud`
                     WHERE `c`.`cacertuser_id` = `r`.`cacertuser_id` AND `r`.`session_topic_id` = `st`.`session_topic_id`
@@ -561,10 +575,13 @@ class db_function{
      * @return
      */
     public function insert_result_topic($session_topic_id, $coauditsession_id, $cacertuser_id, $result, $comment){
+        if ($comment == '') {
+            $comment = 'NULL';
+        }
         $query = "Insert into `result` (`session_topic_id`, `coauditsession_id`, `cacertuser_id`, `coauditor_id`,
             `result`, `comment`, `active`)
             VALUES ($session_topic_id, $coauditsession_id, $cacertuser_id, " .$_SESSION['user']['id'] . ",
-            '$result', '$comment', 1)";
+            '$result', $comment, 1)";
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         $nid = $this -> db -> lastInsertId();
@@ -583,18 +600,59 @@ class db_function{
      * @param mixed $rid
      * @return
      */
-    public function update_result_topic($session_topic_id, $coauditsession_id, $cacertuser_id, $result, $comment, $rid){
-        $query = "Update `result` Set `session_topic_id` = '$session_topic_id',
+    public function update_result_topic($session_topic_id, $coauditsession_id, $cacertuser_id, $result, $comment){
+/*
+       $query = "Update `result` Set `session_topic_id` = '$session_topic_id',
             `coauditsession_id` = '$coauditsession_id',
             `cacertuser_id` = '$cacertuser_id',
             `coauditor_id` = " .$_SESSION['user']['id'] . ",
             `result` = '$result',
             `comment` = '$comment',
             WHERE `result_id` = $rid";
+*/
+        $comment = str_replace("'", "", $comment);
+        $session_topic_id = str_replace("'", "", $session_topic_id);
+        $query = "Update `result` Set `result` = '$result',
+            `comment` = '$comment'
+            WHERE `session_topic_id` = '$session_topic_id' AND
+            `cacertuser_id` = '$cacertuser_id'";
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         //write log
         write_log('user', $rid, "updated result");
+    }
+
+    public function delete_result($uid, $sid){
+
+        $this -> delete_cacertuser($uid);
+
+
+        $query = "SELECT`result_id` FROM `result`
+            where `coauditsession_id` = $sid and `cacertuser_id` = $uid";
+        $res = $this -> db -> query($query);
+        foreach($res as $result){
+            $this -> delete_resultentry($result[0]);
+        }
+    }
+
+    public function delete_cacertuser($uid){
+        $query = "Update `cacertuser` Set `active` = 0,
+            `deleted` = NOW(), `deleted_by` = " . $_SESSION['user']['id'] . "
+            WHERE `cacertuser_id` = '$uid'";
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
+        //write log
+        write_log('user', $uid, "deleted cacertuser");
+    }
+
+    public function delete_resultentry($rid){
+        $query = "Update `result` Set `active` = 0,
+            `deleted` = NOW(), `deleted_by` = " . $_SESSION['user']['id'] . "
+            WHERE `result_id` = '$rid'";
+        $smt = $this -> db -> prepare($query);
+        $smt -> execute();
+        //write log
+        write_log('user', $rid, "deleted result entry");
     }
 
     // kpi handling
