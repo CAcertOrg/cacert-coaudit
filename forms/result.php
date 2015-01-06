@@ -14,11 +14,11 @@ if ($readperm == 0) {
     exit;
 }
 
-
-
 if (isset($_SESSION['user']['rid'])) {
-    $rid = intval($_SESSION['user']['rid']);
-    $writeperm = 0;
+    if (intval($_SESSION['user']['rid']) > 0) {
+        $rid = intval($_SESSION['user']['rid']);
+        $writeperm = 0;
+    }
 } else {
     $rid = 0;
 }
