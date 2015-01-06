@@ -332,8 +332,12 @@ if ($type == 'resultlist') {
 
 if ($type == 'result') {
     $continue=true;
-
+    if (isset( $_REQUEST['change'])){
+        $coaudit_session_id = array_key_exists('session_id',$_REQUEST) ? intval($_REQUEST['session_id']) : '';
+        $_SESSION['user']['coaudit_session'] = $coaudit_session_id;
+    }
     if (isset( $_REQUEST['new']) || isset( $_REQUEST['edit'])) {
+        $error = '';
         $rid = array_key_exists('rid',$_REQUEST) ? intval($_REQUEST['rid']) : '';
         $coaudit_session_id = array_key_exists('session_id',$_REQUEST) ? intval($_REQUEST['session_id']) : '';
         $primaryemail = array_key_exists('primaryemail',$_REQUEST) ? tidystring($_REQUEST['primaryemail']) : '';
@@ -343,18 +347,20 @@ if ($type == 'result') {
         } else {
             $isassurer = 0;
         }
-        $expierencepoints = array_key_exists('expierencepoints',$_REQUEST) ? intval($_REQUEST['expierencepoints']) : '';
-        if ($expierencepoints == '') {
-            $expierencepoints = 0;
-        }
+        $expierencepoints = array_key_exists('expierencepoints',$_REQUEST) ? intval($_REQUEST['expierencepoints']) : 0;
         $country = array_key_exists('country',$_REQUEST) ? tidystring($_REQUEST['country']) : '';
         $location = array_key_exists('location',$_REQUEST) ? tidystring($_REQUEST['location']) : '';
         $coauditdate = array_key_exists('coauditdate',$_REQUEST) ? tidystring($_REQUEST['coauditdate']) : '';
 
+        $primaryemail = str_replace("'", "", $primaryemail);
+        $country = str_replace("'", "", $country);
+        $location = str_replace("'", "", $location);
+        $coauditdate = str_replace("'", "", $coauditdate);
         //check valid data
         if (!filter_var($primaryemail, FILTER_VALIDATE_EMAIL)) {
             // invalid emailaddress
             $primaryemail == '';
+            $error .= _('Missing or wrong email address') . '<br>';
         }
 
         if (strlen($country) > 2) {
@@ -362,16 +368,18 @@ if ($type == 'result') {
         }
         if (strlen($country) < 2) {
             $country = '';
+            $error .= _('Missing or wrong country code') . '<br>';
         }
         $country = strtoupper($country);
 
         if (!validdate($coauditdate)) {
             $coauditdate ='';
+            $error .= _('Missing or wrong coaudit date') . '<br>';
         }
 
 
-        if ($primaryemail == '' || $country == '' || $location == '' || $coauditdate == '') {
-//missing data
+        if ( $location == '' ) {
+            $error .= _('Missing or wrong location') . '<br>';
         }
 
         $i = 1;
@@ -384,30 +392,52 @@ if ($type == 'result') {
             } else {
                 $r = 0;
             }
-            $c = array_key_exists('c' . $i, $_REQUEST) ? tidystring($_REQUEST['c' . $i]): '';
+            $c = array_key_exists('c' . $i, $_REQUEST) ? tidystring($_REQUEST['c' . $i]):  "''";
             $questions[] = array($tid, $r, $c);
             $i += 1;
         }
+        if ($error == '') {
+            if (isset( $_REQUEST['new'])){
+                $assurerid = $db -> insert_result_user($primaryemail, $isassurer, $expierencepoints, $country, $location, $coauditdate);
+                foreach($questions as $question){
+                    $db -> insert_result_topic($question[0], $coaudit_session_id, $assurerid, $question[1], $question[2]);
+                }
+            } else {
+                $db -> update_result_user($primaryemail, $isassurer, $expierencepoints, $country, $location, $coauditdate, $rid);
+                foreach($questions as $question){
+                    $db ->  update_result_topic($question[0], $coaudit_session_id, $rid, $question[1], $question[2]);
+                }
+                $_SESSION['user']['rid'] = 0;
 
-
-
-        if (isset( $_REQUEST['new'])){
-            $assurerid = $db -> insert_result_user($primaryemail, $isassurer, $expierencepoints, $country, $location, $coauditdate);
-            foreach($questions as $question){
-                $db -> insert_result_topic($question[0], $coaudit_session_id, $assurerid, $question[1], $question[2]);
+                $_SESSION['coauditor'] = array_key_exists('cid',$_REQUEST) ? $_REQUEST['cid'] : '';
+                include('../forms/resultlist.php');
+                exit;
             }
-
+            $_SESSION['user']['coaudit_session'] = $coaudit_session_id;
+            include('../forms/result.php');
+            $continue=false;
         } else {
-            // $db -> update_result_user($view_name, $read_permission, $write_permission, $active, $vid)
-            // update_view($view_name, $read, $write, $active, $vid);
+            echo error($error);
         }
+    }
+    if (isset( $_REQUEST['rid']) && isset( $_REQUEST['sid'])) {
+        $_SESSION['user']['rid'] = $_REQUEST['rid'];
+        $_SESSION['user']['coaudit_session'] = $_REQUEST['sid'];
+    } else {
+        $_SESSION['user']['rid']=0;
+    }
 
-        include('../forms/result.php');
+    if (isset( $_REQUEST['delete'])){
+        $db -> delete_result($_REQUEST['rid'], $_SESSION['user']['coaudit_session']) ;
+        include('../forms/resultlist.php');
+        $_SESSION['user']['rid'] = 0;
         $continue=false;
     }
+
     if ($continue==true) {
         include('../forms/result.php');
     }
+
 }
 
 // statistic
@@ -460,7 +490,8 @@ if ($type == 'kpi') {
     }
 }
 
-
+$_SESSION ['debug'] .= $_SERVER['HTTP_REFERER'] . '</br>' ;
+$_SESSION ['debug'] .= "Session:" . print_r($_SESSION, TRUE);
 output_debug_box($_SESSION ['debug']);
 
 echo footerend();
