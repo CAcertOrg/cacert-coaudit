@@ -227,9 +227,13 @@ class db_function{
         if ($where == '') {
             $where = ' Where 1=1 ';
         }else{
-            $where = ' Where session_id=' . $where . ' ';
+            if (is_numeric($where)) {
+                $where = ' Where session_id=' . $where . ' ';
+            } else {
+                $where = ' ' . $where . ' ';
+            }
         }
-        $query = "select `session_id`, `session_name`, `from`, `to`, `default`, `active` from `coauditsession` " . $where . "ORDER BY `session_name`";
+        $query = "select `session_id`, `session_name`, `from`, `to`, `default`, `active` from `coauditsession` " . $where . " ORDER BY `session_name`";
         $res = $this -> db -> query($query);
         if($where == ' Where 1=1 '){
             return $res->fetchAll();
@@ -271,10 +275,9 @@ class db_function{
         $query = "Update `coauditsession` Set `session_name` = $session_name,
             `from` = $from,
             `to` = $to,
-            `default` = $default;
+            `default` = $default,
             `active` = $active
             WHERE  `session_id` = $sid";
-$_SESSION ['debug'] .= $query . '</br>';
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         //write log
@@ -359,7 +362,7 @@ $_SESSION ['debug'] .= $query . '</br>';
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         //write log
-        write_log('admin', $stid, "updted sessiontopic");
+        write_log('admin', $stid, "updated sessiontopic");
     }
 
     // view handling
