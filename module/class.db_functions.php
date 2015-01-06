@@ -729,6 +729,21 @@ class db_function{
 //statistics
 
     /**
+     * db_function::get_statisics_sessions()
+     * returns active seesions in descending order
+     * @return
+     */
+    public function get_statisics_sessions(){
+        $query = "SELECT `coauditsession`.`session_id`,
+                    `coauditsession`.`session_name`
+                    FROM `coauditdb`.`coauditsession`
+                    WHERE `coauditsession`.`active` = 1
+                    Order By  `coauditsession`.`from` DESC,  `coauditsession`.`to` DESC";
+        $res = $this -> db -> query($query);
+        return $res;
+    }
+
+    /**
      * db_function::get_statiscs_basic()
      * returns the result statistics, if where is given filtered
      * @param string $where
@@ -744,7 +759,7 @@ class db_function{
                 AND (`sts`.`session_topic_id` = `r`.`session_topic_id` AND `sts`.`coaudit_session_id` = `r`.`coauditsession_id`)
                 AND `c`.`deleted` is Null " . $where ."
             GROUP BY `CYear` , `Topic` , `Session` , `TopicID` , `Topic_No` , `SessionID`
-            ORDER BY `CYear` , `Session` , `Topic_No`";
+            ORDER BY `Session` , `CYear` ,`Topic_No`";
         $res = $this -> db -> query($query);
         return $res;
     }
