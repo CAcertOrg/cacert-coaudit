@@ -467,9 +467,11 @@ if ($type == 'kpi') {
         $session_id = array_key_exists('session_id',$_REQUEST) ? intval($_REQUEST['session_id']) : '';
 
 
-        if (!$kid  || !$session_year || !$assurances || !$target ||
+        if ( !$session_year || !$assurances || !$target ||
             $session_year == 0 || $assurances == 0 || $target == 0 ) {
             //missing data
+            echo error(_('Some data is missing or not a number.'));
+
             $missing = true;
         }
 
@@ -490,8 +492,6 @@ if ($type == 'kpi') {
     }
 }
 
-$_SESSION ['debug'] .= $_SERVER['HTTP_REFERER'] . '</br>' ;
-$_SESSION ['debug'] .= "Session:" . print_r($_SESSION, TRUE);
 output_debug_box($_SESSION ['debug']);
 
 echo footerend();
