@@ -409,7 +409,9 @@ if ($type == 'result') {
                 }
                 $_SESSION['user']['rid'] = 0;
 
-                $_SESSION['coauditor'] = array_key_exists('cid',$_REQUEST) ? $_REQUEST['cid'] : '';
+                //$_SESSION['coauditor'] = array_key_exists('cid',$_REQUEST) ? $_REQUEST['cid'] : '';
+                $_SESSION['coauditor'] = true;
+
                 include('../forms/resultlist.php');
                 exit;
             }

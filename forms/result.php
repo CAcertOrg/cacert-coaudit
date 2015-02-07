@@ -51,7 +51,12 @@ if ($rid == 0) {
     $country = $user['country'];
     $location = $user['location'];
     $coauditdate = $user['coauditdate'];
-
+    //change entry within 24 h
+    if (date("Y.m.d h:m:s", time() - 86400) < date("Y.m.d h:m:s", strtotime($user['created']))) {
+        if (0 ==  $writeperm ) {
+            $writeperm = 1;
+        }
+    }
     $coaudit_session_id = $_SESSION['user']['coaudit_session'];
     $questions = $db -> get_result_topics($coaudit_session_id,$rid);
 }

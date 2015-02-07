@@ -521,7 +521,7 @@ class db_function{
      * @return
      */
     public function get_result_user($uid){
-        $query = "SELECT `primaryemail` , `assurer` , `expierencepoints`, `country`, `location`, `coauditdate`
+        $query = "SELECT `primaryemail` , `assurer` , `expierencepoints`, `country`, `location`, `coauditdate`,  `created`
                     FROM `cacertuser`
                     WHERE `cacertuser_id` = '$uid'";
         $res = $this -> db -> query($query);
