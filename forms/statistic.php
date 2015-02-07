@@ -57,7 +57,7 @@ foreach ($ressessions as $ressession) {
             }
             $year = $row['CYear'];
             $datarow = tablecell($row['CYear']);
-            $datarow .= tablecell($row['Total']);
+            $datarow .= tablecell($row['Total'],0,'center');
             $rowheader1 = tablecell('');
             $rowheader1 .= tablecell('');
             $rowheader2 = tablecell(_('Year'));
@@ -72,8 +72,8 @@ foreach ($ressessions as $ressession) {
         }
         $rowheader2 .= tablecell(_('Passed'));
         $rowheader2 .= tablecell(_('Percentage'));
-        $datarow .= tablecell($row['res']);
-        $datarow .= tablecell(number_format($row['Perc'], 1, '.', '') . '%');
+        $datarow .= tablecell($row['res'],0,'center');
+        $datarow .= tablecell(number_format($row['Perc'], 1, '.', '') . '%',0,'right');
         $col +=2;
     }
     if ($start == 0) {
@@ -108,10 +108,10 @@ foreach ($ressessions as $ressession) {
             }
         }
         $datarow = tablecell($row['session_year']);
-        $datarow .= tablecell($stest);
-        $datarow .= tablecell($row['assurances']);
-        $datarow .= tablecell(number_format(($stest / $row['assurances']) * 100, 1, '.', '') . '%');
-        $datarow .= tablecell(number_format($row['target'], 1, '.', '') . '%');
+        $datarow .= tablecell($stest, 0,'center');
+        $datarow .= tablecell($row['assurances'], 0,'center');
+        $datarow .= tablecell(number_format(($stest / $row['assurances']) * 100, 1, '.', '') . '%', 0,'center');
+        $datarow .= tablecell(number_format($row['target'], 1, '.', '') . '%', 0,'center');
         echo tablerow_start() . $datarow . tablerow_end();
     }
     echo table_end();
