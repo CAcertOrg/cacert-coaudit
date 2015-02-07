@@ -13,7 +13,7 @@ if ($readperm == 0) {
     echo error(_('You do not have the right to read this page.'));
     exit;
 }
-
+$rid = 0;
 if (isset($_SESSION['user']['rid'])) {
     if (intval($_SESSION['user']['rid']) > 0) {
         $rid = intval($_SESSION['user']['rid']);
