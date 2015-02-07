@@ -48,7 +48,8 @@ if (isset($_REQUEST['coauditor_id'])) {
     $coaudid = $cid;
 }
 
-$res = $db -> get_results($session, $coaudid);
+
+
 
 $sessionres = $db -> get_all_session();
 $coauditorres = $db -> get_all_user();
@@ -69,75 +70,84 @@ echo built_form_footer($hidden);
 echo empty_line();
 
 
-// build result table
-foreach($res as $row){
-    if ($session != $row['Session'] ) {
-        $sessionold = $session;
-        $session = $row['Session'];
-        $assurer = $row['Assurer'];
-        if ($start == 0 ) {
-            $sessionold = $session;
-        }
+foreach ($sessionres as $ressession) {
+    if ($session == 0 || $ressession['session_id'] == $session ) {
+
+        $res = $db -> get_results($ressession['session_id'], $coaudid);
+        $sessionname = $ressession['session_name'];
+        $col = 0;
         $start = 0;
-        $linkadress = '../index.php?type=result&sid=' .  $row['SessionID'] .'&rid=';
-    }
 
-        $editcell = tablecell( '<a href="' .$linkadress . $row['uid'] .'">' . _('View') .' ' . $row['uid'] . '</a>');
+        // build result table
+        foreach($res as $row){
+            $linkadress = '../index.php?type=result&sid=' .  $row['SessionID'] .'&rid=';
+            $editcell = tablecell( '<a href="' .$linkadress . $row['uid'] .'">' . _('View') .' ' . $row['uid'] . '</a>');
 
-    if ($start == 0 && $col == 0) {
-        $rowheader1 = tablecell(_(''));
-        $rowheader1 .= tablecell(_(''));
-        $rowheader1 .= tablecell(_(''));
-        $rowheader1 .= tablecell(_(''));
-        $rowheader2 = tablecell(_('Year'));
-        $rowheader2 .= tablecell(_('Assurer'));
-        $rowheader2 .= tablecell(_('Co-Auditor'));
-        $rowheader2 .= tablecell(_('View'));
+            if ($start == 0 && $col == 0) {
+                $assurer = $row['Assurer'];
+                $rowheader1 = tablecell(_(''));
+                $rowheader1 .= tablecell(_(''));
+                $rowheader1 .= tablecell(_(''));
+                $rowheader1 .= tablecell(_(''));
+                $rowheader1 .= tablecell(_(''));
+                $rowheader2 = tablecell(_('Year'));
+                $rowheader2 .= tablecell(_('Assurer'));
+                $rowheader2 .= tablecell(_('ID'));
+                $rowheader2 .= tablecell(_('Co-Auditor'));
+                $rowheader2 .= tablecell(_('View'));
 
-        $datarow = tablecell($row['CYear']);
-        $datarow .= tablecell($row['Assurer']);
-        $datarow .= tablecell($row['Coauditor']);
-        $datarow .= $editcell;
-        $col = 3;
-    }
-    if ($assurer != $row['Assurer'] ) {
-        if ($col >0 && $start == 0) {
-            echo tableheader(sprintf(_('Coaudit results for %s'), $sessionold), $col);
+                $datarow = tablecell($row['CYear']);
+                $datarow .= tablecell($row['Assurer']);
+                $datarow .= tablecell($row['uid']);
+                $datarow .= tablecell($row['Coauditor']);
+                $datarow .= $editcell;
+                $col = 4;
+            }
+            if ($assurer != $row['Assurer'] ) {
+                if ($col >0 && $start == 0) {
+                    echo tableheader(sprintf(_('Coaudit results for %s'), $sessionname), $col);
+                    echo tablerow_start() . $rowheader1 . tablerow_end();
+                    echo tablerow_start() . $rowheader2 . tablerow_end();
+                    $start = 1;
+                }
+                $assurer = $row['Assurer'];
+                echo tablerow_start() . $datarow . tablerow_end();
+                $year = $row['CYear'];
+                $datarow = tablecell($row['CYear']);
+                $datarow .= tablecell($row['Assurer']);
+                $datarow .= tablecell($row['uid']);
+                $datarow .= tablecell($row['Coauditor']);
+                $datarow .= $editcell;
+                $col = 4;
+            }
+
+
+            if ($start == 0) {
+                $rowheader1 .= tablecell($row['Topic'],2);
+                $rowheader2 .= tablecell(_('Result'));
+                $rowheader2 .= tablecell(_('Comment'));
+            }
+            $datarow .= tablecell($row['Result']);
+            $datarow .= tablecell($row['Comment']);
+            $col +=2;
+        }
+
+
+        if ($start == 0 ) {
+            echo tableheader(sprintf(_('Coaudit results for %s'), $sessionname), $col);
+        if ($col > 0 ) {
             echo tablerow_start() . $rowheader1 . tablerow_end();
             echo tablerow_start() . $rowheader2 . tablerow_end();
-            $start = 1;
         }
-        $assurer = $row['Assurer'];
-        echo tablerow_start() . $datarow . tablerow_end();
-        $year = $row['CYear'];
-        $datarow = tablecell($row['CYear']);
-        $datarow .= tablecell($row['Assurer']);
-        $datarow .= tablecell($row['Coauditor']);
-        $datarow .= $editcell;
-        $col = 3;
+           }
+        if ($col > 0 ) {
+            echo tablerow_start() . $datarow . tablerow_end();
+        }
+        echo table_end();
+        echo empty_line();
+        echo empty_line();
     }
-
-
-    if ($start == 0) {
-        $rowheader1 .= tablecell($row['Topic'],2);
-        $rowheader2 .= tablecell(_('Result'));
-        $rowheader2 .= tablecell(_('Comment'));
-    }
-    $datarow .= tablecell($row['Result']);
-    $datarow .= tablecell($row['Comment']);
-    $col +=2;
 }
-
-if ($start == 0) {
-    echo tableheader(sprintf(_('Coaudit results for %'), $sessionold), $col);
-    echo tablerow_start() . $rowheader1 . tablerow_end();
-    $start = 1;
-}
-echo tablerow_start() . $datarow . tablerow_end();
-echo table_end();
-
-echo empty_line();
-echo empty_line();
 
 echo end_div();
 
