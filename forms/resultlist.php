@@ -81,7 +81,7 @@ foreach ($sessionres as $ressession) {
         // build result table
         foreach($res as $row){
             $linkadress = '../index.php?type=result&sid=' .  $row['SessionID'] .'&rid=';
-            $editcell = tablecell( '<a href="' .$linkadress . $row['uid'] .'">' . _('View') .' ' . $row['uid'] . '</a>');
+            $editcell = tablecell( '<a href="' .$linkadress . $row['uid'] .'">' . _('View') .'</a>');
 
             if ($start == 0 && $col == 0) {
                 $assurer = $row['Assurer'];
@@ -98,7 +98,7 @@ foreach ($sessionres as $ressession) {
 
                 $datarow = tablecell($row['CYear']);
                 $datarow .= tablecell($row['Assurer']);
-                $datarow .= tablecell($row['uid']);
+                $datarow .= tablecell($row['uid'],0,'right');
                 $datarow .= tablecell($row['Coauditor']);
                 $datarow .= $editcell;
                 $col = 4;
@@ -115,7 +115,7 @@ foreach ($sessionres as $ressession) {
                 $year = $row['CYear'];
                 $datarow = tablecell($row['CYear']);
                 $datarow .= tablecell($row['Assurer']);
-                $datarow .= tablecell($row['uid']);
+                $datarow .= tablecell($row['uid'],0,'right');
                 $datarow .= tablecell($row['Coauditor']);
                 $datarow .= $editcell;
                 $col = 4;
@@ -127,7 +127,7 @@ foreach ($sessionres as $ressession) {
                 $rowheader2 .= tablecell(_('Result'));
                 $rowheader2 .= tablecell(_('Comment'));
             }
-            $datarow .= tablecell($row['Result']);
+            $datarow .= tablecell($row['Result'], 0,'center');
             $datarow .= tablecell($row['Comment']);
             $col +=2;
         }

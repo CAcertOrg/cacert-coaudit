@@ -77,12 +77,12 @@ function tablerow_2col_textbox($label, $name, $value){
     return $tabstring;
 }
 
-function tablecell($value, $cols=0){
+function tablecell($value, $cols=0, $align='left'){
     $colspan = '';
     if ($cols > 0) {
         $colspan = ' colspan="' . $cols . '" ';
     }
-    $tabstring =   '<td class="DataTD" ' . $colspan . '>' . $value . '</td>' . "\n";
+    $tabstring =   '<td class="DataTD" ' . $colspan . ' align="' .$align. '">' . $value . '</td>' . "\n";
     return $tabstring;
 }
 function tablerow_start(){
