@@ -1,4 +1,9 @@
 <?php
+/**
+ * titlebar()
+ * returns the title bar for a page
+ * @return
+ */
 function titlebar(){
     $coauditsystem = _('Co-Audit system');
     $tabstrings = <<<foohtmlheader
@@ -11,6 +16,12 @@ foohtmlheader;
 
     return $tabstrings;
 }
+
+/**
+ * footer()
+ * returns the footer for a page
+ * @return
+ */
 function footer(){
     $tabstrings = <<<foohtmlfooter
         <div class="footerbar">
@@ -21,6 +32,12 @@ foohtmlfooter;
 
     return $tabstrings;
 }
+
+/**
+ * menu()
+ * returns the menue for a page
+ * @return
+ */
 function menu(){
     $back = _('back');
     $statistics = _('Statistics');
@@ -109,6 +126,13 @@ foohtmlnav6;
 
     return $tabstrings1 . $tabstrings2 . $tabstrings3 . $tabstrings4 . $tabstrings5 . $tabstrings6;
 }
+
+/**
+ * headerstart()
+ * returns the header lines for a page
+ * @param mixed $title
+ * @return
+ */
 function headerstart($title){
     $tabstrings = '<!DOCTYPE html>';
     $tabstrings .= '<html lang="en">';
@@ -120,6 +144,11 @@ function headerstart($title){
     $tabstrings .= '<body class="body">';
     return $tabstrings;
 }
+/**
+ * footerend()
+ * returns the footer tags for a page
+ * @return
+ */
 function footerend(){
     $tabstrings = '</body>';
     $tabstrings .= '</html>';

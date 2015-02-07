@@ -2,6 +2,11 @@
 
 include_once('class.db_functions.php');
 
+/**
+ * check_cert()
+ * checks if a lcient certificate is valid for login
+ * @return
+ */
 function check_cert(){
     $emails = array();
 
@@ -40,6 +45,11 @@ function check_cert(){
     return true;
 }
 
+/**
+ * get_valid_email_from_cert()
+ * returns an array with all email address of a client certificate with *@cacert.org
+ * @return
+ */
 function get_valid_email_from_cert(){
 
     $result = array();
@@ -57,6 +67,12 @@ function get_valid_email_from_cert(){
     return $result;
 }
 
+/**
+ * get_uid()
+ * returns the uid for a given email address
+ * @param mixed $emails
+ * @return
+ */
 function get_uid($emails){
 $db = new db_function();
     foreach ($emails as $email) {
@@ -68,7 +84,11 @@ $db = new db_function();
     return 0;
 }
 
-
+/**
+ * login()
+ * returns if a client cert login was successful or not
+ * @return
+ */
 function login(){
 $db = new db_function();
     if (check_cert() === false) {
@@ -100,6 +120,11 @@ $db = new db_function();
 
 }
 
+/**
+ * logout()
+ * used for logout from the system
+ * @return
+ */
 function logout(){
 /*
     $_SESSION['user']['id'] = '';
@@ -110,5 +135,3 @@ function logout(){
 */
     session_destroy();
 }
-
-?>

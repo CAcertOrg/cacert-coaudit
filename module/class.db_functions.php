@@ -13,6 +13,12 @@ class db_function{
         $this -> db = New PDO("mysql:host=$dbhost;dbname=$dbdatabase", "$dbuser", "$dbpw");
     }
 
+    /**
+     * db_function::tidystring()
+     *  tidy input string
+     * @param mixed $input
+     * @return
+     */
     public function tidystring($input){
        return $this -> db -> quote($input);
     }
@@ -308,6 +314,13 @@ class db_function{
         return $res;
     }
 
+    /**
+     * db_function::get_result_topics()
+     * returns all listed result topics
+     * @param mixed $sid
+     * @param mixed $uid
+     * @return
+     */
     public function get_result_topics($sid, $uid){
         $query = "SELECT `st`.`session_topics_id`, `st`.`session_topic_id` , `t`.`session_topic` , `s`.`session_name` ,
                     `st`.`topic_no` , `st`.`active`,  `r`.`result`, `r`.`comment` ,  `r`.`cacertuser_id`
@@ -622,6 +635,13 @@ class db_function{
         write_log('user', $rid, "updated result");
     }
 
+    /**
+     * db_function::delete_result()
+     * sets the delete flag to all result entries
+     * @param mixed $uid
+     * @param mixed $sid
+     * @return
+     */
     public function delete_result($uid, $sid){
 
         $this -> delete_cacertuser($uid);
@@ -635,6 +655,12 @@ class db_function{
         }
     }
 
+    /**
+     * db_function::delete_cacertuser()
+     * sets the delete flag to cacert user entry
+     * @param mixed $uid
+     * @return
+     */
     public function delete_cacertuser($uid){
         $query = "Update `cacertuser` Set `active` = 0,
             `deleted` = NOW(), `deleted_by` = " . $_SESSION['user']['id'] . "
@@ -645,6 +671,12 @@ class db_function{
         write_log('user', $uid, "deleted cacertuser");
     }
 
+    /**
+     * db_function::delete_resultentry()
+     * sets the delete flag to all result entries
+     * @param mixed $rid
+     * @return
+     */
     public function delete_resultentry($rid){
         $query = "Update `result` Set `active` = 0,
             `deleted` = NOW(), `deleted_by` = " . $_SESSION['user']['id'] . "
