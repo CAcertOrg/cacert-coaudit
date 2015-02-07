@@ -30,7 +30,7 @@ foreach ($ressessions as $ressession) {
     $col = 0;
     $start = 0;
 
-        foreach($res as $row){
+    foreach($res as $row){
         if ($session != $row['Session'] ) {
             $sessionold = $session;
             $session = $row['Session'];
