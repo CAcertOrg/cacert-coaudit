@@ -578,7 +578,7 @@ class db_function{
                         AND `r`.`coauditor_id` = `aud`.`coauditor_id`
                         AND `c`.`deleted` IS NULL
                         $where
-                    ORDER BY `CYear` , `Session` , `Assurer`, `Coauditor`, `Topic_No`";
+                    ORDER BY  `Session`, `CYear` , `Coauditor`, `uid`, `Topic_No`";
         $res = $this -> db -> query($query);
         return $res;
     }

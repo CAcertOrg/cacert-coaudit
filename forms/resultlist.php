@@ -84,7 +84,7 @@ foreach ($sessionres as $ressession) {
             $editcell = tablecell( '<a href="' .$linkadress . $row['uid'] .'">' . _('View') .'</a>');
 
             if ($start == 0 && $col == 0) {
-                $assurer = $row['Assurer'];
+                $assurer = $row['uid'];
                 $rowheader1 = tablecell(_(''));
                 $rowheader1 .= tablecell(_(''));
                 $rowheader1 .= tablecell(_(''));
@@ -103,14 +103,14 @@ foreach ($sessionres as $ressession) {
                 $datarow .= $editcell;
                 $col = 4;
             }
-            if ($assurer != $row['Assurer'] ) {
+            if ($assurer != $row['uid'] ) {
                 if ($col >0 && $start == 0) {
                     echo tableheader(sprintf(_('Coaudit results for %s'), $sessionname), $col);
                     echo tablerow_start() . $rowheader1 . tablerow_end();
                     echo tablerow_start() . $rowheader2 . tablerow_end();
                     $start = 1;
                 }
-                $assurer = $row['Assurer'];
+                $assurer = $row['uid'];
                 echo tablerow_start() . $datarow . tablerow_end();
                 $year = $row['CYear'];
                 $datarow = tablecell($row['CYear']);
