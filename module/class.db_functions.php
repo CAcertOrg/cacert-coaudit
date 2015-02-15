@@ -4,6 +4,7 @@ class db_function{
 
     public $db;
 
+    var $salt = '';
     /**
      * db_function::__construct()
      * constructor of the class
@@ -11,6 +12,7 @@ class db_function{
     public function __construct(){
         include('dbconfig.php');
         $this -> db = New PDO("mysql:host=$dbhost;dbname=$dbdatabase", "$dbuser", "$dbpw");
+        $salt = $dbsalt;
     }
 
     /**
@@ -488,7 +490,8 @@ class db_function{
      * @return
      */
     public function insert_result_user($primaryemail, $assurer, $expierencepoints, $country, $location, $coauditdate){
-        $primaryemail = hash_hmac('sha256', $primaryemail, $dbsalt);
+        global $salt;
+        $primaryemail = hash_hmac('sha256', $primaryemail, $salt);
         $query = "Insert into `cacertuser` (`primaryemail`, `webdb_account_id`, `assurer`, `expierencepoints`,
             `country`, `created_by`, `location`, `coauditdate`, `active`)
             VALUES ('$primaryemail', 0, '$assurer', $expierencepoints,
@@ -515,7 +518,8 @@ class db_function{
      */
     public function update_result_user($primaryemail, $assurer, $expierencepoints, $country, $location, $coauditdate, $userid){
         if (strpos( $primaryemail, '@') !== false) {
-             $primaryemail = hash_hmac('sha256', $primaryemail, $dbsalt);
+            global $salt;
+            $primaryemail = hash_hmac('sha256', $primaryemail, $salt);
         }
         $query = "Update `cacertuser` Set `primaryemail` = '$primaryemail',
             `assurer` = '$assurer',
