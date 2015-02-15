@@ -69,6 +69,10 @@ $sessionres = $db -> get_all_session();
 //buildform
 echo start_div('content');
 
+if ($assurerid > 0) {
+    echo last_id_entered($assurerid);
+}
+
 
 echo built_form_header('../index.php?type=result');
 echo tableheader(_('Enter coaudit result'), 2);

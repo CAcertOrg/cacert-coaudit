@@ -671,7 +671,10 @@ function tablerow_kpilist_new(){
     return $tabstring;
 }
 
-
+function last_id_entered($id){
+    $tabstring = '<div class="last_id">' . _('Please note the id of the last entry made on your Co-Audit form:') . '<strong>' . $id . '</strong></div>';
+    return $tabstring;
+}
 //debug output
 /**
  * output_debug_box()
