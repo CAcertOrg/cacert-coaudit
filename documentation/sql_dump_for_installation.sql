@@ -27,7 +27,6 @@ DROP TABLE IF EXISTS `cacertuser`;
 CREATE TABLE `cacertuser` (
   `cacertuser_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `primaryemail` text NOT NULL,
-  `webdb_account_id` bigint(20) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `assurer` tinyint(1) NOT NULL,
   `expierencepoints` int(11) NOT NULL,

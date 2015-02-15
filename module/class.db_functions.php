@@ -492,9 +492,9 @@ class db_function{
     public function insert_result_user($primaryemail, $assurer, $expierencepoints, $country, $location, $coauditdate){
         global $salt;
         $primaryemail = hash_hmac('sha256', $primaryemail, $salt);
-        $query = "Insert into `cacertuser` (`primaryemail`, `webdb_account_id`, `assurer`, `expierencepoints`,
+        $query = "Insert into `cacertuser` (`primaryemail`, `assurer`, `expierencepoints`,
             `country`, `created_by`, `location`, `coauditdate`, `active`)
-            VALUES ('$primaryemail', 0, '$assurer', $expierencepoints,
+            VALUES ('$primaryemail', '$assurer', $expierencepoints,
             '$country', " . $_SESSION['user']['id'] . ", '$location', '$coauditdate', 1)";
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
