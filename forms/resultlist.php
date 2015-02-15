@@ -91,17 +91,15 @@ foreach ($sessionres as $ressession) {
                 $rowheader1 .= tablecell(_(''));
                 $rowheader1 .= tablecell(_(''));
                 $rowheader2 = tablecell(_('Year'));
-                $rowheader2 .= tablecell(_('Assurer'));
                 $rowheader2 .= tablecell(_('ID'));
                 $rowheader2 .= tablecell(_('Co-Auditor'));
                 $rowheader2 .= tablecell(_('View'));
 
                 $datarow = tablecell($row['CYear']);
-                $datarow .= tablecell($row['Assurer']);
                 $datarow .= tablecell($row['uid'],0,'right');
                 $datarow .= tablecell($row['Coauditor']);
                 $datarow .= $editcell;
-                $col = 4;
+                $col = 3;
             }
             if ($assurer != $row['uid'] ) {
                 if ($col >0 && $start == 0) {
@@ -114,11 +112,10 @@ foreach ($sessionres as $ressession) {
                 echo tablerow_start() . $datarow . tablerow_end();
                 $year = $row['CYear'];
                 $datarow = tablecell($row['CYear']);
-                $datarow .= tablecell($row['Assurer']);
                 $datarow .= tablecell($row['uid'],0,'right');
                 $datarow .= tablecell($row['Coauditor']);
                 $datarow .= $editcell;
-                $col = 4;
+                $col = 3;
             }
 
 
