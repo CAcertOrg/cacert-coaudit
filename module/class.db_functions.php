@@ -500,7 +500,7 @@ class db_function{
         $smt -> execute();
         $nid = $this -> db -> lastInsertId();
         //write log
-        write_log('user', $nid, "added cacertuser '$userid'");
+        write_log('user', $nid, "added cacertuser '$nid'");
         return $nid;
     }
 
@@ -639,7 +639,7 @@ class db_function{
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         //write log
-        write_log('user', $rid, "updated result");
+        write_log('user', $session_topic_id . ' ' . $cacertuser_id, "updated result");
     }
 
     /**
