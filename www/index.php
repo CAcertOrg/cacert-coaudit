@@ -357,10 +357,12 @@ if ($type == 'result') {
         $location = str_replace("'", "", $location);
         $coauditdate = str_replace("'", "", $coauditdate);
         //check valid data
-        if (!filter_var($primaryemail, FILTER_VALIDATE_EMAIL)) {
-            // invalid emailaddress
-            $primaryemail == '';
-            $error .= _('Missing or wrong email address') . '<br>';
+        if (strpos($primaryemail, '@') !== FALSE) {
+            if (!filter_var($primaryemail, FILTER_VALIDATE_EMAIL)) {
+                // invalid emailaddress
+                $primaryemail == '';
+                $error .= _('Missing or wrong email address') . '<br>';
+            }
         }
 
         if (strlen($country) > 2) {

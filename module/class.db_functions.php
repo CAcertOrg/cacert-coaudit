@@ -488,6 +488,7 @@ class db_function{
      * @return
      */
     public function insert_result_user($primaryemail, $assurer, $expierencepoints, $country, $location, $coauditdate){
+        $primaryemail = hash_hmac('sha256', $primaryemail, $dbsalt);
         $query = "Insert into `cacertuser` (`primaryemail`, `webdb_account_id`, `assurer`, `expierencepoints`,
             `country`, `created_by`, `location`, `coauditdate`, `active`)
             VALUES ('$primaryemail', 0, '$assurer', $expierencepoints,
@@ -496,7 +497,7 @@ class db_function{
         $smt -> execute();
         $nid = $this -> db -> lastInsertId();
         //write log
-        write_log('user', $nid, "added cacertuser '$primaryemail'");
+        write_log('user', $nid, "added cacertuser '$userid'");
         return $nid;
     }
 
@@ -513,7 +514,9 @@ class db_function{
      * @return
      */
     public function update_result_user($primaryemail, $assurer, $expierencepoints, $country, $location, $coauditdate, $userid){
-
+        if (strpos( $primaryemail, '@') !== false) {
+             $primaryemail = hash_hmac('sha256', $primaryemail, $dbsalt);
+        }
         $query = "Update `cacertuser` Set `primaryemail` = '$primaryemail',
             `assurer` = '$assurer',
             `expierencepoints` = '$expierencepoints',
@@ -524,7 +527,7 @@ class db_function{
         $smt = $this -> db -> prepare($query);
         $smt -> execute();
         //write log
-        write_log('user', $userid, "updated cacertuser '$primaryemail'");
+        write_log('user', $userid, "updated cacertuser '$userid'");
     }
 
     /**
