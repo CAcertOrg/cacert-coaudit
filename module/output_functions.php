@@ -35,7 +35,7 @@ function built_form_footer($hidden){
  */
 function tablefooter_filter($cols, $label){
         $tabstring = '<tr>' . "\n";
-        $tabstring .=    '<td class="DataTD" colspan="' . $cols . '"><input type="submit" name="filter" value="' . $label . '"</td>' . "\n";
+        $tabstring .=    '<td class="DataTD" colspan="' . $cols . '"><input type="submit" name="filter" value="' . $label . '"></td>' . "\n";
         $tabstring .= '</tr>' . "\n";
         $tabstring .= '</table>' . "\n";
         return $tabstring;
