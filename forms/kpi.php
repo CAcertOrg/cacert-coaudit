@@ -23,7 +23,6 @@ if ($kid == 0) {
 } else {
     //edit kpi
     $kpi = $db -> get_all_kpi(" coaudit_refdata_id = $kid");
-echo var_dump($kpi) . '<br/>';
     $session_id = $kpi['session_id'];
     $session_year = $kpi['session_year'];
     $assurances = $kpi['assurances'];
