@@ -2,6 +2,7 @@ html {
 	font-family: sans-serif, Verdana, Arial;
 }
 
+
 header {
 	/*postion: fixed;*/
 	top: 0;
@@ -145,6 +146,10 @@ nav ul li ul li a:hover {
 	color: #11568C;
 }
 
+a {
+        color: #11568C;
+}
+
 .content {
 	padding-top: 100px;
 }
@@ -203,3 +208,4 @@ nav ul li ul li a:hover {
 .back_disabled, .back_disabled:hover{
     color: #ccc
 }
+
