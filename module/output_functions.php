@@ -35,7 +35,7 @@ function built_form_footer($hidden){
  */
 function tablefooter_filter($cols, $label){
         $tabstring = '<tr>' . "\n";
-        $tabstring .=    '<td class="DataTD" colspan="' . $cols . '"><input type="submit" name="filter" value="' . $label . '"</td>' . "\n";
+        $tabstring .=    '<td class="DataTD" colspan="' . $cols . '"><input type="submit" name="filter" value="' . $label . '"></td>' . "\n";
         $tabstring .= '</tr>' . "\n";
         $tabstring .= '</table>' . "\n";
         return $tabstring;
@@ -671,6 +671,12 @@ function tablerow_kpilist_new(){
     return $tabstring;
 }
 
+/**
+ * last_id_entered()
+ * returns the output with the ID of the last result entered
+ * @param mixed $id
+ * @return
+ */
 function last_id_entered($id){
     $tabstring = '<div class="last_id">' . _('Please note the id of the last entry made on your Co-Audit form:') . '<strong>' . $id . '</strong></div>';
     return $tabstring;
