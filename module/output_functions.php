@@ -482,7 +482,7 @@ function tablerow_topics_checkbox($checkboxname, $checkboxlabel, $value){
     }else{
         $checked = '';
     }
-    $tabstring = '</tr>' . "\n";
+    $tabstring = '<tr>' . "\n";
     $tabstring .=   '<td class="DataTD">' . $checkboxlabel . '</td>' . "\n";
     $tabstring .=   '<td class="DataTD"><input type="checkbox" name="'. $checkboxname . '" '.$checked.'/></td>' . "\n";
     $tabstring .= '</tr>' . "\n";
