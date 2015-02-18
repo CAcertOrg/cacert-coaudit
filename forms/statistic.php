@@ -98,7 +98,7 @@ foreach ($ressessions as $ressession) {
     $rowheader .= tablecell(_('Tests'));
     $rowheader .= tablecell(_('Assurances'));
     $rowheader .= tablecell(_('Percentage'));
-    $rowheader .= tablecell(_('Taget KPI')) . tablerow_end();
+    $rowheader .= tablecell(_('Target KPI')) . tablerow_end();
     echo $rowheader;
     foreach($res as $row){
         $stest = 0;
