@@ -77,7 +77,7 @@ foreach ($ressessions as $ressession) {
         $col +=2;
     }
     if ($start == 0) {
-        echo tableheader(sprintf(_('Coaudit results for %'), $sessionold), $col);
+        echo tableheader(sprintf(_('CoAudit results for %'), $sessionold), $col);
         echo tablerow_start() . $rowheader1 . tablerow_end();
         echo tablerow_start() . $rowheader2 . tablerow_end();
         $start = 1;
