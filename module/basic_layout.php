@@ -59,7 +59,7 @@ function menu(){
 
     if ( strpos($_SERVER['HTTP_REFERER'], 'list') >0 ) {
         $url = explode('?', $_SERVER['HTTP_REFERER']);
-        $backurl = $url[1];
+        $backurl = '?' . $url[1];
         $backclass = 'back_enabled';
     } else {
         $backurl = "#";
@@ -139,7 +139,7 @@ function headerstart($title){
     $tabstrings .= '<head>';
     $tabstrings .= '<title>' . _('CAcert Coaudit') . $title . '</title>';
     $tabstrings .= '<link rel="stylesheet" href="res/css/template.css" type="text/css" />';
-    $tabstrings .= '<meta name="viewport" content="width=device-width, initial-scale=1.0"/>';
+    $tabstrings .= '<meta name="viewport" content="width=device-width, initial-scale=1.0" />';
     $tabstrings .= '</head>';
     $tabstrings .= '<body class="body">';
     return $tabstrings;
