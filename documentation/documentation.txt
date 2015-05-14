@@ -1,5 +1,7 @@
 Used session variables
 $_SESSION[debug]        stores debug information for output
+    input with $_SESSION ['debug'] .= 'inforamtion outpu' . '</br>';
+    output of $_SESSION[debug] with function output_debug_box($_SESSION ['debug']) in index.php
 
 $_SESSION[user]
     [read_permission]   holds read permission of current user
