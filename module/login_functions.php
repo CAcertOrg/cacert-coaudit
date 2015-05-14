@@ -51,19 +51,20 @@ function check_cert(){
  * @return
  */
 function get_valid_email_from_cert(){
-
     $result = array();
 
-    $i = 0;
-    $test = 'SSL_CLIENT_S_DN_Email';
-    $testaddress = $test;
-    while (isset($_SERVER[ $testaddress ])) {
-        if (strpos($_SERVER[ $testaddress ], '@cacert.org') > 0) {
-            $result[] = $_SERVER[ $testaddress ];
+    $test =  $_SERVER['SSL_CLIENT_S_DN'];
+    $testaddress = explode("/", $test);
+
+    foreach ($testaddress as $address) {
+        $addresstest = explode("=", $address);
+        if ($addresstest[0] == "emailAddress") {
+            if (strpos($addresstest[1], '@cacert.org') > 0) {
+                $result[] = $addresstest[1];
+            }
         }
-        $i += 1;
-        $testaddress  = $test . '_' . $i;
     }
+
     return $result;
 }
 
