@@ -11,10 +11,10 @@ function titlebar() {
     $coauditsystem = _('Co-Audit system');
     $tabstrings = <<<foohtmlheader
     <header class="mainHeader">
-    <div class="titlecontainer">
-        <h1>$coauditsystem</h1>
-        <img class="logo" alt="CAcert Logo" src="/res/img/CAcert-logo-colour-210tr.png"/>
-    </div>
+        <div class="titlecontainer">
+            <h1>$coauditsystem</h1>
+            <img class="logo" alt="CAcert Logo" src="/res/img/CAcert-logo-colour-210tr.png"/>
+        </div>
 foohtmlheader;
 
     return $tabstrings;
@@ -131,7 +131,7 @@ foohtmlnav3;
                 </li>
 foohtmlnav4;
 
-    $url =  create_url('logout', 1);
+    $url =  create_url('logout', 0);
     $tabstrings5 = <<<foohtmlnav5
                 <li>
                     <a href="$url">$logout $username</a>
