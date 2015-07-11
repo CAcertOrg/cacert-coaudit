@@ -156,25 +156,30 @@ function write_log($file, $id, $content) {
  * @param array $parameter  array of parameters e.g. 'id' =>'1'
  * @return
  */
-function create_url($type, $secure = 0, $parameter = array()){
-    if ($secure != 0) {
-        $secureurl='secure/';
+function create_url($type, $secure = 0, $parameter = array()) {
+    $base = '/index.php/';
+
+    if ( $secure ) {
+        $secureurl = 'secure/';
     } else {
-        $secureurl='';
+        $secureurl = '';
     }
 
-    $url = '/index.php/' . $secureurl . $type ;
+    $url = $base . $secureurl . $type;
 
     $arrlen = count($parameter);
 
-    if ($arrlen > 0) {
+    if ( $arrlen > 0 ) {
         $i = 1;
         $url .= '?';
-        foreach($parameter as $key => $value){
+
+        foreach($parameter as $key => $value) {
             $url .= urlencode($key) . '=' .  urlencode($value);
+
             if ($i < $arrlen ) {
                 $url .= '&';
             }
+
             $i++;
         }
     }
@@ -190,6 +195,6 @@ function create_url($type, $secure = 0, $parameter = array()){
  * @param array $parameter  array of parameters e.g. 'id' =>'1'
  * @return
  */
-function create_url_html($type, $secure = 0, $parameter = array()){
+function create_url_html($type, $secure = 0, $parameter = array()) {
     return htmlspecialchars(create_url($type, $secure, $parameter));
 }

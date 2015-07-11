@@ -9,24 +9,42 @@ include_once '../module/output_functions.php';
 include_once '../module/class.db_functions.php';
 
 $db = new db_function();
-$assurerid = 0 ;
+$assurerid = 0;
 $_SESSION ['debug'] = '';
 
+$r_uri = isset( $_SERVER['REQUEST_URI']) ) ? $_SERVER['REQUEST_URI']) : '';
+$qs = isset( $_SERVER['QUERY_STRING']) ) ? $_SERVER['QUERY_STRING']) : '';
 
-
-$type = '';
-
-if (isset( $_SERVER['REQUEST_URI'])) {
-    $qs = '';
-    if (isset( $_SERVER['QUERY_STRING'])) {
-        $qs = '?' . $_SERVER['QUERY_STRING'];
-    }
-    $type = str_replace($qs, '', $_SERVER['REQUEST_URI']);
-    $type = str_replace('/index.php/', '', $type);
-    $type = str_replace('secure/', '', $type);
-
-$_SESSION ['debug'] .= $type . '</br>';
+$r_uri = explode('?', $r_uri, 2);
+if ( 2 == count($r_uri) ) {
+    list( $r_uri, $qs ) = $r_uri;
+} else {
+    list( $r_uri, $qs ) = array( $r_uri[0], '');
 }
+
+$r_uri = explode('/', $r_uri);
+while (!empty($r_uri) && 'index.php' == $r_uri[0]) {
+    array_pop($r_uri);
+}
+
+$secure = false;
+if(!empty($r_uri) && 'secure' == $r_uri[0]) {
+    array_pop($r_uri);
+    $secure = true;
+}
+
+$type = !empty($r_uri) ? $r_uri[0] : '';
+if( 1 < count($r_uri) ) {
+    $type = '';
+}
+
+// If we are not logged in, there is also no user session!
+if( !$secure ) {
+    $_SESSION = array();
+}
+
+$_SESSION ['debug'] .= ($secure ? 'secure' : '') . '<br/>';
+$_SESSION ['debug'] .= htmlspecialchars($type) . '<br/>';
 
 // login routine
 if ( $type == 'login') {
@@ -35,9 +53,8 @@ if ( $type == 'login') {
 
 if ( $type == 'logout') {
     logout();
-    header("location: https://" .  $_SERVER['HTTP_HOST'] . "/");
+    header('Location: /');
 }
-
 
 if (!isset($_SESSION['user']['read_permission'])) {
     $_SESSION['user']['read_permission'] =1;
@@ -45,8 +62,6 @@ if (!isset($_SESSION['user']['read_permission'])) {
 if (!isset($_SESSION['user']['write_permission'])) {
     $_SESSION['user']['write_permission'] =1;
 }
-
-$title = '';
 
 $funclist = array(
     //user management
@@ -94,6 +109,12 @@ if(!array_key_exists($type, $funclist)) {
 $needs_login = $funclist[$type][0];
 $func = $funclist[$type][1];
 $title = $funclist[$type][2];
+
+// Enforce we are logged in when needed
+if($needs_login && !$secure) {
+    header('Location: ' . create_url($func, $needs_login, $_GET) );
+    exit;
+}
 
 echo headerstart($title);
 
