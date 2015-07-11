@@ -46,21 +46,10 @@ if( !$secure ) {
 $_SESSION ['debug'] .= ($secure ? 'secure' : '') . '<br/>';
 $_SESSION ['debug'] .= htmlspecialchars($type) . '<br/>';
 
-// login routine
-if ( $type == 'login') {
-    login();
-}
-
 if ( $type == 'logout') {
     logout();
     header('Location: /');
-}
-
-if (!isset($_SESSION['user']['read_permission'])) {
-    $_SESSION['user']['read_permission'] =1;
-}
-if (!isset($_SESSION['user']['write_permission'])) {
-    $_SESSION['user']['write_permission'] =1;
+    exit;
 }
 
 $funclist = array(
@@ -114,6 +103,18 @@ $title = $funclist[$type][2];
 if($needs_login && !$secure) {
     header('Location: ' . create_url($func, $needs_login, $_GET) );
     exit;
+}
+
+// If we are in the secure area, populate the certificate and user information
+if( $secure ) {
+    login();
+}
+
+if (!isset($_SESSION['user']['read_permission'])) {
+    $_SESSION['user']['read_permission'] =1;
+}
+if (!isset($_SESSION['user']['write_permission'])) {
+    $_SESSION['user']['write_permission'] =1;
 }
 
 echo headerstart($title);
