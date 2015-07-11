@@ -46,7 +46,7 @@ if ($readperm == 0) {
     exit;
 }
 
-echo built_form_header('../index.php?type=user');
+echo built_form_header('../' . create_url('user', 1));
 echo tableheader(_('User'), 3);
 echo tablerow_3col_textbox_2col(_('User'), 'username', $username);
 echo tablerow_3col_textbox_2col(_('Email'), 'email', $usermail);

@@ -12,27 +12,32 @@ $db = new db_function();
 $assurerid = 0 ;
 $_SESSION ['debug'] = '';
 
+
+
+$type = '';
+
+if (isset( $_SERVER['REQUEST_URI'])) {
+    $qs = '';
+    if (isset( $_SERVER['QUERY_STRING'])) {
+        $qs = '?' . $_SERVER['QUERY_STRING'];
+    }
+    $type = str_replace($qs, '', $_SERVER['REQUEST_URI']);
+    $type = str_replace('/index.php/', '', $type);
+    $type = str_replace('secure/', '', $type);
+
+$_SESSION ['debug'] .= $type . '</br>';
+}
+
 // login routine
-if (isset( $_REQUEST['login'])) {
-    $login = $type = $_REQUEST['login'];
-
-    if ( $login == 'login') {
-        login();
-    }
-
-    if ( $login == 'logout') {
-        logout();
-        header("location: https://" .  $_SERVER['HTTP_HOST'] . "/");
-    }
+if ( $type == 'login') {
+    login();
 }
 
-//test_data();
-
-if (isset( $_REQUEST['type'])) {
-    $type = $_REQUEST['type'];
-} else {
-    $type = '';
+if ( $type == 'logout') {
+    logout();
+    header("location: https://" .  $_SERVER['HTTP_HOST'] . "/");
 }
+
 
 if (!isset($_SESSION['user']['read_permission'])) {
     $_SESSION['user']['read_permission'] =1;

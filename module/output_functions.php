@@ -1,5 +1,7 @@
 <?php
 
+include_once 'basic_functions.php';
+
 /**
  * built_form_header()
  * returns the header line for a form
@@ -375,7 +377,7 @@ function tablerow_userlist_header() {
  */
 function tablerow_userlist($user) {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD"><a href="../index.php?type=user&cid='.$user['coauditor_id'].'">'.$user['coauditor_name'].'</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD"><a href="../' . create_url('user', 1, array('cid' => $user['coauditor_id'])) . '">' . $user['coauditor_name'] . '</a></td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$user['read_permission'].'</td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$user['write_permission'].'</td>' . "\n";
     $tabstring .= '</tr>' . "\n";
@@ -390,7 +392,7 @@ function tablerow_userlist($user) {
  */
 function tablerow_userlist_new() {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD" colspan="3"><a href="../index.php?type=user&cid=0">New entry</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD" colspan="3"><a href="../' . create_url('user', 1, array('cid' => 0)) .'">New entry</a></td>' . "\n";
     $tabstring .= '</tr>' . "\n";
 
     return $tabstring;
@@ -462,7 +464,7 @@ function tablerow_topicslist_header() {
  */
 function tablerow_topicslist($topic) {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD"><a href="../index.php?type=topic&tid='.$topic['session_topic_id'].'">'.$topic['session_topic'].'</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD"><a href="../' . create_url('topic', 1, array('tid' => $topic['session_topic_id'])) . '">' . $topic['session_topic'] . '</a></td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$topic['topic_explaination'].'</td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$topic['activ'].'</td>' . "\n";
     $tabstring .= '</tr>' . "\n";
@@ -477,7 +479,7 @@ function tablerow_topicslist($topic) {
  */
 function tablerow_topicslist_new() {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD" colspan="3"><a href="../index.php?type=topic&tid=0">New entry</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD" colspan="3"><a href="../' . create_url('topic', 1, array('tid' => 0)) . '">New entry</a></td>' . "\n";
     $tabstring .= '</tr>' . "\n";
 
     return $tabstring;
@@ -553,7 +555,7 @@ function tablerow_sessionslist_header() {
  */
 function tablerow_sessionslist($session) {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD"><a href="../index.php?type=session&sid='.$session['session_id'].'">'.$session['session_name'].'</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD"><a href="../' . create_url('session', 1, array('sid' => $session['session_id'])) . '">' . $session['session_name'] . '</a></td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$session['from'].'</td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$session['to'].'</td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$session['default'].'</td>' . "\n";
@@ -571,7 +573,7 @@ function tablerow_sessionslist($session) {
  */
 function tablerow_sessionslist_new() {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD" colspan="6"><a href="../index.php?type=session&sid=0">New entry</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD" colspan="6"><a href="../' . create_url('session', 1, array('sid' => 0)) . '">New entry</a></td>' . "\n";
     $tabstring .= '</tr>' . "\n";
 
     return $tabstring;
@@ -650,7 +652,7 @@ function tablerow_viewlist_header() {
  */
 function tablerow_viewlist($view) {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD"><a href="../index.php?type=view&vid='.$view['view_rigths_id'].'">'.$view['view_name'].'</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD"><a href="../' . create_url('view', 1, array('vid' => $view['view_rigths_id'])) . '">' . $view['view_name'] . '</a></td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$view['read_permission'].'</td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$view['write_permission'].'</td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$view['active'].'</td>' . "\n";
@@ -713,7 +715,7 @@ function tablerow_kpilist($kpi) {
  */
 function tablerow_kpilist_new() {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD" colspan="4"><a href="../index.php?type=kpi&kid=0">New entry</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD" colspan="4"><a href="../' . create_url('kpi', 1, array('kid' => 0)) . '">New entry</a></td>' . "\n";
     $tabstring .= '</tr>' . "\n";
 
     return $tabstring;

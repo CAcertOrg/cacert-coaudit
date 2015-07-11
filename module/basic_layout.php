@@ -1,5 +1,7 @@
 <?php
 
+include_once 'basic_functions.php';
+
 /**
  * titlebar()
  * returns the title bar for a page
@@ -11,7 +13,7 @@ function titlebar() {
     <header class="mainHeader">
     <div class="titlecontainer">
         <h1>$coauditsystem</h1>
-        <img class="logo" alt="CAcert Logo" src="res/img/CAcert-logo-colour-210tr.png"/>
+        <img class="logo" alt="CAcert Logo" src="/res/img/CAcert-logo-colour-210tr.png"/>
     </div>
 foohtmlheader;
 
@@ -24,10 +26,11 @@ foohtmlheader;
  * @return
  */
 function footer() {
+    $url =  create_url('imprint');
     $tabstrings = <<<foohtmlfooter
     <div class="footerbar">
         <a href="#">Data Protection</a>
-        <a href="index.php?type=imprint">Imprint</a>
+        <a href="$url">Imprint</a>
     </div>
 foohtmlfooter;
 
@@ -68,6 +71,7 @@ function menu() {
         }
     }
 
+    $url =  create_url('statistic');
     $tabstrings1 = <<<foohtmlnav1
         <nav>
             <!--div class="menubar"-->
@@ -79,44 +83,58 @@ function menu() {
                     <a href="#">$statistics</a>
                     <ul>
                         <li>
-                            <a href="index.php?type=statistic">$overview</a>
+                            <a href="$url">$overview</a>
                         </li>
                     </ul>
                 </li>
 foohtmlnav1;
+
+    $url =  create_url('result', 1);
+    $url1 =  create_url('resultlist', 1, array('cid' => true));
     $tabstrings2 = <<<foohtmlnav2
                 <li><a href="#">$coauditors</a>
                     <ul>
                         <li>
-                            <a href="index.php?type=result">$newEntry</a>
+                            <a href="$url">$newEntry</a>
                         </li>
                         <li>
-                            <a href="index.php?type=resultlist&cid=true">$ownEntry</a>
+                            <a href="$url1">$ownEntry</a>
                         </li>
                     </ul>
                 </li>
 foohtmlnav2;
+
+    $url =  create_url('userlist', 1);
+    $url1 =  create_url('sessionlist', 1);
+    $url2 =  create_url('topiclist', 1);
+    $url3 =  create_url('resultlist', 1);
+    $url4 =  create_url('viewlist', 1);
+    $url5 =  create_url('kpilist', 1);
     $tabstrings3 = <<<foohtmlnav3
                 <li>
                     <a href="#"><span>$admin</span></a>
                     <ul class="sub-menu">
-                        <li><a href="index.php?type=userlist">$adminuser</a></li>
-                        <li><a href="index.php?type=sessionlist">$adminsession</a></li>
-                        <li><a href="index.php?type=topiclist">$admintopic</a></li>
-                        <li><a href="index.php?type=resultlist">$adminresult</a></li>
-                        <li><a href="index.php?type=viewlist">$adminview</a></li>
-                        <li><a href="index.php?type=kpilist">$adminkpi</a></li>
+                        <li><a href="$url">$adminuser</a></li>
+                        <li><a href="$url1">$adminsession</a></li>
+                        <li><a href="$url2">$admintopic</a></li>
+                        <li><a href="$url3">$adminresult</a></li>
+                        <li><a href="$url4">$adminview</a></li>
+                        <li><a href="$url5">$adminkpi</a></li>
                     </ul>
                 </li>
 foohtmlnav3;
+
+    $url =  create_url('login', 1);
     $tabstrings4 = <<<foohtmlnav4
                 <li>
-                    <a href="index.php?login=login">$login</a>
+                    <a href="$url">$login</a>
                 </li>
 foohtmlnav4;
+
+    $url =  create_url('logout', 1);
     $tabstrings5 = <<<foohtmlnav5
                 <li>
-                    <a href="index.php?login=logout">$logout $username</a>
+                    <a href="$url">$logout $username</a>
                 </li>
 foohtmlnav5;
     $tabstrings6 = <<<foohtmlnav6

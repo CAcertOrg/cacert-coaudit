@@ -163,7 +163,7 @@ function create_url($type, $secure = 0, $parameter = array()){
         $secureurl='';
     }
 
-    $url = 'index.php/' . $secureurl . $type ;
+    $url = '/index.php/' . $secureurl . $type ;
 
     $arrlen = count($parameter);
 
