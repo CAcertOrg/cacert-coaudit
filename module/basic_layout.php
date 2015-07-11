@@ -171,7 +171,7 @@ function footerend() {
     $tabstrings = <<<foohtmlfoot1
 </body>
 </html>
-foohtmlfoo1;
+foohtmlfoot1;
 
     return $tabstrings;
 }
