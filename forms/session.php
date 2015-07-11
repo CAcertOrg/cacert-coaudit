@@ -1,13 +1,13 @@
 <?php
-include_once('../module/output_functions.php');
-include_once('../module/class.db_functions.php');
+
+include_once '../module/output_functions.php';
+include_once '../module/class.db_functions.php';
 
 $db = new db_function();
 
 //Check access to page
 $readperm = get_read_permission('session');
 $writeperm = get_write_permission('session');
-
 
 if (isset($_REQUEST['sid'])) {
     $sid = intval($_REQUEST['sid']);
@@ -34,7 +34,6 @@ if ($sid == 0) {
     $active = $sessions['active'];
 }
 
-
 $hidden[]=array('sid',$sid);
 
 //buildform
@@ -55,6 +54,3 @@ echo tablerow_topics_active($active);
 echo tablefooter_user(2, $sid, $writeperm);;
 echo built_form_footer($hidden);
 echo end_div();
-
-
-?>

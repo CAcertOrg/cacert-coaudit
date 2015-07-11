@@ -1,9 +1,10 @@
 <?php
 
-include_once('../module/output_functions.php');
-include_once('../module/class.db_functions.php');
+include_once '../module/output_functions.php';
+include_once '../module/class.db_functions.php';
 
 $db = new db_function();
+
 //Check access to page
 $readperm = get_read_permission('kpi');
 $writeperm = get_write_permission('kpi');
@@ -22,7 +23,7 @@ if ($kid == 0) {
     $target = '';
 } else {
     //edit kpi
-    $kpi = $db -> get_all_kpi(" coaudit_refdata_id = $kid");
+    $kpi = $db->get_all_kpi(" coaudit_refdata_id = $kid");
     $session_id = $kpi['session_id'];
     $session_year = $kpi['session_year'];
     $assurances = $kpi['assurances'];
@@ -31,9 +32,9 @@ if ($kid == 0) {
 
 //refresh refresh
 
-$sessionres = $db -> get_all_session();
+$sessionres = $db->get_all_session();
 
-$hidden[]=array('kid',$kid);
+$hidden[] = array('kid', $kid);
 
 //buildform
 echo start_div('content');
@@ -52,6 +53,3 @@ echo tablerow_2col_textbox(_('Target [%]'), 'target', $target);
 echo tablefooter_user(2, $kid, $writeperm);
 echo built_form_footer($hidden);
 echo end_div();
-
-
-?>

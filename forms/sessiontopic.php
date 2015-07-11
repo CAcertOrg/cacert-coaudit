@@ -1,9 +1,10 @@
 <?php
 
-include_once('../module/output_functions.php');
-include_once('../module/class.db_functions.php');
+include_once '../module/output_functions.php';
+include_once '../module/class.db_functions.php';
 
 $db = new db_function();
+
 //Check access to page
 $readperm = get_read_permission('sessiontopic');
 $writeperm = get_write_permission('sessiontopic');
@@ -11,7 +12,7 @@ $writeperm = get_write_permission('sessiontopic');
 if (isset($_REQUEST['stid'])) {
     $stid = intval($_REQUEST['stid']);
 } else {
-    $stid =0;
+    $stid = 0;
 }
 
 if ($stid == 0) {
@@ -31,12 +32,11 @@ if ($stid == 0) {
     $active = $topic['active'];
 }
 
-
 //get data
 $sessionres = $db -> get_all_session();
 $topicres = $db -> get_all_topics();
 
-$hidden[]=array('stid',$stid);
+$hidden[] = array('stid',$stid);
 
 //buildform
 echo start_div('content');
@@ -55,7 +55,3 @@ echo tablerow_topics_active($active);
 echo tablefooter_user(2, $session_topics_id, $writeperm);
 echo built_form_footer($hidden);
 echo end_div();
-
-
-
-?>

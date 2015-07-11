@@ -1,17 +1,18 @@
 <?php
 
-include_once('../module/output_functions.php');
-include_once('../module/class.db_functions.php');
+include_once '../module/output_functions.php';
+include_once '../module/class.db_functions.php';
 
 $db = new db_function();
+
 //Check access to page
 $readperm = get_read_permission('userlist');
 $writeperm = get_write_permission('userlist');
 
-
 //get data
 $users = $db->get_all_user();
-//$user=array(1,'dddd',"www",2,3);
+
+//$user = array(1,'dddd',"www",2,3);
 
 echo start_div('content');
 
@@ -35,7 +36,5 @@ if (count($users) <= 0 ) {
 if ($writeperm > 0) {
     echo tablerow_userlist_new();
 }
+
 echo end_div();
-
-
-?>

@@ -1,9 +1,10 @@
 <?php
 
-include_once('../module/output_functions.php');
-include_once('../module/class.db_functions.php');
+include_once '../module/output_functions.php';
+include_once '../module/class.db_functions.php';
 
 $db = new db_function();
+
 //Check access to page
 $readperm = get_read_permission('topic');
 $writeperm = get_write_permission('topic');
@@ -11,7 +12,7 @@ $writeperm = get_write_permission('topic');
 if (isset($_REQUEST['tid'])) {
     $tid = intval($_REQUEST['tid']);
 } else {
-    $tid =0;
+    $tid = 0;
 }
 
 if ($tid == 0) {
@@ -31,9 +32,7 @@ if ($tid == 0) {
 
 //refresh user
 
-
-
-$hidden[]=array('tid',$tid);
+$hidden[] = array('tid',$tid);
 
 //buildform
 echo start_div('content');
@@ -51,6 +50,3 @@ echo tablerow_topics_active($activ);
 echo tablefooter_user(2, $session_topic_id, $writeperm);;
 echo built_form_footer($hidden);
 echo end_div();
-
-
-?>

@@ -1,7 +1,7 @@
 <?php
 
-include_once('../module/output_functions.php');
-include_once('../module/class.db_functions.php');
+include_once '../module/output_functions.php';
+include_once '../module/class.db_functions.php';
 
 $db = new db_function();
 
@@ -9,9 +9,8 @@ $db = new db_function();
 $readperm = get_read_permission('sessionlist');
 $writeperm = get_write_permission('sessionlist');
 
-
 //get data
-$sessions = $db -> get_all_session();
+$sessions = $db->get_all_session();
 
 echo start_div('content');
 
@@ -23,11 +22,10 @@ if ($readperm == 0) {
 echo tableheader(_('Session list'), 6);
 echo tablerow_sessionslist_header();
 
-
 if (count($sessions) <= 0 ) {
     echo tablerow_no_entry(6);
 } else {
-    foreach($sessions as $session){
+    foreach($sessions as $session) {
         echo tablerow_sessionslist($session);
     }
 }
@@ -37,7 +35,5 @@ if (count($sessions) <= 0 ) {
 if ($writeperm > 0) {
     echo tablerow_sessionslist_new();
 }
+
 echo end_div();
-
-
-?>

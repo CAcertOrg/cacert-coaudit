@@ -1,6 +1,7 @@
 <?php
-include_once('../module/output_functions.php');
-include_once('../module/class.db_functions.php');
+
+include_once '../module/output_functions.php';
+include_once '../module/class.db_functions.php';
 
 $db = new db_function();
 
@@ -8,10 +9,8 @@ $db = new db_function();
 $readperm = get_read_permission('viewlist');
 $writeperm = get_write_permission('viewlist');
 
-
 //get data
-$views = $db -> get_all_view();
-
+$views = $db->get_all_view();
 
 echo start_div('content');
 
@@ -22,7 +21,6 @@ if ($readperm == 0) {
 
 echo tableheader(_('View list'), 4);
 echo tablerow_viewlist_header();
-
 
 if (count($views) <= 0 ) {
     echo tablerow_no_entry(4);
@@ -35,7 +33,5 @@ if (count($views) <= 0 ) {
 if ($writeperm > 0) {
     echo tablerow_viewlist_new();
 }
+
 echo end_div();
-
-
-?>

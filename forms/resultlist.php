@@ -1,7 +1,7 @@
 <?php
 
-include_once('../module/output_functions.php');
-include_once('../module/class.db_functions.php');
+include_once '../module/output_functions.php';
+include_once '../module/class.db_functions.php';
 
 $db = new db_function();
 
@@ -20,7 +20,6 @@ if ($cid == 'true') {
     $cid = $_SESSION['user']['id'];
 }
 
-
 $year = 0;
 $session = '';
 $sessionold = '';
@@ -35,7 +34,6 @@ $assurer = '';
 $session_topic_id = 0;
 $coauditor_id = 0;
 
-
 if (isset($_REQUEST['session_id'])) {
     $session = intval($_REQUEST['session_id']);
 } else {
@@ -48,13 +46,9 @@ if (isset($_REQUEST['coauditor_id'])) {
     $coaudid = $cid;
 }
 
-
-
-
 $sessionres = $db -> get_all_session();
 $coauditorres = $db -> get_all_user();
 $hidden[]=array('cid',$cid);
-
 
 echo start_div('content');
 
@@ -62,18 +56,19 @@ echo start_div('content');
 echo built_form_header('../index.php?type=resultlist');
 echo tableheader(_('Filter'), 2);
 echo tablerow_2col_dropbox(_('Coaudit session'), $sessionres, $session, 'session_id', 'session_name', 1);
+
 if ($cid == '') {
     echo tablerow_2col_dropbox(_('Co-Auditor'), $coauditorres, $coaudid, 'coauditor_id', 'coauditor_name', 1);
 }
+
 echo tablefooter_filter(2, _('Apply'));
 echo built_form_footer($hidden);
 echo empty_line();
 
-
 foreach ($sessionres as $ressession) {
     if ($session == 0 || $ressession['session_id'] == $session ) {
 
-        $res = $db -> get_results($ressession['session_id'], $coaudid);
+        $res = $db->get_results($ressession['session_id'], $coaudid);
         $sessionname = $ressession['session_name'];
         $col = 0;
         $start = 0;
@@ -101,15 +96,20 @@ foreach ($sessionres as $ressession) {
                 $datarow .= $editcell;
                 $col = 3;
             }
+
             if ($assurer != $row['uid'] ) {
-                if ($col >0 && $start == 0) {
+                if ($col > 0 && $start == 0) {
                     echo tableheader(sprintf(_('Coaudit results for %s'), $sessionname), $col);
                     echo tablerow_start() . $rowheader1 . tablerow_end();
                     echo tablerow_start() . $rowheader2 . tablerow_end();
+
                     $start = 1;
                 }
+
                 $assurer = $row['uid'];
+
                 echo tablerow_start() . $datarow . tablerow_end();
+
                 $year = $row['CYear'];
                 $datarow = tablecell($row['CYear']);
                 $datarow .= tablecell($row['uid'],0,'right');
@@ -118,28 +118,30 @@ foreach ($sessionres as $ressession) {
                 $col = 3;
             }
 
-
             if ($start == 0) {
                 $rowheader1 .= tablecell($row['Topic'],2);
                 $rowheader2 .= tablecell(_('Result'));
                 $rowheader2 .= tablecell(_('Comment'));
             }
+
             $datarow .= tablecell($row['Result'], 0,'center');
             $datarow .= tablecell($row['Comment']);
+
             $col +=2;
         }
 
-
         if ($start == 0 ) {
             echo tableheader(sprintf(_('Coaudit results for %s'), $sessionname), $col);
-        if ($col > 0 ) {
-            echo tablerow_start() . $rowheader1 . tablerow_end();
-            echo tablerow_start() . $rowheader2 . tablerow_end();
+            if ($col > 0 ) {
+                echo tablerow_start() . $rowheader1 . tablerow_end();
+                echo tablerow_start() . $rowheader2 . tablerow_end();
+            }
         }
-           }
+
         if ($col > 0 ) {
             echo tablerow_start() . $datarow . tablerow_end();
         }
+
         echo table_end();
         echo empty_line();
         echo empty_line();
@@ -147,5 +149,3 @@ foreach ($sessionres as $ressession) {
 }
 
 echo end_div();
-
-?>

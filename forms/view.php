@@ -1,7 +1,7 @@
 <?php
 
-include_once('../module/output_functions.php');
-include_once('../module/class.db_functions.php');
+include_once '../module/output_functions.php';
+include_once '../module/class.db_functions.php';
 
 $db = new db_function();
 
@@ -14,9 +14,8 @@ $writeperm = get_write_permission('view');
 if (isset($_REQUEST['vid'])) {
     $vid = intval($_REQUEST['vid']);
 } else {
-    $vid =0;
+    $vid = 0;
 }
-
 
 if ($vid == 0) {
     //new user
@@ -37,9 +36,7 @@ if ($vid == 0) {
 
 //refresh user
 
-
-
-$hidden[]=array('vid',$vid);
+$hidden[] = array('vid',$vid);
 
 //buildform
 echo start_div('content');
@@ -57,5 +54,3 @@ echo tablerow_user_rights($roles, $read, $write);
 echo tablefooter_user(3, $vid, $writeperm);
 echo built_form_footer($hidden);
 echo end_div();
-
-?>

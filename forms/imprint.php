@@ -1,4 +1,3 @@
-<?php ?>
 <div class="content">
 
 <h2>Imprint</h2>
@@ -15,7 +14,7 @@
 <h3>CAcert Inc. Committee</h3>
 
 <p>Dirk Astrath (President)<br/>
-J&uumlrgen Bruckner (Vice President)<br/>
+J&uumlrgen Br&uuml;ckner (Vice President)<br/>
 Michael T&aumlnzer (Treasurer)<br/>
 Etienne Ruedin (Secretary)<br/>
 Benjamin Ball, Guillaume Romagny, Robert Cruisnak </p>

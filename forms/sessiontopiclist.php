@@ -1,21 +1,24 @@
 <?php
 
-include_once('../module/output_functions.php');
-include_once('../module/class.db_functions.php');
+include_once '../module/output_functions.php';
+include_once '../module/class.db_functions.php';
 
 $db = new db_function();
+
 //Check access to page
 $readperm = get_read_permission('sessiontopiclist');
 $writeperm = get_write_permission('sessiontopiclist');
+
 $sid = 0;
 if (isset( $_REQUEST['sid'])) {
     $sid = $_REQUEST['sid'];
-}else{
+} else {
     echo error(_('You do not have the right to read this page.'));
-    exit;}
+    exit;
+}
+
 //get data
 $sessiontopics = $db -> get_all_sessiontopics(' `s`.`session_id` = ' . $sid);
-
 
 echo start_div('content');
 
@@ -30,7 +33,7 @@ echo tablerow_sessiontopiclist_header();
 if (count($sessiontopics) <= 0 ) {
     echo tablerow_no_entry(4);
 } else {
-    foreach($sessiontopics as $sessiontopic){
+    foreach($sessiontopics as $sessiontopic) {
         echo tablerow_sessiontopicsslist($sessiontopic);
     }
 }
@@ -38,8 +41,5 @@ if (count($sessiontopics) <= 0 ) {
 if ($writeperm > 0) {
     echo tablerow_sessionstopicslist_new();
 }
+
 echo end_div();
-
-
-
-?>

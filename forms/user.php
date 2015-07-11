@@ -1,6 +1,7 @@
 <?php
-include_once('../module/output_functions.php');
-include_once('../module/class.db_functions.php');
+
+include_once '../module/output_functions.php';
+include_once '../module/class.db_functions.php';
 
 $db = new db_function();
 
@@ -13,9 +14,8 @@ $writeperm = get_write_permission('user');
 if (isset($_REQUEST['cid'])) {
     $cid = intval($_REQUEST['cid']);
 } else {
-    $cid =0;
+    $cid = 0;
 }
-
 
 if ($cid == 0) {
     //new user
@@ -36,9 +36,7 @@ if ($cid == 0) {
 
 //refresh user
 
-
-
-$hidden[]=array('cid',$userid);
+$hidden[] = array('cid',$userid);
 
 //buildform
 echo start_div('content');
@@ -56,6 +54,3 @@ echo tablerow_user_rights($roles, $read, $write);
 echo tablefooter_user(3, $userid, $writeperm);
 echo built_form_footer($hidden);
 echo end_div();
-
-
-?>
