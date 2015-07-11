@@ -9,6 +9,8 @@ $db = new db_function();
 $readperm = get_read_permission('resultlist');
 $writeperm = get_write_permission('resultlist');
 
+$_SESSION['coauditor'] = array_key_exists('cid',$_REQUEST) ? $_REQUEST['cid'] : '';
+
 if ($readperm == 0) {
     echo error(_('You do not have the right to read this page.'));
     exit;
