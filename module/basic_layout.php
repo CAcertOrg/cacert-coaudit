@@ -58,15 +58,16 @@ function menu() {
     $username = array_key_exists('name', $_SESSION ['user']) ? ' [ ' . $_SESSION ['user'] ['name'] . ' ]' : '';
     // $Admin
 
-    if ( strpos($_SERVER['HTTP_REFERER'], 'list') >0 ) {
-        $url = explode('?', $_SERVER['HTTP_REFERER']);
-        $backurl = '?' . $url[1];
-        $backclass = 'back_enabled';
-    } else {
-        $backurl = "#";
-        $backclass = 'back_disabled';
-
+    $backurl = "#";
+    $backclass = 'back_disabled';
+    if (isset($_SERVER['HTTP_REFERER'])) {
+        if ( strpos($_SERVER['HTTP_REFERER'], 'list') >0 ) {
+            $url = explode('?', $_SERVER['HTTP_REFERER']);
+            $backurl = '?' . $url[1];
+            $backclass = 'back_enabled';
+        }
     }
+
     $tabstrings1 = <<<foohtmlnav1
         <nav>
             <!--div class="menubar"-->
