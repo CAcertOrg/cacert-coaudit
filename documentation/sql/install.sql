@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `coauditdb` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE IF NOT EXISTS `coauditdb` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `coauditdb`;
 -- MySQL dump 10.13  Distrib 5.6.11, for Win32 (x86)
 --
