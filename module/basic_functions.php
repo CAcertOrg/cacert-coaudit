@@ -147,3 +147,49 @@ function write_log($file, $id, $content) {
     fwrite($f, $output);
     fclose($f);
 }
+
+/**
+ * create_url()
+ * creates a URL matching the URL rewrite pattern
+ * @param mixed $type       give the function
+ * @param integer $secure   if not 0 add token secure to url
+ * @param array $parameter  array of parameters e.g. 'id' =>'1'
+ * @return
+ */
+function create_url($type, $secure = 0, $parameter = array()){
+    if ($secure != 0) {
+        $secureurl='secure/';
+    } else {
+        $secureurl='';
+    }
+
+    $url = 'index.php/' . $secureurl . $type ;
+
+    $arrlen = count($parameter);
+
+    if ($arrlen > 0) {
+        $i = 1;
+        $url .= '?';
+        foreach($parameter as $key => $value){
+            $url .= urlencode($key) . '=' .  urlencode($value);
+            if ($i < $arrlen ) {
+                $url .= '&';
+            }
+            $i++;
+        }
+    }
+
+    return $url;
+}
+
+/**
+ * create_url_html()
+ * creates a URL matching the URL rewrite pattern which is secured with htmlspecialchars()
+ * @param mixed $type       give the function
+ * @param integer $secure   if not 0 add token secure to url
+ * @param array $parameter  array of parameters e.g. 'id' =>'1'
+ * @return
+ */
+function create_url_html($type, $secure = 0, $parameter = array()){
+    return htmlspecialchars(create_url($type, $secure, $parameter));
+}
