@@ -39,10 +39,8 @@ function check_cert() {
     //check email address
 
     $emails = get_valid_email_from_cert();
-    if (isset($email)) {
-        if (count($mails) == 0) {
-            return false;
-        }
+    if (empty($emails)) {
+         return false;
     }
 
     return true;
