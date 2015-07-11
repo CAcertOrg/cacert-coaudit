@@ -114,11 +114,13 @@ function login() {
         return false;
     }
 
-    $_SESSION['user']['id'] = $uid;
-    $_SESSION['user']['name'] = $result['coauditor_name'];
-    $_SESSION['user']['email'] = $result['email'];
-    $_SESSION['user']['read_permission'] = $result['read_permission'];
-    $_SESSION['user']['write_permission'] = $result['write_permission'];
+    $_SESSION['user'] = array(
+        'id'] => $uid,
+        'name'] => $result['coauditor_name'],
+        'email'] => $result['email'],
+        'read_permission' => $result['read_permission'],
+        'write_permission' => $result['write_permission']
+        );
 
     return true;
 }
