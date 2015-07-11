@@ -153,7 +153,7 @@ function headerstart($title) {
 <html lang="en">
 <head>
     <title>$title</title>
-    <link rel="stylesheet" href="res/css/template.css" type="text/css" />
+    <link rel="stylesheet" href="/res/css/template.css" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body class="body">
