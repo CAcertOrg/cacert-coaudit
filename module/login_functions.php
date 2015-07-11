@@ -1,18 +1,19 @@
 <?php
 
-include_once('class.db_functions.php');
+include_once 'class.db_functions.php';
 
 /**
  * check_cert()
  * checks if a lcient certificate is valid for login
  * @return
  */
-function check_cert(){
+function check_cert() {
     $emails = array();
 
     if (!isset($_SERVER['SSL_CLIENT_VERIFY'])) {
          return false;
     }
+
     //certificate given
     if ($_SERVER['SSL_CLIENT_VERIFY'] != 'SUCCESS') {
         return false;
@@ -30,7 +31,6 @@ function check_cert(){
         //added to use with testserver certificates
         case '/C=AU/ST=New South Wales/O=CAcert Testserver/OU=http://cacert1.it-sls.de/CN=CAcert Testserver Root':
         case '/O=CAcert Testsever/OU=http://cacert1.it-sls.de/CN=CAcert Testserver Class 3':
-            ;
             break;
         default:
             return false;
@@ -41,7 +41,7 @@ function check_cert(){
     $emails = get_valid_email_from_cert();
     if (isset($email)) {
         if (count($mails) == 0) {
-            return FALSE;
+            return false;
         }
     }
 
@@ -53,7 +53,7 @@ function check_cert(){
  * returns an array with all email address of a client certificate with *@cacert.org
  * @return
  */
-function get_valid_email_from_cert(){
+function get_valid_email_from_cert() {
     $result = array();
 
     $test =  $_SERVER['SSL_CLIENT_S_DN'];
@@ -77,14 +77,16 @@ function get_valid_email_from_cert(){
  * @param mixed $emails
  * @return
  */
-function get_uid($emails){
-$db = new db_function();
+function get_uid($emails) {
+    $db = new db_function();
+
     foreach ($emails as $email) {
-	$uid = $db -> get_userid_from_mail($email);
+        $uid = $db->get_userid_from_mail($email);
         if ($uid > 0) {
             return $uid;
         }
     }
+
     return 0;
 }
 
@@ -93,10 +95,10 @@ $db = new db_function();
  * returns if a client cert login was successful or not
  * @return
  */
-function login(){
-$db = new db_function();
+function login() {
+    $db = new db_function();
     if (check_cert() === false) {
-        $_SESSION['error'] =_('It is not possilble to log you in. May be there is a problem with the certificate linked to your user account.');
+        $_SESSION['error'] =_('It is not possilble to log you in. Maybe there is a problem with the certificate linked to your user account.');
         return false;
     }
 
@@ -104,13 +106,13 @@ $db = new db_function();
 
     $uid = get_uid($emails);
     if ($uid == 0) {
-        $_SESSION['error'] =_('It is not possilble to log you in. May be there is a problem with your user account.');
+        $_SESSION['error'] =_('It is not possilble to log you in. Maybe there is a problem with your user account.');
         return false;
     }
 
-    $result = $db -> get_userdata($uid);
+    $result = $db->get_userdata($uid);
     if (!isset($result)) {
-       $_SESSION['error'] =_('It is not possilble to log you in. May be there is a problem with your user account.');
+        $_SESSION['error'] =_('It is not possilble to log you in. Maybe there is a problem with your user account.');
         return false;
     }
 
@@ -119,9 +121,8 @@ $db = new db_function();
     $_SESSION['user']['email'] = $result['email'];
     $_SESSION['user']['read_permission'] = $result['read_permission'];
     $_SESSION['user']['write_permission'] = $result['write_permission'];
+
     return true;
-
-
 }
 
 /**
@@ -129,7 +130,7 @@ $db = new db_function();
  * used for logout from the system
  * @return
  */
-function logout(){
+function logout() {
 /*
     $_SESSION['user']['id'] = '';
     $_SESSION['user']['email'] = '';

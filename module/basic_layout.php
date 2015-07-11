@@ -1,17 +1,18 @@
 <?php
+
 /**
  * titlebar()
  * returns the title bar for a page
  * @return
  */
-function titlebar(){
+function titlebar() {
     $coauditsystem = _('Co-Audit system');
     $tabstrings = <<<foohtmlheader
     <header class="mainHeader">
     <div class="titlecontainer">
-    <h1>$coauditsystem</h1>
-	<img class="logo" alt="CAcert Logo" src="res/img/CAcert-logo-colour-210tr.png"/>
-    	</div>
+        <h1>$coauditsystem</h1>
+        <img class="logo" alt="CAcert Logo" src="res/img/CAcert-logo-colour-210tr.png"/>
+    </div>
 foohtmlheader;
 
     return $tabstrings;
@@ -22,12 +23,12 @@ foohtmlheader;
  * returns the footer for a page
  * @return
  */
-function footer(){
+function footer() {
     $tabstrings = <<<foohtmlfooter
-        <div class="footerbar">
-            <a href="#">Data Protection</a>
-            <a href="index.php?type=imprint">Imprint</a>
-        </div>
+    <div class="footerbar">
+        <a href="#">Data Protection</a>
+        <a href="index.php?type=imprint">Imprint</a>
+    </div>
 foohtmlfooter;
 
     return $tabstrings;
@@ -38,7 +39,7 @@ foohtmlfooter;
  * returns the menue for a page
  * @return
  */
-function menu(){
+function menu() {
     $back = _('back');
     $statistics = _('Statistics');
     $overview = _('Overview');
@@ -67,50 +68,61 @@ function menu(){
 
     }
     $tabstrings1 = <<<foohtmlnav1
-		<nav>
-		<!--div class="menubar"-->
-		    <ul >
-			<li id="back" class="$backclass">
-				<a href="$backurl" class="$backclass">$back</a>
-			</li>
-			<li>
-				<a href="#">$statistics</a>
-			    <ul>
-				<li><a href="index.php?type=statistic">$overview</a></li>
-			    </ul>
-			</li>
+        <nav>
+            <!--div class="menubar"-->
+            <ul >
+                <li id="back" class="$backclass">
+                    <a href="$backurl" class="$backclass">$back</a>
+                </li>
+                <li>
+                    <a href="#">$statistics</a>
+                    <ul>
+                        <li>
+                            <a href="index.php?type=statistic">$overview</a>
+                        </li>
+                    </ul>
+                </li>
 foohtmlnav1;
     $tabstrings2 = <<<foohtmlnav2
-			<li><a href="#">$coauditors</a>
-			    <ul>
-				<li><a href="index.php?type=result">$newEntry</a></li>
-				<li><a href="index.php?type=resultlist&cid=true">$ownEntry</a></li>
-			    </ul>
-			</li>
+                <li><a href="#">$coauditors</a>
+                    <ul>
+                        <li>
+                            <a href="index.php?type=result">$newEntry</a>
+                        </li>
+                        <li>
+                            <a href="index.php?type=resultlist&cid=true">$ownEntry</a>
+                        </li>
+                    </ul>
+                </li>
 foohtmlnav2;
     $tabstrings3 = <<<foohtmlnav3
-			<li><a href="#"><span>$admin</span></a>
-			    <ul class="sub-menu">
-				<li><a href="index.php?type=userlist">$adminuser</a></li>
-				<li><a href="index.php?type=sessionlist">$adminsession</a></li>
-				<li><a href="index.php?type=topiclist">$admintopic</a></li>
-				<li><a href="index.php?type=resultlist">$adminresult</a></li>
-				<li><a href="index.php?type=viewlist">$adminview</a></li>
-				<li><a href="index.php?type=kpilist">$adminkpi</a></li>
-				    </ul>
-			</li>
+                <li>
+                    <a href="#"><span>$admin</span></a>
+                    <ul class="sub-menu">
+                        <li><a href="index.php?type=userlist">$adminuser</a></li>
+                        <li><a href="index.php?type=sessionlist">$adminsession</a></li>
+                        <li><a href="index.php?type=topiclist">$admintopic</a></li>
+                        <li><a href="index.php?type=resultlist">$adminresult</a></li>
+                        <li><a href="index.php?type=viewlist">$adminview</a></li>
+                        <li><a href="index.php?type=kpilist">$adminkpi</a></li>
+                    </ul>
+                </li>
 foohtmlnav3;
     $tabstrings4 = <<<foohtmlnav4
-			<li><a href="index.php?login=login">$login</a></li>
+                <li>
+                    <a href="index.php?login=login">$login</a>
+                </li>
 foohtmlnav4;
     $tabstrings5 = <<<foohtmlnav5
-			<li><a href="index.php?login=logout">$logout $username</a></li>
+                <li>
+                    <a href="index.php?login=logout">$logout $username</a>
+                </li>
 foohtmlnav5;
     $tabstrings6 = <<<foohtmlnav6
-		    </ul>
-			<!--/div-->
-		</nav>
-		</header>
+            </ul>
+            <!--/div-->
+        </nav>
+    </header>
 foohtmlnav6;
 
     if ($_SESSION ['user'] ['read_permission'] == 1) {
@@ -133,25 +145,33 @@ foohtmlnav6;
  * @param mixed $title
  * @return
  */
-function headerstart($title){
-    $tabstrings = '<!DOCTYPE html>';
-    $tabstrings .= '<html lang="en">';
-    $tabstrings .= '<head>';
-    $tabstrings .= '<title>' . _('CAcert Coaudit') . $title . '</title>';
-    $tabstrings .= '<link rel="stylesheet" href="res/css/template.css" type="text/css" />';
-    $tabstrings .= '<meta name="viewport" content="width=device-width, initial-scale=1.0" />';
-    $tabstrings .= '</head>';
-    $tabstrings .= '<body class="body">';
+function headerstart($title) {
+    $title = _('CAcert Coaudit') . $title;
+
+    $tabstrings = <<<foohtmlhead1
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>$title</title>
+    <link rel="stylesheet" href="res/css/template.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body class="body">
+foohtmlhead1;
+
     return $tabstrings;
 }
+
 /**
  * footerend()
  * returns the footer tags for a page
  * @return
  */
-function footerend(){
-    $tabstrings = '</body>';
-    $tabstrings .= '</html>';
+function footerend() {
+    $tabstrings = <<<foohtmlfoot1
+</body>
+</html>
+foohtmlfoo1;
+
     return $tabstrings;
 }
-?>

@@ -5,4 +5,3 @@ $dbdatabase = 'database';
 $dbuser =  'user';
 $dbpw = 'pw';
 $dbsalt = 'tbd';
-?>

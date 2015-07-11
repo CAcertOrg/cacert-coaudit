@@ -1,6 +1,6 @@
 <?php
-include_once('../module/class.db_functions.php');
 
+include_once '../module/class.db_functions.php';
 
 /**
  * tidystring()
@@ -8,11 +8,11 @@ include_once('../module/class.db_functions.php');
  * @param mixed $input
  * @return
  */
-function tidystring($input){
+function tidystring($input) {
     if ($input != "") {
         $input = trim(stripslashes($input));
         $db = new db_function();
-        return $db -> tidystring($input);
+        return $db->tidystring($input);
     } else {
         return '';
     }
@@ -39,7 +39,7 @@ function define_roles(){
  * @param mixed $view
  * @return
  */
-function get_read_permission( $view){
+function get_read_permission($view) {
     $db = new db_function();
 
     $view_perm = $db -> get_view_right($view);
@@ -60,13 +60,14 @@ function get_read_permission( $view){
  * @param mixed $view
  * @return
  */
-function get_write_permission( $view){
+function get_write_permission($view) {
     $db = new db_function();
 
     $view_perm = $db -> get_view_right($view);
     if (!isset($view_perm['write_permission'])) {
         return 0;
     }
+
     $writeview = $view_perm['write_permission'];
     if ((intval($_SESSION['user']['write_permission']) & intval($writeview))>0) {
         return 1;
@@ -75,7 +76,6 @@ function get_write_permission( $view){
     }
 }
 
-
 /**
  * check_role_access()
  *  returns true if the role is asigned to a permission value
@@ -83,10 +83,11 @@ function get_write_permission( $view){
  * @param mixed $permission     permission value
  * @return
  */
-function check_role_access($role, $permission){
+function check_role_access($role, $permission) {
     $roles = define_roles();
     $value = array_search($role, $roles);
     $value = pow(2,$value);
+
     if ((intval($permission) & intval($value))>0) {
         return 1;
     } else {
@@ -100,7 +101,7 @@ function check_role_access($role, $permission){
  * @param mixed $datestring
  * @return
  */
-function validdate($datestring){
+function validdate($datestring) {
     $datestring = str_replace("'", "", $datestring);
     if ( $datestring == '0000-00-00'  || $datestring == '') {
         return true;
@@ -117,14 +118,12 @@ function validdate($datestring){
     }
 }
 
-
-
 /**
  * test_data()
  * provide test datat started in index.php
  * @return
  */
-function test_data(){
+function test_data() {
     $_SESSION['user']['id'] = 1;
     $_SESSION['user']['name'] = 'norbert';
     $_SESSION['user']['email'] = 'norbert@cacert.org';
@@ -141,11 +140,10 @@ function test_data(){
  * @param mixed $content
  * @return
  */
-function write_log($file, $id, $content){
+function write_log($file, $id, $content) {
     $filename ="../log/" . $file . "_" .  date('Y_m') . ".log";
     $f = fopen($filename, 'a');
     $output = date('Y_m_d_H_i_s') . ', ' . $_SESSION['user']['id'] . ', ' . $id . ' ,' . $content . "\r\n";
     fwrite($f, $output);
     fclose($f);
 }
-?>

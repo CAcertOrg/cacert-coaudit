@@ -1,17 +1,18 @@
 <?php
 
-class db_function{
+class db_function {
 
     public $db;
 
     var $salt = '';
+
     /**
      * db_function::__construct()
      * constructor of the class
      */
-    public function __construct(){
-        include('dbconfig.php');
-        $this -> db = New PDO("mysql:host=$dbhost;dbname=$dbdatabase", "$dbuser", "$dbpw");
+    public function __construct() {
+        include 'dbconfig.php';
+        $this->db = new PDO("mysql:host=$dbhost;dbname=$dbdatabase", "$dbuser", "$dbpw");
         $salt = $dbsalt;
     }
 
@@ -21,28 +22,27 @@ class db_function{
      * @param mixed $input
      * @return
      */
-    public function tidystring($input){
-       return $this -> db -> quote($input);
+    public function tidystring($input) {
+       return $this->db->quote($input);
     }
-// user handling
+
+    // user handling
     /**
      * db_function::get_userid_from_mail()
      * returns the id of a coauditor entry if the email matches
      * @param mixed $email
      * @return
      */
-    public function get_userid_from_mail($email){
-
+    public function get_userid_from_mail($email) {
         $query = "select `coauditor_id` from `coauditor` where `email`='$email'";
-        $res = $this -> db -> query($query);
+        $res = $this->db->query($query);
         if($res){
-            $result =  $res->fetch();
+            $result = $res->fetch();
             return $result['coauditor_id'];
         } else {
             return 0;
         }
     }
-
 
     /**
      * db_function::get_userdata()
@@ -53,9 +53,10 @@ class db_function{
     public function get_userdata($uid){
         $uid = intval($uid);
         $result = array();
+
         $query = "select `coauditor_id`, `coauditor_name`, `email`, `read_permission`, `write_permission` from `coauditor` where  `coauditor_id`='$uid'";
-        $res = $this -> db -> query($query);
-        if($res){
+        $res = $this->db->query($query);
+        if($res) {
             return $res->fetch();
         } else {
             return $result;
@@ -68,8 +69,9 @@ class db_function{
      * @param mixed $uid
      * @return
      */
-    public function get_user_write_permission($uid){
+    public function get_user_write_permission($uid) {
         $uid = intval($uid);
+
         $query = "select  `read_permission`, `write_permission` from `coauditor` where  `coauditor_id`='$uid'";
         if($res = $this->db->query(query)){
             return $res[0]['write_permission'];
@@ -78,20 +80,20 @@ class db_function{
         }
     }
 
-
     /**
      * db_function::get_user_read_permission()
      * returns the read permissions for a coauditor
      * @param mixed $uid
      * @return
      */
-    public function get_user_read_permission($uid){
+    public function get_user_read_permission($uid) {
         $uid = intval($uid);
         $result = array();
+
         $query = "select`read_permission` from `coauditor` where  `coauditor_id`='$uid'";
-        if($res = $this->db->query(query)){
+        if($res = $this->db->query(query)) {
             return $res[0]['read_permission'];
-        } else{
+        } else {
             return 0;
         }
     }
@@ -106,25 +108,25 @@ class db_function{
      * @param mixed $uid    id of user adding the data
      * @return
      */
-    public function insert_user($username, $email, $readpermission, $writepermission, $uid){
-
+    public function insert_user($username, $email, $readpermission, $writepermission, $uid) {
         $query = "Insert into `coauditor` (`coauditor_name`, `email`,
             `read_permission`, `write_permission`,
             `created_by`, `last_change`, `last_change_by`)
             VALUES ($username, $email,
             '$readpermission', '$writepermission',
             $uid, Now(), $uid)";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
-        $nid = $this -> db -> lastInsertId();
+
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+        $nid = $this->db->lastInsertId();
+
         //write log
         write_log('admin', $nid, "added account for $email");
-
     }
 
     /**
      * db_function::update_user()
-     *updates the data of a given user
+     * updates the data of a given user
      * @param mixed $username
      * @param mixed $email
      * @param mixed $readpermission
@@ -133,8 +135,7 @@ class db_function{
      * @param mixed $cid    id of dataset changed
      * @return
      */
-    public function update_user($username, $email, $readpermission, $writepermission, $uid, $cid){
-
+    public function update_user($username, $email, $readpermission, $writepermission, $uid, $cid) {
         $query = "Update `coauditor` Set `coauditor_name` = $username,
             `email` = $email,
             `read_permission` = '$readpermission',
@@ -142,11 +143,12 @@ class db_function{
             `last_change` = Now(),
             `last_change_by` = $uid
             WHERE  `coauditor_id` = $cid";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
+
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+
         //write log
         write_log('admin', $cid, "update account of $email");
-
     }
 
 
@@ -155,36 +157,39 @@ class db_function{
      * returns all coauditors entries
      * @return
      */
-    public function get_all_user(){
+    public function get_all_user() {
         $query = "select `coauditor_id`, `coauditor_name`, `email`, `read_permission`, `write_permission` from `coauditor` ORDER BY `coauditor_name`";
         $res = $this -> db -> query($query);
-        if($res){
+        if($res) {
             return $res->fetchAll();
+        } else {
+            return false;
         }
     }
 
-//topics handling
+    //topics handling
+
     /**
      * db_function::get_all_topics()
      * returns all recorded topics, if where is not given all topics, if given only the requested topic
      * @param string $where
      * @return
      */
-    public function get_all_topics($where = ''){
+    public function get_all_topics($where = '') {
         if ($where == '') {
             $where = ' Where 1=1 ';
-        }else{
+        } else {
             $where = ' Where session_topic_id=' . $where . ' ';
         }
+
         $query = "select `session_topic_id`, `session_topic`, `topic_explaination`, `activ` from `session_topic` " . $where . "ORDER BY `session_topic`";
-        $res = $this -> db -> query($query);
+        $res = $this->db->query($query);
         if($where == ' Where 1=1 '){
             return $res->fetchAll();
         } else {
             return $res->fetch();
         }
     }
-
 
     /**
      * db_function::insert_topic()
@@ -193,12 +198,14 @@ class db_function{
      * @param mixed $explain
      * @return
      */
-    public function insert_topic($topic, $explain){
+    public function insert_topic($topic, $explain) {
         $query = "Insert into `session_topic` (`session_topic`, `topic_explaination`, `activ`)
             VALUES ($topic, $explain, 1)";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
-        $nid = $this -> db -> lastInsertId();
+
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+        $nid = $this->db->lastInsertId();
+
         //write log
         write_log('admin', $nid, "added topic $topic");
     }
@@ -212,35 +219,38 @@ class db_function{
      * @param mixed $tid
      * @return
      */
-    public function update_topic($topic, $explain, $active, $tid){
-
+    public function update_topic($topic, $explain, $active, $tid) {
         $query = "Update `session_topic` Set `session_topic` = $topic,
             `topic_explaination` = $explain,
             `activ` = $active
             WHERE  `session_topic_id` = $tid";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
+
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+
         //write log
         write_log('admin', $tid, "update topic $topic");
     }
 
-// session handling
+    // session handling
+
     /**
      * db_function::get_all_session()
      * returns all recorded sessions, if where is not given all sessions, if given only the requested session
      * @param string $where
      * @return
      */
-    function get_all_session($where = ''){
+    function get_all_session($where = '') {
         if ($where == '') {
             $where = ' Where 1=1 ';
-        }else{
+        } else {
             if (is_numeric($where)) {
                 $where = ' Where session_id=' . $where . ' ';
             } else {
                 $where = ' ' . $where . ' ';
             }
         }
+
         $query = "select `session_id`, `session_name`, `from`, `to`, `default`, `active` from `coauditsession` " . $where . " ORDER BY `session_name`";
         $res = $this -> db -> query($query);
         if($where == ' Where 1=1 '){
@@ -258,12 +268,14 @@ class db_function{
      * @param mixed $to             date showing the end date for the session
      * @return
      */
-    public function insert_session($session_name, $from, $to, $default){
+    public function insert_session($session_name, $from, $to, $default) {
         $query = "Insert into `coauditsession` (`session_name`, `from`, `to`, `default`, `active`)
             VALUES ($session_name, $from, $to, 1)";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
-        $nid = $this -> db -> lastInsertId();
+
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+        $nid = $this->db->lastInsertId();
+
         //write log
         write_log('admin', $nid, "added session $session_name");
     }
@@ -278,16 +290,16 @@ class db_function{
      * @param mixed $sid            id of the session
      * @return
      */
-    public function update_session($session_name, $from, $to, $default, $active, $sid){
-
+    public function update_session($session_name, $from, $to, $default, $active, $sid) {
         $query = "Update `coauditsession` Set `session_name` = $session_name,
             `from` = $from,
             `to` = $to,
             `default` = $default,
             `active` = $active
             WHERE  `session_id` = $sid";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+
         //write log
         write_log('admin', $sid, "updated session $session_name");
     }
@@ -299,11 +311,10 @@ class db_function{
      * @param string $where
      * @return
      */
-    public function get_all_sessiontopics($where = ''){
-
+    public function get_all_sessiontopics($where = '') {
         if ($where == '') {
             $where = '';
-        }else{
+        } else {
             $where = ' and ' . $where;
         }
 
@@ -312,7 +323,7 @@ class db_function{
                     WHERE `st`.`session_topic_id` = `t`.`session_topic_id`
                     AND `st`.`coaudit_session_id` = `s`.`session_id` " . $where ."
                     ORDER BY `s`.`session_name` , `st`.`topic_no`";
-        $res = $this -> db -> query($query);
+        $res = $this->db->query($query);
         return $res;
     }
 
@@ -323,7 +334,7 @@ class db_function{
      * @param mixed $uid
      * @return
      */
-    public function get_result_topics($sid, $uid){
+    public function get_result_topics($sid, $uid) {
         $query = "SELECT `st`.`session_topics_id`, `st`.`session_topic_id` , `t`.`session_topic` , `s`.`session_name` ,
                     `st`.`topic_no` , `st`.`active`,  `r`.`result`, `r`.`comment` ,  `r`.`cacertuser_id`
                     FROM `session_topics` AS `st` , `coauditsession` AS `s` , `session_topic` AS `t`, `result` AS `r`
@@ -333,7 +344,9 @@ class db_function{
                         AND `r`.`cacertuser_id` = " . $uid . "
                         AND `s`.`session_id` = " . $sid . "
                     ORDER BY `s`.`session_name` , `st`.`topic_no`";
-        $res = $this -> db -> query($query);
+
+        $res = $this->db->query($query);
+
         return $res;
     }
 
@@ -343,12 +356,14 @@ class db_function{
      * @param mixed $stid
      * @return
      */
-    public function get_sessiontopic($stid){
+    public function get_sessiontopic($stid) {
         $query = "SELECT `session_topics_id` , `session_topic_id` , `coaudit_session_id` ,
                 `topic_no` , `active`
                 FROM `session_topics`
                 WHERE `session_topics_id` = " . $stid;
-        $res = $this -> db -> query($query);
+
+        $res = $this->db->query($query);
+
         return $res->fetch();
     }
 
@@ -361,15 +376,16 @@ class db_function{
      * @param mixed $topic_no
      * @return
      */
-    public function insert_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no){
+    public function insert_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no) {
         $query = "Insert into `session_topics` (`session_topic_id`, `coaudit_session_id`, `topic_no`, `active`)
                 VALUES ('$session_topic_id', '$coaudit_session_id', '$topic_no', 1)";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
-        $nid = $this -> db -> lastInsertId();
+
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+        $nid = $this->db->lastInsertId();
+
         //write log
         write_log('admin', $nid, "added sessiontopic");
-
     }
 
     /**
@@ -382,33 +398,38 @@ class db_function{
      * @param mixed $stid
      * @return
      */
-    public function update_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no, $active, $stid){
+    public function update_sessiontopics($session_topic_id, $coaudit_session_id, $topic_no, $active, $stid) {
         $query = "Update `session_topics` Set `session_topic_id` = '$session_topic_id',
             `coaudit_session_id` = '$coaudit_session_id',
             `topic_no` = '$topic_no',
             `active` = '$active'
             WHERE  `session_topics_id` = $stid";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
+
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+
         //write log
         write_log('admin', $stid, "updated sessiontopic");
     }
 
     // view handling
+
     /**
      * db_function::get_all_view()
      * returns all recorded views, if where is not given all views, if given only the requested view
      * @param string $where name of the requested view
      * @return
      */
-    public function get_all_view($where = ''){
+    public function get_all_view($where = '') {
         if ($where == '') {
             $where = ' Where 1=1 ';
-        }else{
+        } else {
             $where = ' Where view_rigths_id='.$where.' ';
         }
+
         $query = "select `view_rigths_id`, `view_name`, `read_permission`, `write_permission`, `active` from `view_rights` " . $where . "ORDER BY `view_name`";
-        $res = $this -> db -> query($query);
+        $res = $this->db->query($query);
+
         if($where == ' Where 1=1 '){
             return $res->fetchAll();
         } else {
@@ -424,15 +445,16 @@ class db_function{
      * @param mixed $write_permission
      * @return
      */
-    public function insert_view($view_name, $read_permission, $write_permission){
+    public function insert_view($view_name, $read_permission, $write_permission) {
         $query = "Insert into `view_rights` (`view_name`, `read_permission`, `write_permission`, `active`)
             VALUES ($view_name, '$read_permission', '$write_permission', 1)";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
-        $nid = $this -> db -> lastInsertId();
+
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+        $nid = $this->db->lastInsertId();
+
         //write log
         write_log('admin', $nid, "added view $view_name");
-
     }
 
     /**
@@ -445,15 +467,16 @@ class db_function{
      * @param mixed $vid
      * @return
      */
-    public function update_view($view_name, $read_permission, $write_permission, $active, $vid){
-
+    public function update_view($view_name, $read_permission, $write_permission, $active, $vid) {
         $query = "Update `view_rights` Set `view_name` = $view_name,
             `read_permission` = '$read_permission',
             `write_permission` = '$write_permission',
             `active` = '$active'
             WHERE `view_rigths_id` = $vid";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
+
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+
         //write log
         write_log('admin', $vid, "updated view $view_name");
     }
@@ -464,19 +487,17 @@ class db_function{
      * @param mixed $view name of the view
      * @return
      */
-    public function get_view_right($view){
+    public function get_view_right($view) {
         $query = "SELECT `view_name` , `read_permission` , `write_permission`, `active`
                     FROM `view_rights`
                     WHERE `view_name` = '$view'";
-        $res = $this -> db -> query($query);
+        $res = $this->db->query($query);
 
         $result = $res->fetch();
         return $result;
     }
 
-
-
-// result management
+    // result management
 
     /**
      * db_function::insert_result_user()
@@ -489,18 +510,23 @@ class db_function{
      * @param mixed $coauditdate
      * @return
      */
-    public function insert_result_user($primaryemail, $assurer, $expierencepoints, $country, $location, $coauditdate){
+    public function insert_result_user($primaryemail, $assurer, $expierencepoints, $country, $location, $coauditdate) {
         global $salt;
+
         $primaryemail = hash_hmac('sha256', $primaryemail, $salt);
+
         $query = "Insert into `cacertuser` (`primaryemail`, `assurer`, `expierencepoints`,
             `country`, `created_by`, `location`, `coauditdate`, `active`)
             VALUES ('$primaryemail', '$assurer', $expierencepoints,
             '$country', " . $_SESSION['user']['id'] . ", '$location', '$coauditdate', 1)";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
-        $nid = $this -> db -> lastInsertId();
+
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+        $nid = $this->db->lastInsertId();
+
         //write log
         write_log('user', $nid, "added cacertuser '$nid'");
+
         return $nid;
     }
 
@@ -516,11 +542,12 @@ class db_function{
      * @param mixed $userid
      * @return
      */
-    public function update_result_user($primaryemail, $assurer, $expierencepoints, $country, $location, $coauditdate, $userid){
+    public function update_result_user($primaryemail, $assurer, $expierencepoints, $country, $location, $coauditdate, $userid) {
         if (strpos( $primaryemail, '@') !== false) {
             global $salt;
             $primaryemail = hash_hmac('sha256', $primaryemail, $salt);
         }
+
         $query = "Update `cacertuser` Set `primaryemail` = '$primaryemail',
             `assurer` = '$assurer',
             `expierencepoints` = '$expierencepoints',
@@ -528,8 +555,10 @@ class db_function{
             `location` = '$location',
             `coauditdate` = '$coauditdate'
             WHERE `cacertuser_id` = $userid";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
+
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+
         //write log
         write_log('user', $userid, "updated cacertuser '$userid'");
     }
@@ -540,13 +569,14 @@ class db_function{
      * @param mixed $uid
      * @return
      */
-    public function get_result_user($uid){
+    public function get_result_user($uid) {
         $query = "SELECT `primaryemail` , `assurer` , `expierencepoints`, `country`, `location`, `coauditdate`,  `created`
                     FROM `cacertuser`
                     WHERE `cacertuser_id` = '$uid'";
-        $res = $this -> db -> query($query);
 
+        $res = $this->db->query($query);
         $result = $res->fetch();
+
         return $result;
    }
 
@@ -557,7 +587,7 @@ class db_function{
      * @param integer $coauditid    if given filter on the co-auditor
      * @return
      */
-    public function get_results($session = 0, $coauditid = 0){
+    public function get_results($session = 0, $coauditid = 0) {
         $where = '';
         if ($session != 0) {
             $where .= ' and `co`.`session_id` = ' . intval($session);
@@ -565,6 +595,7 @@ class db_function{
         if ($coauditid != 0) {
             $where .= ' and `aud`.`coauditor_id` = ' . intval($coauditid);
         }
+
         $query = "SELECT `co`.`session_name` AS `Session` , year( `c`.`coauditdate` ) AS `CYear` ,
                     `sts`.`topic_no` AS `Topic_No` , `st`.`session_topic` AS `Topic` ,
                     `r`.`result` AS `Result`, `st`.`session_topic_id` AS `TopicID` ,
@@ -579,7 +610,9 @@ class db_function{
                         AND `c`.`deleted` IS NULL
                         $where
                     ORDER BY  `Session`, `CYear` , `Coauditor`, `uid`, `Topic_No`";
-        $res = $this -> db -> query($query);
+
+        $res = $this->db->query($query);
+
         return $res;
     }
 
@@ -594,17 +627,20 @@ class db_function{
      * @param mixed $comment
      * @return
      */
-    public function insert_result_topic($session_topic_id, $coauditsession_id, $cacertuser_id, $result, $comment){
+    public function insert_result_topic($session_topic_id, $coauditsession_id, $cacertuser_id, $result, $comment) {
         if ($comment == '') {
             $comment = 'NULL';
         }
+
         $query = "Insert into `result` (`session_topic_id`, `coauditsession_id`, `cacertuser_id`, `coauditor_id`,
             `result`, `comment`, `active`)
             VALUES ($session_topic_id, $coauditsession_id, $cacertuser_id, " .$_SESSION['user']['id'] . ",
             '$result', $comment, 1)";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
-        $nid = $this -> db -> lastInsertId();
+
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+        $nid = $this->db->lastInsertId();
+
         //write log
         write_log('user', $nid, "added result");
     }
@@ -620,7 +656,7 @@ class db_function{
      * @param mixed $rid
      * @return
      */
-    public function update_result_topic($session_topic_id, $coauditsession_id, $cacertuser_id, $result, $comment){
+    public function update_result_topic($session_topic_id, $coauditsession_id, $cacertuser_id, $result, $comment) {
 /*
        $query = "Update `result` Set `session_topic_id` = '$session_topic_id',
             `coauditsession_id` = '$coauditsession_id',
@@ -636,8 +672,10 @@ class db_function{
             `comment` = '$comment'
             WHERE `session_topic_id` = '$session_topic_id' AND
             `cacertuser_id` = '$cacertuser_id'";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
+
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+
         //write log
         write_log('user', $session_topic_id . ' ' . $cacertuser_id, "updated result");
     }
@@ -649,16 +687,16 @@ class db_function{
      * @param mixed $sid
      * @return
      */
-    public function delete_result($uid, $sid){
-
-        $this -> delete_cacertuser($uid);
-
+    public function delete_result($uid, $sid) {
+        $this->delete_cacertuser($uid);
 
         $query = "SELECT`result_id` FROM `result`
             where `coauditsession_id` = $sid and `cacertuser_id` = $uid";
-        $res = $this -> db -> query($query);
+
+        $res = $this->db->query($query);
+
         foreach($res as $result){
-            $this -> delete_resultentry($result[0]);
+            $this->delete_resultentry($result[0]);
         }
     }
 
@@ -668,12 +706,14 @@ class db_function{
      * @param mixed $uid
      * @return
      */
-    public function delete_cacertuser($uid){
+    public function delete_cacertuser($uid) {
         $query = "Update `cacertuser` Set `active` = 0,
             `deleted` = NOW(), `deleted_by` = " . $_SESSION['user']['id'] . "
             WHERE `cacertuser_id` = '$uid'";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
+
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+
         //write log
         write_log('user', $uid, "deleted cacertuser");
     }
@@ -684,12 +724,14 @@ class db_function{
      * @param mixed $rid
      * @return
      */
-    public function delete_resultentry($rid){
+    public function delete_resultentry($rid) {
         $query = "Update `result` Set `active` = 0,
             `deleted` = NOW(), `deleted_by` = " . $_SESSION['user']['id'] . "
             WHERE `result_id` = '$rid'";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
+
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+
         //write log
         write_log('user', $rid, "deleted result entry");
     }
@@ -702,24 +744,26 @@ class db_function{
      * @param string $where
      * @return
      */
-    function get_all_kpi($where = ''){
+    function get_all_kpi($where = '') {
         if ($where == '') {
             $where = ' and 1=1 ';
-        }else{
+        } else {
             $where = ' and '.$where.' ';
         }
+
         $query = "SELECT `c`.`coaudit_refdata_id` , `c`.`session_year` , `c`.`assurances` , `c`.`target` , `s`.`session_id`, `s`.`session_name`
             FROM `coaudit_refdata` AS `c` , `coauditsession` AS `s`
             WHERE `c`.`coaudit_session_id` = `s`.`session_id` $where
             ORDER BY `s`.`session_id`,`c`.`session_year`";
-        $res = $this -> db -> query($query);
+
+        $res = $this->db->query($query);
+
         if($where == ' and 1=1 '){
             return $res->fetchAll();
         } else {
             return $res->fetch();
         }
     }
-
 
     /**
      * db_function::insert_kpi()
@@ -730,16 +774,17 @@ class db_function{
      * @param mixed $target
      * @return
      */
-    public function insert_kpi($session_id, $session_year, $assurances, $target){
+    public function insert_kpi($session_id, $session_year, $assurances, $target) {
         $query = "Insert into `coaudit_refdata` (`coaudit_session_id`, `session_year`, `assurances`, `target`)
             VALUES ('$session_id', '$session_year', '$assurances', '$target')";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
-        $nid = $this -> db -> lastInsertId();
+
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+        $nid = $this->db->lastInsertId();
+
         //write log
         write_log('admin', $nid, "added kpi");
     }
-
 
     /**
      * db_function::update_kpi()
@@ -751,34 +796,36 @@ class db_function{
      * @param mixed $kid
      * @return
      */
-    public function update_kpi($session_id, $session_year, $assurances, $target, $kid){
-
+    public function update_kpi($session_id, $session_year, $assurances, $target, $kid) {
         $query = "Update `coaudit_refdata` Set `coaudit_session_id` = '$session_id',
             `session_year` = '$session_year',
             `assurances` = '$assurances',
             `target` = '$target'
             WHERE  `coaudit_refdata_id` = $kid";
-        $smt = $this -> db -> prepare($query);
-        $smt -> execute();
+
+        $smt = $this->db->prepare($query);
+        $smt->execute();
+
         //write log
         write_log('admin', $kid, "updated kpi");
     }
 
-
-//statistics
+    //statistics
 
     /**
      * db_function::get_statisics_sessions()
      * returns active seesions in descending order
      * @return
      */
-    public function get_statisics_sessions(){
+    public function get_statisics_sessions() {
         $query = "SELECT `coauditsession`.`session_id`,
                     `coauditsession`.`session_name`
                     FROM `coauditdb`.`coauditsession`
                     WHERE `coauditsession`.`active` = 1
                     Order By  `coauditsession`.`from` DESC,  `coauditsession`.`to` DESC";
+
         $res = $this -> db -> query($query);
+
         return $res;
     }
 
@@ -788,7 +835,7 @@ class db_function{
      * @param string $where
      * @return
      */
-    public function get_statiscs_basic($where =''){
+    public function get_statiscs_basic($where ='') {
         $query = "SELECT `co`.`session_name` AS `Session` , year( `c`.`coauditdate` ) AS `CYear` , `sts`.`topic_no` AS `Topic_No` ,
             `st`.`session_topic` AS `Topic` , sum( `r`.`result` ) AS `res` , count( `r`.`result` ) AS `Total` ,  (sum(`r`.`result`) /  count(`r`.`result`))*100 as `Perc`,
             `st`.`session_topic_id` AS `TopicID` , `r`.`coauditsession_id` AS `SessionID`
@@ -799,7 +846,9 @@ class db_function{
                 AND `c`.`deleted` is Null " . $where ."
             GROUP BY `CYear` , `Topic` , `Session` , `TopicID` , `Topic_No` , `SessionID`
             ORDER BY `Session` , `CYear` ,`Topic_No`";
-        $res = $this -> db -> query($query);
+
+        $res = $this->db->query($query);
+
         return $res;
     }
 
@@ -809,11 +858,12 @@ class db_function{
      * @param string $where
      * @return
      */
-    public function get_statiscs_kpi($where =''){
+    public function get_statiscs_kpi($where ='') {
         $query = "Select `session_year`, `assurances`, `target` from `coaudit_refdata` where `coaudit_session_id` = " . $where;
+
         $res = $this -> db -> query($query);
+
         return $res;
     }
 
 }
-?>
