@@ -31,7 +31,7 @@ if (isset( $_REQUEST['login'])) {
 if (isset( $_REQUEST['type'])) {
     $type = $_REQUEST['type'];
 } else {
-    $type='';
+    $type = '';
 }
 
 if (!isset($_SESSION['user']['read_permission'])) {
@@ -43,49 +43,52 @@ if (!isset($_SESSION['user']['write_permission'])) {
 
 $title = '';
 
-switch ($type) {
-    case 'userlist':
-        $title = ' - ' . _('List of user');
-        break;
-    case 'user':
-        $title = ' - ' . _('User');
-        break;
-    case 'topiclist':
-        $title = ' - ' . _('List of topics');
-        break;
-    case 'topic':
-        $title = ' - ' . _('Topic');
-        break;
-    case 'sessionlist':
-        $title = ' - ' . _('List of coaudit sessions');
-        break;
-    case 'session':
-        $title = ' - ' . _('Coaudit session');
-        break;
-    case 'sessiontopiclist':
-        $title = ' - ' . _('List of session topics');
-        break;
-    case 'sessiontopic':
-        $title = ' - ' . _('Session topic');
-        break;
-    case 'viewlist':
-        $title = ' - ' . _('List of view');
-        break;
-    case 'view':
-        $title = ' - ' . _('View');
-        break;
-    case 'resultlist':
-        $title = ' - ' . _('Own result entries');
-        break;
-    case 'result':
-        $title = ' - ' . _('Result');
-        break;
-    case 'statistic':
-        $title = ' - ' . _('Statisics');
-        break;
-    default:
-        $title = '';
+$funclist = array(
+    //user management
+    'userlist'		=> array(true,	'../forms/userlist.php',		_('List of user')),
+    'user'		=> array(true,	'../pages/user.php',			_('User')),
+
+    // topics management
+    'topiclist'		=> array(true,	'../forms/topiclist.php',		_('List of topics')),
+    'topic'		=> array(true,	'../pages/topic.php',			_('Topic')),
+
+    // session management
+    'sessionlist'	=> array(true,	'../forms/sessionlist.php',		_('List of coaudit sessions')),
+    'session'		=> array(true,	'../pages/session.php',			_('Coaudit session')),
+
+    // session topics management
+    'sessiontopiclist'	=> array(true,	'../forms/sessiontopiclist.php',	_('List of session topics')),
+    'sessiontopic'	=> array(true,	'../pages/sessiontopic.php',		_('Session topic')),
+
+    //view management
+    'viewlist'		=> array(true,	'../forms/viewlist.php',		_('List of view')),
+    'view'		=> array(true,	'../pages/view.php',			_('View')),
+
+    // Enter result management
+    'resultlist'	=> array(true,	'../forms/resultlist.php',		_('Own result entries')),
+    'result'		=> array(true,	'../pages/result.php',			_('Result')),
+
+    // statistic
+    'statistic'		=> array(false,	'../forms/statistic.php',		_('Statisics')),
+
+    //imprint management
+    'imprint'		=> array(false,	'../forms/imprint.php',			_('Imprint')),
+
+    //pki management
+    'kpilist'		=> array(true,	'../forms/kpilist.php',			_('List of KPI')),
+    'kpi'		=> array(true,	'../pages/kpi.php',			_('KPI')),
+
+    //Default page
+    ''			=> array(false,	'',					'')
+    );
+
+if(!array_key_exists($type, $funclist)) {
+    $type = '';
 }
+
+$needs_login = $funclist[$type][0];
+$func = $funclist[$type][1];
+$title = $funclist[$type][2];
 
 echo headerstart($title);
 
@@ -102,78 +105,8 @@ $_SESSION['error'] = '';
 
 $userroles = count(define_roles()) - 1;
 
-//user management
-if ($type == 'userlist') {
-    include '../forms/userlist.php';
-}
-
-if ($type == 'user') {
-    include '../pages/user.php';
-}
-
-// topics management
-if ($type == 'topiclist') {
-    include '../forms/topiclist.php';
-}
-
-if ($type == 'topic') {
-    include '../pages/topic.php';
-}
-
-
-// session management
-if ($type == 'sessionlist') {
-    include('../forms/sessionlist.php');
-}
-
-if ($type == 'session') {
-    include '../pages/session.php';
-}
-
-// session topics management
-if ($type == 'sessiontopiclist') {
-    include '../forms/sessiontopiclist.php';
-}
-
-if ($type == 'sessiontopic') {
-    include '../pages/sessiontopic.php';
-}
-
-//view management
-if ($type == 'viewlist') {
-    include '../forms/viewlist.php';
-}
-
-if ($type == 'view') {
-    include '../pages/view.php';
-}
-
-// Enter result management
-if ($type == 'resultlist') {
-    include '../forms/resultlist.php';
-}
-
-if ($type == 'result') {
-    include '../pages/result.php';
-}
-
-// statistic
-if ($type == 'statistic') {
-    include '../forms/statistic.php';
-}
-
-//imprint management
-if ($type == 'imprint') {
-    include '../forms/imprint.php';
-}
-
-//pki management
-if ($type == 'kpilist') {
-    include '../forms/kpilist.php';
-}
-
-if ($type == 'kpi') {
-    include '../pages/kpi.php';
+if('' != $func && file_exists($func)) {
+    include $func;
 }
 
 output_debug_box($_SESSION ['debug']);
