@@ -87,7 +87,7 @@ $funclist = array(
     //imprint management
     'imprint'		=> array(false,	'../forms/imprint.php',			_('Imprint')),
 
-    //pki management
+    //kpi management
     'kpilist'		=> array(true,	'../forms/kpilist.php',			_('List of KPI')),
     'kpi'		=> array(true,	'../pages/kpi.php',			_('KPI')),
 
