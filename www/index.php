@@ -23,13 +23,18 @@ if ( 2 == count($r_uri) ) {
 }
 
 $r_uri = explode('/', $r_uri);
+
+while (!empty($r_uri) && '' == $r_uri[0]) {
+    array_shift($r_uri);
+}
+
 while (!empty($r_uri) && 'index.php' == $r_uri[0]) {
-    array_pop($r_uri);
+    array_shift($r_uri);
 }
 
 $secure = false;
 if(!empty($r_uri) && 'secure' == $r_uri[0]) {
-    array_pop($r_uri);
+    array_shift($r_uri);
     $secure = true;
 }
 
