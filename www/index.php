@@ -50,9 +50,6 @@ if( !$secure ) {
     $_SESSION ['debug'] = $debug;
 }
 
-$_SESSION ['debug'] .= ($secure ? 'secure' : '') . '<br/>';
-$_SESSION ['debug'] .= htmlspecialchars($type) . '<br/>';
-
 if ( $type == 'logout') {
     logout();
     header('Location: /');
