@@ -55,7 +55,7 @@ $hidden[]=array('cid',$cid);
 echo start_div('content');
 
 // build filter form
-echo built_form_header('../' . create_url('resultlist', 1));
+echo built_form_header(create_url('resultlist', 1));
 echo tableheader(_('Filter'), 2);
 echo tablerow_2col_dropbox(_('Coaudit session'), $sessionres, $session, 'session_id', 'session_name', 1);
 
@@ -77,7 +77,7 @@ foreach ($sessionres as $ressession) {
 
         // build result table
         foreach($res as $row){
-            $linkadress = '../' . create_url('result', 1, array('sid' => $row['SessionID'], 'rid' =>  $row['uid'])) ;
+            $linkadress = create_url('result', 1, array('sid' => $row['SessionID'], 'rid' =>  $row['uid'])) ;
             $editcell = tablecell( '<a href="' .$linkadress  .'">' . _('View') .'</a>');
 
             if ($start == 0 && $col == 0) {

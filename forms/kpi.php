@@ -44,7 +44,7 @@ if ($readperm == 0) {
     exit;
 }
 
-echo built_form_header('../' . create_url('kpi', 1));
+echo built_form_header(create_url('kpi', 1));
 echo tableheader(_('KPI'), 2);
 echo tablerow_2col_dropbox(_('Coaudit session'), $sessionres, $session_id, 'session_id', 'session_name', 0);
 echo tablerow_2col_textbox(_('Year'), 'session_year', $session_year);

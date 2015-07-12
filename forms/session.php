@@ -44,7 +44,7 @@ if ($readperm == 0) {
     exit;
 }
 
-echo built_form_header('../' . create_url('session', 1));
+echo built_form_header( create_url('session', 1));
 echo tableheader(_('Session'), 2);
 echo tablerow_2col_textbox(_('Session'), 'session_name', $session_name);
 echo tablerow_2col_textbox(_('From'), 'from', $from);

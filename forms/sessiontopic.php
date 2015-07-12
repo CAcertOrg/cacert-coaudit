@@ -46,7 +46,7 @@ if ($readperm == 0) {
     exit;
 }
 
-echo built_form_header('..' . create_url('sessiontopic', 1));
+echo built_form_header(create_url('sessiontopic', 1));
 echo tableheader(_('Session topic'), 2);
 echo tablerow_2col_dropbox(_('Coaudit session'), $sessionres, $coaudit_session_id, 'session_id', 'session_name', 0);
 echo tablerow_2col_textbox(_('Topic No'), 'topic_no', $topic_no);

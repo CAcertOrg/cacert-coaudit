@@ -90,7 +90,7 @@ function menu($secure = 0) {
 foohtmlnav1;
 
     $url =  create_url('result', 1);
-    $url1 =  create_url('resultlist', 1, array('cid' => true));
+    $url1 =  create_url('resultlist', 1, array('cid' => $_SESSION['user']['id']));
     $tabstrings2 = <<<foohtmlnav2
                 <li><a href="#">$coauditors</a>
                     <ul>

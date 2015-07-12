@@ -77,7 +77,7 @@ if ($assurerid > 0) {
     echo last_id_entered($assurerid);
 }
 
-echo built_form_header('../' . create_url('result', 1));
+echo built_form_header(create_url('result', 1));
 echo tableheader(_('Enter coaudit result'), 2);
 echo tablerow_2col_dropbox_apply(_('Coaudit session'), $sessionres, $coaudit_session_id, 'session_id', 'session_name', 'change', _('Update'), 0);
 echo tablerow_2col_textbox(_('Assurer mail'), 'primaryemail', $primaryemail);

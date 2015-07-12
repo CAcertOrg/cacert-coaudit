@@ -42,7 +42,7 @@ if ($readperm == 0) {
     exit;
 }
 
-echo built_form_header('../' . create_url('topic', 1));
+echo built_form_header(create_url('topic', 1));
 echo tableheader(_('Topic'), 2);
 echo tablerow_2col_textbox(_('Topic'), 'topic', $session_topic);
 echo tablerow_2col_textbox(_('Explaination'), 'explain', $topic_explaination);

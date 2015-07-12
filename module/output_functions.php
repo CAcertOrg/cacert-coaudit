@@ -377,7 +377,7 @@ function tablerow_userlist_header() {
  */
 function tablerow_userlist($user) {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD"><a href="../' . create_url('user', 1, array('cid' => $user['coauditor_id'])) . '">' . $user['coauditor_name'] . '</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD"><a href="' . create_url('user', 1, array('cid' => $user['coauditor_id'])) . '">' . $user['coauditor_name'] . '</a></td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$user['read_permission'].'</td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$user['write_permission'].'</td>' . "\n";
     $tabstring .= '</tr>' . "\n";
@@ -392,7 +392,7 @@ function tablerow_userlist($user) {
  */
 function tablerow_userlist_new() {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD" colspan="3"><a href="../' . create_url('user', 1, array('cid' => 0)) .'">New entry</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD" colspan="3"><a href="' . create_url('user', 1, array('cid' => 0)) .'">New entry</a></td>' . "\n";
     $tabstring .= '</tr>' . "\n";
 
     return $tabstring;
@@ -464,7 +464,7 @@ function tablerow_topicslist_header() {
  */
 function tablerow_topicslist($topic) {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD"><a href="../' . create_url('topic', 1, array('tid' => $topic['session_topic_id'])) . '">' . $topic['session_topic'] . '</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD"><a href="' . create_url('topic', 1, array('tid' => $topic['session_topic_id'])) . '">' . $topic['session_topic'] . '</a></td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$topic['topic_explaination'].'</td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$topic['activ'].'</td>' . "\n";
     $tabstring .= '</tr>' . "\n";
@@ -479,7 +479,7 @@ function tablerow_topicslist($topic) {
  */
 function tablerow_topicslist_new() {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD" colspan="3"><a href="../' . create_url('topic', 1, array('tid' => 0)) . '">New entry</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD" colspan="3"><a href="' . create_url('topic', 1, array('tid' => 0)) . '">New entry</a></td>' . "\n";
     $tabstring .= '</tr>' . "\n";
 
     return $tabstring;
@@ -555,12 +555,12 @@ function tablerow_sessionslist_header() {
  */
 function tablerow_sessionslist($session) {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD"><a href="../' . create_url('session', 1, array('sid' => $session['session_id'])) . '">' . $session['session_name'] . '</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD"><a href="' . create_url('session', 1, array('sid' => $session['session_id'])) . '">' . $session['session_name'] . '</a></td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$session['from'].'</td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$session['to'].'</td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$session['default'].'</td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$session['active'].'</td>' . "\n";
-    $tabstring .= '    <td class="DataTD"><a href="../index.php?type=sessiontopiclist&sid='.$session['session_id'].'">Topics</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD"><a href="' . create_url('sessiontopiclist', 1, array('sid' => $session['session_id'])) . '">Topics</a></td>' . "\n";
     $tabstring .= '</tr>' . "\n";
 
     return $tabstring;
@@ -573,7 +573,7 @@ function tablerow_sessionslist($session) {
  */
 function tablerow_sessionslist_new() {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD" colspan="6"><a href="../' . create_url('session', 1, array('sid' => 0)) . '">New entry</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD" colspan="6"><a href="' . create_url('session', 1, array('sid' => 0)) . '">New entry</a></td>' . "\n";
     $tabstring .= '</tr>' . "\n";
 
     return $tabstring;
@@ -607,7 +607,7 @@ function tablerow_sessiontopicsslist($sessiontopic) {
     $tabstring = '<tr>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$sessiontopic['session_name'].'</td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$sessiontopic['topic_no'].'</td>' . "\n";
-    $tabstring .= '    <td class="DataTD"><a href="../index.php?type=sessiontopic&stid='.$sessiontopic['session_topics_id'].'">'.$sessiontopic['session_topic'].'</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD"><a href="' . create_url('sessiontopic', 1, array('stid' => $sessiontopic['session_topics_id'])) . '">'.$sessiontopic['session_topic'].'</a></td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$sessiontopic['active'].'</td>' . "\n";
     $tabstring .= '</tr>' . "\n";
 
@@ -621,7 +621,7 @@ function tablerow_sessiontopicsslist($sessiontopic) {
  */
 function tablerow_sessionstopicslist_new() {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD" colspan="4"><a href="../index.php?type=sessiontopic&stid=0">New entry</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD" colspan="4"><a href="' . create_url('sessiontopic', 1, array('stid' =>0)) . '">New entry</a></td>' . "\n";
     $tabstring .= '</tr>' . "\n";
 
     return $tabstring;
@@ -652,7 +652,7 @@ function tablerow_viewlist_header() {
  */
 function tablerow_viewlist($view) {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD"><a href="../' . create_url('view', 1, array('vid' => $view['view_rigths_id'])) . '">' . $view['view_name'] . '</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD"><a href="' . create_url('view', 1, array('vid' => $view['view_rigths_id'])) . '">' . $view['view_name'] . '</a></td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$view['read_permission'].'</td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$view['write_permission'].'</td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$view['active'].'</td>' . "\n";
@@ -668,7 +668,7 @@ function tablerow_viewlist($view) {
  */
 function tablerow_viewlist_new() {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD" colspan="4"><a href="../index.php?type=view&vid=0">New entry</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD" colspan="4"><a href="' . create_url('view', 1, array('vid' => 0)) . '">New entry</a></td>' . "\n";
     $tabstring .= '</tr>' . "\n";
 
     return $tabstring;
@@ -699,7 +699,7 @@ function tablerow_kpilist_header() {
  */
 function tablerow_kpilist($kpi) {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD"><a href="../index.php?type=kpi&kid='.$kpi['coaudit_refdata_id'].'">'.$kpi['session_name'].'</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD"><a href="' . create_url('kpi', 1, array('kid' => $kpi['coaudit_refdata_id'])) . '">'.$kpi['session_name'].'</a></td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$kpi['session_year'].'</td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$kpi['assurances'].'</td>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$kpi['target'].'</td>' . "\n";
@@ -715,7 +715,7 @@ function tablerow_kpilist($kpi) {
  */
 function tablerow_kpilist_new() {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD" colspan="4"><a href="../' . create_url('kpi', 1, array('kid' => 0)) . '">New entry</a></td>' . "\n";
+    $tabstring .= '    <td class="DataTD" colspan="4"><a href="' . create_url('kpi', 1, array('kid' => 0)) . '">New entry</a></td>' . "\n";
     $tabstring .= '</tr>' . "\n";
 
     return $tabstring;
