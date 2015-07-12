@@ -115,9 +115,9 @@ function login() {
     }
 
     $_SESSION['user'] = array(
-        'id'] => $uid,
-        'name'] => $result['coauditor_name'],
-        'email'] => $result['email'],
+        'id' => $uid,
+        'name' => $result['coauditor_name'],
+        'email' => $result['email'],
         'read_permission' => $result['read_permission'],
         'write_permission' => $result['write_permission']
         );

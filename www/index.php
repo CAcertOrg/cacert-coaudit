@@ -12,8 +12,8 @@ $db = new db_function();
 $assurerid = 0;
 $_SESSION ['debug'] = '';
 
-$r_uri = isset( $_SERVER['REQUEST_URI']) ) ? $_SERVER['REQUEST_URI']) : '';
-$qs = isset( $_SERVER['QUERY_STRING']) ) ? $_SERVER['QUERY_STRING']) : '';
+$r_uri = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '';
+$qs = isset( $_SERVER['QUERY_STRING'] ) ? $_SERVER['QUERY_STRING'] : '';
 
 $r_uri = explode('?', $r_uri, 2);
 if ( 2 == count($r_uri) ) {
