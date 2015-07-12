@@ -119,7 +119,7 @@ if (isset( $_REQUEST['delete'])) {
     $continue = false;
 }
 
-if ($continue == true) {
+if ($continue) {
     include '../forms/result.php';
 }
 

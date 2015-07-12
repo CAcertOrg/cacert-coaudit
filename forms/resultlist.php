@@ -18,7 +18,7 @@ if ($readperm == 0) {
 
 $cid = array_key_exists('coauditor',$_SESSION) ? $_SESSION['coauditor'] : '';
 
-if ($cid == 'true') {
+if ($cid) {
     $cid = $_SESSION['user']['id'];
 }
 

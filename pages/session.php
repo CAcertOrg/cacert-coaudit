@@ -51,7 +51,7 @@ if (isset( $_REQUEST['sid'])) {
     $_SESSION['user']['sid'] = 0;
 }
 
-if ($continue == true) {
+if ($continue) {
     include '../forms/session.php';
 }
 

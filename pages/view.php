@@ -38,7 +38,7 @@ if (isset( $_REQUEST['new']) || isset( $_REQUEST['edit'])) {
     $continue = false;
 }
 
-if ($continue == true) {
+if ($continue) {
     include '../forms/view.php';
 }
 

@@ -30,7 +30,7 @@ if (isset( $_REQUEST['tid'])) {
     $_SESSION['user']['tid']=0;
 }
 
-if ($continue==true) {
+if ($continue) {
     include '../forms/topic.php';
 }
 

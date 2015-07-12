@@ -47,7 +47,7 @@ if (isset( $_REQUEST['cid'])) {
     $_SESSION['user']['cid']=0;
 }
 
-if ($continue == true) {
+if ($continue) {
     include '../forms/user.php';
 }
 

@@ -19,7 +19,7 @@ if (isset( $_REQUEST['new']) || isset( $_REQUEST['edit'])) {
         $missing = true;
     }
 
-    if ($missing == false) {
+    if (!$missing) {
         if (isset( $_REQUEST['new']) && $missing == false){
             $db->insert_kpi($session_id, $session_year, $assurances, $target);
         } else {
@@ -32,7 +32,7 @@ if (isset( $_REQUEST['new']) || isset( $_REQUEST['edit'])) {
     }
 }
 
-if ($continue == true) {
+if ($continue) {
     include '../forms/kpi.php';
 }
 

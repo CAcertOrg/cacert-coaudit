@@ -543,7 +543,7 @@ class db_function {
      * @return
      */
     public function update_result_user($primaryemail, $assurer, $expierencepoints, $country, $location, $coauditdate, $userid) {
-        if (strpos( $primaryemail, '@') !== false) {
+        if (!strpos( $primaryemail, '@') !== false) {
             global $salt;
             $primaryemail = hash_hmac('sha256', $primaryemail, $salt);
         }

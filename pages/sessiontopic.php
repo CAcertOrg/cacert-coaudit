@@ -29,7 +29,7 @@ if (isset( $_REQUEST['stid'])) {
     $_SESSION['user']['stid'] = 0;
 }
 
-if ($continue == true) {
+if ($continue) {
     include '../forms/sessiontopic.php';
 }
 

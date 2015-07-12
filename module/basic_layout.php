@@ -59,6 +59,7 @@ function menu($secure = 0) {
     $login = _('Login');
     $logout = _('Logout');
     $username = array_key_exists('name', $_SESSION ['user']) ? '[ ' . $_SESSION ['user'] ['name'] . ' ]' : '';
+    $cid = array_key_exists('id', $_SESSION ['user']) ? '[ ' . $_SESSION ['user'] ['id'] . ' ]' : 0;
     // $Admin
 
     $backurl = "#";
@@ -90,7 +91,7 @@ function menu($secure = 0) {
 foohtmlnav1;
 
     $url =  create_url('result', 1);
-    $url1 =  create_url('resultlist', 1, array('cid' => $_SESSION['user']['id']));
+    $url1 =  create_url('resultlist', 1, array('cid' => $cid));
     $tabstrings2 = <<<foohtmlnav2
                 <li><a href="#">$coauditors</a>
                     <ul>
