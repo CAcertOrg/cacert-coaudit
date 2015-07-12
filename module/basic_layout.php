@@ -25,8 +25,8 @@ foohtmlheader;
  * returns the footer for a page
  * @return
  */
-function footer() {
-    $url =  create_url('imprint');
+function footer($secure = 0) {
+    $url =  create_url('imprint', $secure);
     $tabstrings = <<<foohtmlfooter
     <div class="footerbar">
         <a href="#">Data Protection</a>
@@ -42,7 +42,7 @@ foohtmlfooter;
  * returns the menue for a page
  * @return
  */
-function menu() {
+function menu($secure = 0) {
     $back = _('back');
     $statistics = _('Statistics');
     $overview = _('Overview');
@@ -71,7 +71,7 @@ function menu() {
         }
     }
 
-    $url =  create_url('statistic');
+    $url =  create_url('statistic', $secure);
     $tabstrings1 = <<<foohtmlnav1
         <nav>
             <!--div class="menubar"-->

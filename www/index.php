@@ -113,7 +113,9 @@ if($needs_login && !$secure) {
 }
 
 // If we are in the secure area, populate the certificate and user information
+$securestat = 0;
 if( $secure ) {
+    $securestat = 1;
     login();
 }
 
@@ -126,11 +128,11 @@ if (!isset($_SESSION['user']['write_permission'])) {
 
 echo headerstart($title);
 
-echo footer();
+echo footer($securestat);
 
 echo titlebar();
 
-echo menu();
+echo menu($securestat);
 
 if (array_key_exists('error', $_SESSION)) {
     echo '<div class="error">' . $_SESSION['error'] . '</div>';
