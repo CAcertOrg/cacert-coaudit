@@ -45,9 +45,11 @@ if( 1 < count($r_uri) ) {
 
 // If we are not logged in, there is also no user session!
 if( !$secure ) {
-    $debug = $_SESSION ['debug'];
+    $debug = $_SESSION['debug'];
+    $error = $_SESSION['error'];
     $_SESSION = array();
-    $_SESSION ['debug'] = $debug;
+    $_SESSION['debug'] = $debug;
+    $_SESSION['error'] = $error;
 }
 
 if ( $type == 'logout') {
