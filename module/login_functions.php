@@ -2,37 +2,42 @@
 
 include_once 'class.db_functions.php';
 
+
 /**
  * check_cert()
  * checks if a lcient certificate is valid for login
  * @return
  */
 function check_cert() {
-    $emails = array();
+    include 'applicationconfig.php';
 
+    $emails = array();
     if (!isset($_SERVER['SSL_CLIENT_VERIFY'])) {
          return false;
     }
 
     //certificate given
     if ($_SERVER['SSL_CLIENT_VERIFY'] != 'SUCCESS') {
+        write_log('cert_login', 'SSL_CLIENT_VERIFY', $_SERVER['SSL_CLIENT_VERIFY']);
         return false;
     }
 
     //certificate valid
     if ($_SERVER['SSL_CLIENT_V_REMAIN'] <= 0) {
+        $db->write_log('cert_login', 'SSL_CLIENT_V_REMAIN', $_SERVER['SSL_CLIENT_V_REMAIN']);
         return false;
     }
 
     //cert issued by CAcert
     switch ($_SERVER['SSL_CLIENT_I_DN']) {
-        case '/O=Root CA/OU=http://www.cacert.org/CN=CA Cert Signing Authority/emailAddress=support@cacert.org':
-        case '/O=CAcert Inc./OU=http://www.CAcert.org/CN=CAcert Class 3 Root':
+        case $SSL_CLIENT_I_DN_1:
+        case $SSL_CLIENT_I_DN_2:
         //added to use with testserver certificates
-        case '/C=AU/ST=New South Wales/O=CAcert Testserver/OU=http://cacert1.it-sls.de/CN=CAcert Testserver Root':
-        case '/O=CAcert Testsever/OU=http://cacert1.it-sls.de/CN=CAcert Testserver Class 3':
+        case $SSL_CLIENT_I_DN_3:
+        case $SSL_CLIENT_I_DN_4:
             break;
         default:
+            write_log('cert_login', 'SSL_CLIENT_I_DN', $_SERVER['SSL_CLIENT_I_DN']);
             return false;
     } // switch
 
@@ -52,10 +57,12 @@ function check_cert() {
  * @return
  */
 function get_valid_email_from_cert() {
+    include 'applicationconfig.php';
+
     $result = array();
 
     $test =  $_SERVER['SSL_CLIENT_S_DN'];
-    $testaddress = explode("/", $test);
+    $testaddress = explode($SSL_CLIENT_S_DN_delimeter, $test);
 
     foreach ($testaddress as $address) {
         $addresstest = explode("=", $address);
@@ -64,6 +71,10 @@ function get_valid_email_from_cert() {
                 $result[] = $addresstest[1];
             }
         }
+    }
+
+    if (0 >= count($result)) {
+        write_log('cert_login', 'SSL_CLIENT_S_DN', $_SERVER['SSL_CLIENT_S_DN']);
     }
 
     return $result;

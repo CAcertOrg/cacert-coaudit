@@ -1,0 +1,12 @@
+<?php
+// delimeter used in SSL_CLIENT_S_DN to seperate the values
+$SSL_CLIENT_S_DN_delimeter = ',';
+
+//SSL_CLIENT_I_DN of CAcert root class1
+$SSL_CLIENT_I_DN_1 = 'emailAddress=support@cacert.org,CN=CA Cert Signing Authority,OU=http://www.cacert.org,O=Root CA';
+//SSL_CLIENT_I_DN of CAcert root class3
+$SSL_CLIENT_I_DN_2 = 'CN=CAcert Class 3 Root,OU=http://www.CAcert.org,O=CAcert Inc.';
+//SSL_CLIENT_I_DN of CAcert Testserver root class1
+$SSL_CLIENT_I_DN_3 = '/C=AU/ST=New South Wales/O=CAcert Testserver/OU=http://cacert1.it-sls.de/CN=CAcert Testserver Root';
+//SSL_CLIENT_I_DN of CAcert root class3
+$SSL_CLIENT_I_DN_4 = '/O=CAcert Testsever/OU=http://cacert1.it-sls.de/CN=CAcert Testserver Class 3';
