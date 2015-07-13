@@ -66,8 +66,7 @@ function menu($secure = 0) {
     $backclass = 'back_disabled';
     if (isset($_SERVER['HTTP_REFERER'])) {
         if ( strpos($_SERVER['HTTP_REFERER'], 'list') >0 ) {
-            $url = explode('?', $_SERVER['HTTP_REFERER']);
-            $backurl = '?' . $url[1];
+            $backurl = $_SERVER['HTTP_REFERER'];
             $backclass = 'back_enabled';
         }
     }
