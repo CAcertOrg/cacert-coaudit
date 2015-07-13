@@ -50,5 +50,3 @@ if (isset( $_REQUEST['cid'])) {
 if ($continue) {
     include '../forms/user.php';
 }
-
-?>

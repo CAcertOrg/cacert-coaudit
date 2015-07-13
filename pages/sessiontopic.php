@@ -32,5 +32,3 @@ if (isset( $_REQUEST['stid'])) {
 if ($continue) {
     include '../forms/sessiontopic.php';
 }
-
-?>

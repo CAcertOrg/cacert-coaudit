@@ -122,6 +122,3 @@ if (isset( $_REQUEST['delete'])) {
 if ($continue) {
     include '../forms/result.php';
 }
-
-
-?>

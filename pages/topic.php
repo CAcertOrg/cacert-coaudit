@@ -33,5 +33,3 @@ if (isset( $_REQUEST['tid'])) {
 if ($continue) {
     include '../forms/topic.php';
 }
-
-?>

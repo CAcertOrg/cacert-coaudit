@@ -54,5 +54,3 @@ if (isset( $_REQUEST['sid'])) {
 if ($continue) {
     include '../forms/session.php';
 }
-
-?>

@@ -41,5 +41,3 @@ if (isset( $_REQUEST['new']) || isset( $_REQUEST['edit'])) {
 if ($continue) {
     include '../forms/view.php';
 }
-
-?>
