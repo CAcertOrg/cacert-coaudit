@@ -99,6 +99,17 @@ class db_function {
     }
 
     /**
+     * db_function::get_view_permissions()
+     * returns the permissons for the different views
+     * @return
+     */
+    function get_view_permissions(){
+        $query = "SELECT `view_name`, `read_permission`, `write_permission` FROM  `view_rights` WHERE `active` = 1";
+        $res = $this->db->query($query);
+        return $res->fetchAll();
+    }
+
+    /**
      * db_function::insert_user()
      * inserts new user data
      * @param mixed $username

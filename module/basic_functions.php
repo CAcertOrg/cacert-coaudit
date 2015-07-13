@@ -40,14 +40,10 @@ function define_roles(){
  * @return
  */
 function get_read_permission($view) {
-    $db = new db_function();
-
-    $view_perm = $db -> get_view_right($view);
-    if (!isset($view_perm['read_permission'])) {
-        return 0;
+    if (!isset($_SESSION['readperm'][$view])){
+        set_permission_session();
     }
-    $readview = $view_perm['read_permission'];
-    if ((intval($_SESSION['user']['read_permission']) & intval($readview))>0) {
+    if ((intval($_SESSION['user']['read_permission']) & intval($_SESSION['readperm'][$view])) > 0) {
         return 1;
     } else {
         return 0;
@@ -61,18 +57,36 @@ function get_read_permission($view) {
  * @return
  */
 function get_write_permission($view) {
-    $db = new db_function();
-
-    $view_perm = $db -> get_view_right($view);
-    if (!isset($view_perm['write_permission'])) {
-        return 0;
+    if (!isset($_SESSION['writeperm'][$view])){
+        set_permission_session();
     }
 
-    $writeview = $view_perm['write_permission'];
-    if ((intval($_SESSION['user']['write_permission']) & intval($writeview))>0) {
+    if ((intval($_SESSION['user']['write_permission']) & intval($_SESSION['writeperm'][$view])) > 0) {
         return 1;
     } else {
         return 0;
+    }
+}
+
+/**
+ * set_permission_session()
+ * fills the session with the read and write permissions
+ * @return
+ */
+function set_permission_session(){
+    $db = new db_function();
+    $perm  = $db -> get_view_permissions();
+
+    foreach($perm as $row){
+        $_SESSION['readperm'][$row['view_name']] = $row['read_permission'];
+        $_SESSION['writeperm'][$row['view_name']] = $row['write_permission'];
+    }
+
+    //views not in view list
+    $special = array('statistic', 'imprint');
+    foreach($special as $entry){
+        $_SESSION['readperm'][$entry] = 1;
+        $_SESSION['writeperm'][$entry] = 0;
     }
 }
 
