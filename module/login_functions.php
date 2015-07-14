@@ -13,7 +13,8 @@ function check_cert() {
 
     $emails = array();
     if (!isset($_SERVER['SSL_CLIENT_VERIFY'])) {
-         return false;
+        write_log('cert_login', 'SSL_CLIENT_VERIFY','variable not found');
+        return false;
     }
 
     //certificate given
