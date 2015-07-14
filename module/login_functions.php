@@ -30,17 +30,10 @@ function check_cert() {
     }
 
     //cert issued by CAcert
-    switch ($_SERVER['SSL_CLIENT_I_DN']) {
-        case $SSL_CLIENT_I_DN_1:
-        case $SSL_CLIENT_I_DN_2:
-        //added to use with testserver certificates
-        case $SSL_CLIENT_I_DN_3:
-        case $SSL_CLIENT_I_DN_4:
-            break;
-        default:
-            write_log('cert_login', 'SSL_CLIENT_I_DN', $_SERVER['SSL_CLIENT_I_DN']);
-            return false;
-    } // switch
+    if (!in_array($_SERVER['SSL_CLIENT_I_DN'], $SSL_CLIENT_I_DN)) {
+        write_log('cert_login', 'SSL_CLIENT_I_DN', $_SERVER['SSL_CLIENT_I_DN']);
+        return false;
+    }
 
     //check email address
 
