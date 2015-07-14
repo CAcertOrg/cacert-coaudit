@@ -93,6 +93,9 @@ $funclist = array(
     'kpilist'		=> array(true,	'../forms/kpilist.php',			_('List of KPI')),
     'kpi'		=> array(true,	'../pages/kpi.php',			_('KPI')),
 
+//data protection management
+    'dataprotection'		=> array(false,	'../forms/dataprotection.php',			_('Data protection and privacy')),
+
     //Default page
     ''			=> array(false,	'',					'')
     );

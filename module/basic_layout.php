@@ -26,11 +26,12 @@ foohtmlheader;
  * @return
  */
 function footer($secure = 0) {
-    $url =  create_url('imprint', $secure);
+    $url =  create_url('dataprotection', $secure);
+    $url1 =  create_url('imprint', $secure);
     $tabstrings = <<<foohtmlfooter
     <div class="footerbar">
-        <a href="#">Data Protection</a>
-        <a href="$url">Imprint</a>
+        <a href="$url">Data Protection</a>
+        <a href="$url1">Imprint</a>
     </div>
 foohtmlfooter;
 
