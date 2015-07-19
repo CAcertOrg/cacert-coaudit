@@ -723,6 +723,12 @@ function tablerow_kpilist_new() {
 
 // statistics management
 
+/**
+ * statistics_header()
+ * returns the header for a statistics table
+ * @param mixed $headertopics
+ * @return
+ */
 function statistics_header($headertopics){
     $rowheader1 = tablecell('');
     $rowheader1 .= tablecell('');
@@ -744,6 +750,12 @@ function statistics_header($headertopics){
 }
 
 
+/**
+ * get_statistics_col()
+ * reurns the number of columns for a statistcs table counted from the header output
+ * @param mixed $headertopics
+ * @return
+ */
 function get_statistics_col($headertopics){
     $col = 0;
     foreach ($headertopics as $row) {

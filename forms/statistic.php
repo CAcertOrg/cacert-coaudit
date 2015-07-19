@@ -19,7 +19,7 @@ echo start_div('content');
 foreach ($ressessions as $ressession) {
 
     //build seesion table
-    $res = $db->get_statiscs_basic(' and `r`.`coauditsession_id` = ' . $ressession['session_id']);
+    $res = $db->get_statistics_basic(' and `r`.`coauditsession_id` = ' . $ressession['session_id']);
 
     $year = 0;
     $session = '';
@@ -51,7 +51,7 @@ foreach ($ressessions as $ressession) {
 
                 echo tableheader(sprintf(_('Coaudit results for %s'), $sessionold), $col);
 
-                $headertopics = $db -> get_statiscs_header(' and `sts`.`coaudit_session_id` = ' . $ressession['session_id'] );
+                $headertopics = $db -> get_statistics_header(' and `sts`.`coaudit_session_id` = ' . $ressession['session_id'] );
                 echo statistics_header($headertopics);
 
                 $start = 1;
@@ -79,7 +79,7 @@ foreach ($ressessions as $ressession) {
     if ($start == 0) {
         echo tableheader(sprintf(_('CoAudit results for %'), $sessionold), $col);
 
-        $headertopics = $db -> get_statiscs_header(' and `sts`.`coaudit_session_id` = ' . $ressession['session_id'] );
+        $headertopics = $db -> get_statistics_header(' and `sts`.`coaudit_session_id` = ' . $ressession['session_id'] );
         echo statistics_header($headertopics);
 
         $start = 1;
@@ -92,7 +92,7 @@ foreach ($ressessions as $ressession) {
     //KPI statistic
     echo empty_line();
 
-    $res = $db -> get_statiscs_kpi( $ressession['session_id']);
+    $res = $db -> get_statistics_kpi( $ressession['session_id']);
 
     echo tableheader(_('Coaudit KPI for ' . $ressession['session_name']),5);
 

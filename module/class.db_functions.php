@@ -841,12 +841,12 @@ class db_function {
     }
 
     /**
-     * db_function::get_statiscs_basic()
+     * db_function::get_statistics_basic()
      * returns the result statistics, if where is given filtered
      * @param string $where
      * @return
      */
-    public function get_statiscs_basic($where ='') {
+    public function get_statistics_basic($where ='') {
         $query = "SELECT `co`.`session_name` AS `Session` , year( `c`.`coauditdate` ) AS `CYear` , `sts`.`topic_no` AS `Topic_No` ,
             `st`.`session_topic` AS `Topic` , sum( `r`.`result` ) AS `res` , count( `r`.`result` ) AS `Total` ,  (sum(`r`.`result`) /  count(`r`.`result`))*100 as `Perc`,
             `st`.`session_topic_id` AS `TopicID` , `r`.`coauditsession_id` AS `SessionID`
@@ -862,7 +862,13 @@ class db_function {
         return $res;
     }
 
-    public function get_statiscs_header($where ='') {
+    /**
+     * db_function::get_statistics_header()
+     * returns the result header for the statistics, if where is given filtered
+     * @param string $where
+     * @return
+     */
+    public function get_statistics_header($where ='') {
         $query = "SELECT  `sts`.`topic_no` AS `Topic_No` ,
                 `st`.`session_topic` AS `Topic` ,
                 `st`.`session_topic_id` AS `TopicID`
@@ -876,6 +882,12 @@ class db_function {
         return $res;
     }
 
+    /**
+     * db_function::get_statistics_country()
+     * returns the result statistics for the country statistics, if where is given filtered
+     * @param string $where
+     * @return
+     */
     public function get_statistics_country($where ='') {
         $query = "SELECT `co`.`session_name` AS `Session` , year( `c`.`coauditdate` ) AS `CYear` , `sts`.`topic_no` AS `Topic_No` ,
             `st`.`session_topic` AS `Topic` , sum( `r`.`result` ) AS `res` , count( `r`.`session_topic_id` ) AS `Total` ,  (sum(`r`.`result`) /  count(`r`.`result`))*100 as `Perc`,
@@ -893,12 +905,12 @@ class db_function {
     }
 
     /**
-     * db_function::get_statiscs_kpi()
+     * db_function::get_statistics_kpi()
      * returns the kpi, if where is given filtered
      * @param string $where
      * @return
      */
-    public function get_statiscs_kpi($where ='') {
+    public function get_statistics_kpi($where ='') {
         $query = "Select `session_year`, `assurances`, `target` from `coaudit_refdata` where `coaudit_session_id` = " . $where;
 
         $res = $this -> db -> query($query);

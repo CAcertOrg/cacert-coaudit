@@ -61,11 +61,11 @@ foreach($res as $row) {
             echo empty_line();
             $total = 0;
         }
-        $headertopics = $db -> get_statiscs_header(' and `sts`.`coaudit_session_id` = ' . $csid );
+        $headertopics = $db -> get_statistics_header(' and `sts`.`coaudit_session_id` = ' . $csid );
         $coltotal =get_statistics_col($headertopics) +2;
         echo tableheader(sprintf(_('Coaudit results for %s'), $session), $coltotal);
 
-        $headertopics = $db -> get_statiscs_header(' and `sts`.`coaudit_session_id` = ' . $csid );
+        $headertopics = $db -> get_statistics_header(' and `sts`.`coaudit_session_id` = ' . $csid );
         echo statistics_header($headertopics);
 
         $start = 0;
