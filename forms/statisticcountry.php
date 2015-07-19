@@ -10,6 +10,10 @@ $db = new db_function();
 $readperm = get_read_permission('statistic');
 $writeperm = get_write_permission('statistic');
 
+$urlsecure = 0;
+if ($secure) {
+    $urlsecure = 1;
+}
 
 $ressessions = $db->get_statisics_sessions();
 
@@ -25,7 +29,7 @@ $hidden[] = array('csid', $csid);
 //build form to choose session
 echo start_div('content');
 
-echo built_form_header(create_url('statistic', 1, array('csid' => $csid))); //todo change to variable secure
+echo built_form_header(create_url('statistic', $urlsecure, array('csid' => $csid)));
 echo tableheader(_('Choose Co-Audit session'), 2);
 echo tablerow_2col_dropbox_apply(_('Session'), $ressessions, $csid, 'session_id', 'session_name', 'change', _('Update'), 0);
 echo table_end();
