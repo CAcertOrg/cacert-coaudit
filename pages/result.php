@@ -119,10 +119,10 @@ if (isset( $_REQUEST['new']) || isset( $_REQUEST['edit'])) {
         $continue = false;
     } else {
         echo error($error);
+        $_SESSION['user']['coaudit_session'] = $coaudit_session_id;
     }
 }
 
-$_SESSION['user']['coaudit_session'] = $coaudit_session_id;
 
 if (isset( $_REQUEST['rid']) && isset( $_REQUEST['sid'])) {
     $_SESSION['user']['rid'] = $_REQUEST['rid'];
