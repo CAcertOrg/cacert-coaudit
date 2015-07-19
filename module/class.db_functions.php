@@ -335,7 +335,7 @@ class db_function {
                     AND `st`.`coaudit_session_id` = `s`.`session_id` " . $where ."
                     ORDER BY `s`.`session_name` , `st`.`topic_no`";
         $res = $this->db->query($query);
-        return $res;
+        return $res->fetchAll();
     }
 
     /**

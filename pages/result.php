@@ -46,7 +46,7 @@ if (isset( $_REQUEST['new']) || isset( $_REQUEST['edit'])) {
     }
     $country = strtoupper($country);
 
-    if (!validdate($coauditdate)) {
+    if (!validdate($coauditdate) || trim($coauditdate) == '') {
         $coauditdate ='';
         $error .= _('Missing or wrong coaudit date') . '<br>';
     }
@@ -70,6 +70,25 @@ if (isset( $_REQUEST['new']) || isset( $_REQUEST['edit'])) {
         $c = array_key_exists('c' . $i, $_REQUEST) ? tidystring($_REQUEST['c' . $i]):  "''";
         $questions[] = array($tid, $r, $c);
         $i += 1;
+    }
+
+    //check if session version matches questions
+    $questionstest = $db -> get_all_sessiontopics(' `st`.`coaudit_session_id` = ' . $coaudit_session_id . ' and `st`.`active` = 1');
+
+    foreach($questionstest as $row){
+        $qrt = false;
+        foreach($questions as $qr){
+            if ($row['session_topic_id'] == str_replace("'", '', $qr[0])) {
+                $qrt = true;
+                break;
+            }
+        }
+
+        if (!$qrt) {
+            $error .= _('wrong session version');
+            break;
+        }
+
     }
 
     if ($error == '') {
@@ -102,6 +121,8 @@ if (isset( $_REQUEST['new']) || isset( $_REQUEST['edit'])) {
         echo error($error);
     }
 }
+
+$_SESSION['user']['coaudit_session'] = $coaudit_session_id;
 
 if (isset( $_REQUEST['rid']) && isset( $_REQUEST['sid'])) {
     $_SESSION['user']['rid'] = $_REQUEST['rid'];
