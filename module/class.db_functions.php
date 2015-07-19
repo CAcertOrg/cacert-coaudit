@@ -876,6 +876,22 @@ class db_function {
         return $res;
     }
 
+    public function get_statistics_country($where ='') {
+        $query = "SELECT `co`.`session_name` AS `Session` , year( `c`.`coauditdate` ) AS `CYear` , `sts`.`topic_no` AS `Topic_No` ,
+            `st`.`session_topic` AS `Topic` , sum( `r`.`result` ) AS `res` , count( `r`.`session_topic_id` ) AS `Total` ,  (sum(`r`.`result`) /  count(`r`.`result`))*100 as `Perc`,
+            `st`.`session_topic_id` AS `TopicID` , `r`.`coauditsession_id` AS `SessionID`,  `c`.`country` AS `Country`
+            FROM `cacertuser` AS `c` , `result` AS `r` , `session_topic` AS `st` , `coauditsession` AS `co` , `session_topics` AS `sts`
+            WHERE `c`.`cacertuser_id` = `r`.`cacertuser_id` AND `r`.`session_topic_id` = `st`.`session_topic_id`
+                AND `r`.`coauditsession_id` = `co`.`session_id`
+                AND (`sts`.`session_topic_id` = `r`.`session_topic_id` AND `sts`.`coaudit_session_id` = `r`.`coauditsession_id`)
+                AND `c`.`deleted` is Null  AND `r`.`deleted` is Null " . $where ."
+            GROUP BY `CYear` , `Topic` , `Session` , `TopicID` , `Topic_No` , `SessionID`, `Country`
+            ORDER BY `Session` , `CYear`, `Country` ,`Topic_No`";
+        $res = $this->db->query($query);
+
+        return $res;
+    }
+
     /**
      * db_function::get_statiscs_kpi()
      * returns the kpi, if where is given filtered

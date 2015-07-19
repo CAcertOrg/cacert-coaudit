@@ -84,7 +84,7 @@ $funclist = array(
     'result'		=> array(true,	'../pages/result.php',			_('Result')),
 
     // statistic
-    'statistic'		=> array(false,	'../forms/statistic.php',		_('Statisics')),
+    'statistic'		=> array(false,	'../pages/statistics.php',		_('Statisics')),
 
     //imprint management
     'imprint'		=> array(false,	'../forms/imprint.php',			_('Imprint')),
@@ -93,7 +93,7 @@ $funclist = array(
     'kpilist'		=> array(true,	'../forms/kpilist.php',			_('List of KPI')),
     'kpi'		=> array(true,	'../pages/kpi.php',			_('KPI')),
 
-//data protection management
+    //data protection management
     'dataprotection'		=> array(false,	'../forms/dataprotection.php',			_('Data protection and privacy')),
 
     //Default page

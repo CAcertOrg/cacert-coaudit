@@ -1,6 +1,8 @@
 <?php
 
 include_once 'basic_functions.php';
+include_once 'class.db_functions.php';
+
 
 /**
  * titlebar()
@@ -44,9 +46,12 @@ foohtmlfooter;
  * @return
  */
 function menu($secure = 0) {
+    $db = new db_function();
+
     $back = _('back');
     $statistics = _('Statistics');
     $overview = _('Overview');
+    $percountry = _('Per country');
     $coauditors = _('Co-Auditors');
     $newEntry = _('Enter new entry');
     $ownEntry = _('List own entries');
@@ -61,6 +66,13 @@ function menu($secure = 0) {
     $logout = _('Logout');
     $username = array_key_exists('name', $_SESSION ['user']) ? '[ ' . $_SESSION ['user'] ['name'] . ' ]' : '';
     $cid = array_key_exists('id', $_SESSION ['user']) ? '[ ' . $_SESSION ['user'] ['id'] . ' ]' : 0;
+    //get session for the per country sessionn
+    if (array_key_exists('csid',$_SESSION['user'])) {
+        $csid = $_SESSION['user']['csid'];
+    } else {
+        $cs_res= $db -> get_all_session('WHERE `default` = 1');
+        $csid = $cs_res['session_id'];
+    }
     // $Admin
 
     $backurl = "#";
@@ -73,6 +85,7 @@ function menu($secure = 0) {
     }
 
     $url =  create_url('statistic', $secure);
+    $url1 =  create_url('statistic', $secure, array('csid' => $csid));
     $tabstrings1 = <<<foohtmlnav1
         <nav>
             <!--div class="menubar"-->
@@ -85,6 +98,9 @@ function menu($secure = 0) {
                     <ul>
                         <li>
                             <a href="$url">$overview</a>
+                        </li>
+                        <li>
+                            <a href="$url1">$percountry</a>
                         </li>
                     </ul>
                 </li>
@@ -166,7 +182,7 @@ foohtmlnav6;
  * @return
  */
 function headerstart($title) {
-    $title = _('CAcert Coaudit') . $title;
+    $title = _('CAcert Co-Audit') . ' - ' . $title;
 
     $tabstrings = <<<foohtmlhead1
 <!DOCTYPE html>

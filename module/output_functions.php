@@ -744,6 +744,15 @@ function statistics_header($headertopics){
 }
 
 
+function get_statistics_col($headertopics){
+    $col = 0;
+    foreach ($headertopics as $row) {
+        $col +=2;
+    }
+    return $col;
+}
+
+
 // general functions
 /**
  * last_id_entered()

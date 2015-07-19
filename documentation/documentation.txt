@@ -1,20 +1,21 @@
 Used session variables
-$_SESSION['debug']          stores debug information for output
+$_SESSION['debug']              stores debug information for output
     input with $_SESSION ['debug'] .= 'information output' . '</br>';
     output of $_SESSION['debug'] with function output_debug_box($_SESSION ['debug']) in index.php
 
-$_SESSION['user']
-    ['read_permission']     holds read permission of current user
-    ['write_permission']    holds write permission of current user
-    ['name']                holds name of current user
-    ['email']               holds email of current user
-    ['id']                  holds id of current user
-    ['coauditor']           holds if current user is coauditor
-    ['error']               holds information about errors
+$_SESSION['error']              holds information about errors
 
-    ['coaudit_session']     holds information of the last coauditsession used in session
+$_SESSION['user']
+    ['read_permission']         holds read permission of current user
+    ['write_permission']        holds write permission of current user
+    ['name']                    holds name of current user
+    ['email']                   holds email of current user
+    ['id']                      holds id of current user
+    ['coauditor']               holds if current user is coauditor
+    ['coaudit_session']         holds information of the last coauditsession used in session
     ['rid']                     holds information of the last result_id used in session
     ['sid']                     holds information of the last session_id used in session
+    ['csid']                    holds information of the session for the per country session
 
-$_SESSION['readperm'][$view])   holds the read permission of the view $view
-$_SESSION['writeperm'][$view])  holds the write permission of the view $view
+$_SESSION['readperm'][$view]    holds the read permission of the view $view
+$_SESSION['writeperm'][$view]   holds the write permission of the view $view
