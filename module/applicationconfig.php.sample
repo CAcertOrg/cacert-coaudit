@@ -7,3 +7,6 @@ $SSL_CLIENT_I_DN = array('emailAddress=support@cacert.org,CN=CA Cert Signing Aut
  'CN=CAcert Class 3 Root,OU=http://www.CAcert.org,O=CAcert Inc.',
  '/C=AU/ST=New South Wales/O=CAcert Testserver/OU=http://cacert1.it-sls.de/CN=CAcert Testserver Root',
  '/O=CAcert Testsever/OU=http://cacert1.it-sls.de/CN=CAcert Testserver Class 3');
+
+//number of test need to get country details
+$number_per_country = 5;
