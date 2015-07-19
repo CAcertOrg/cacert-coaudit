@@ -25,8 +25,6 @@ foreach ($ressessions as $ressession) {
     $session = '';
     $sessionold = '';
     $sessionhead = '';
-    $rowheader1 = '';
-    $rowheader2 = '';
     $datarow = '';
     $col = 0;
     $start = 0;
@@ -52,8 +50,9 @@ foreach ($ressessions as $ressession) {
                 }
 
                 echo tableheader(sprintf(_('Coaudit results for %s'), $sessionold), $col);
-                echo tablerow_start() . $rowheader1 . tablerow_end();
-                echo tablerow_start() . $rowheader2 . tablerow_end();
+
+                $headertopics = $db -> get_statiscs_header(' and `sts`.`coaudit_session_id` = ' . $ressession['session_id'] );
+                echo statistics_header($headertopics);
 
                 $start = 1;
                 $col = 1;
@@ -66,23 +65,11 @@ foreach ($ressessions as $ressession) {
             $year = $row['CYear'];
             $datarow = tablecell($row['CYear']);
             $datarow .= tablecell($row['Total'],0,'center');
-            $rowheader1 = tablecell('');
-            $rowheader1 .= tablecell('');
-            $rowheader2 = tablecell(_('Year'));
-            $rowheader2 .= tablecell(_('Tests'));
             $kpidata[] = array($row['CYear'],$row['Total']);
 
             $col = 2;
         }
 
-        if ($_SESSION['user']['read_permission']>1) {
-             $rowheader1 .= tablecell($row['Topic'],2);
-        } else {
-            $rowheader1 .= tablecell('Q' . $row['Topic_No'],2);
-        }
-
-        $rowheader2 .= tablecell(_('Passed'));
-        $rowheader2 .= tablecell(_('Percentage'));
         $datarow .= tablecell($row['res'],0,'center');
         $datarow .= tablecell(number_format($row['Perc'], 1, '.', '') . '%',0,'right');
 
@@ -91,8 +78,9 @@ foreach ($ressessions as $ressession) {
 
     if ($start == 0) {
         echo tableheader(sprintf(_('CoAudit results for %'), $sessionold), $col);
-        echo tablerow_start() . $rowheader1 . tablerow_end();
-        echo tablerow_start() . $rowheader2 . tablerow_end();
+
+        $headertopics = $db -> get_statiscs_header(' and `sts`.`coaudit_session_id` = ' . $ressession['session_id'] );
+        echo statistics_header($headertopics);
 
         $start = 1;
     }

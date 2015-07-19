@@ -854,10 +854,23 @@ class db_function {
             WHERE `c`.`cacertuser_id` = `r`.`cacertuser_id` AND `r`.`session_topic_id` = `st`.`session_topic_id`
                 AND `r`.`coauditsession_id` = `co`.`session_id`
                 AND (`sts`.`session_topic_id` = `r`.`session_topic_id` AND `sts`.`coaudit_session_id` = `r`.`coauditsession_id`)
-                AND `c`.`deleted` is Null " . $where ."
+                AND `c`.`deleted` IS Null AND `r`.`deleted` IS Null " . $where ."
             GROUP BY `CYear` , `Topic` , `Session` , `TopicID` , `Topic_No` , `SessionID`
             ORDER BY `Session` , `CYear` ,`Topic_No`";
+        $res = $this->db->query($query);
 
+        return $res;
+    }
+
+    public function get_statiscs_header($where ='') {
+        $query = "SELECT  `sts`.`topic_no` AS `Topic_No` ,
+                `st`.`session_topic` AS `Topic` ,
+                `st`.`session_topic_id` AS `TopicID`
+            FROM   `session_topic` AS `st` , `session_topics` AS `sts`
+            WHERE `sts`.`session_topic_id` = `st`.`session_topic_id`
+                and `sts`.`active` = 1 " . $where ."
+            GROUP BY  `Topic` , `TopicID` , `Topic_No`
+            ORDER BY `Topic_No` ";
         $res = $this->db->query($query);
 
         return $res;

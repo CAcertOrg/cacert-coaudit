@@ -627,7 +627,7 @@ function tablerow_sessionstopicslist_new() {
     return $tabstring;
 }
 
-// view managemnt
+// view management
 /**
  * tablerow_viewlist_header()
  * returns a table header row for viewlist
@@ -721,6 +721,30 @@ function tablerow_kpilist_new() {
     return $tabstring;
 }
 
+// statistics management
+
+function statistics_header($headertopics){
+    $rowheader1 = tablecell('');
+    $rowheader1 .= tablecell('');
+    $rowheader2 = tablecell(_('Year'));
+    $rowheader2 .= tablecell(_('Tests'));
+
+    foreach ($headertopics as $row) {
+        if ($_SESSION['user']['read_permission']>1) {
+            $rowheader1 .= tablecell($row['Topic'],2);
+        } else {
+            $rowheader1 .= tablecell('Q' . $row['Topic_No'],2);
+        }
+
+        $rowheader2 .= tablecell(_('Passed'));
+        $rowheader2 .= tablecell(_('Percentage'));
+    }
+
+    return tablerow_start() . $rowheader1 . tablerow_end() . tablerow_start() . $rowheader2 . tablerow_end();
+}
+
+
+// general functions
 /**
  * last_id_entered()
  * returns the output with the ID of the last result entered
