@@ -98,7 +98,7 @@ $funclist = array(
     'dataprotection'		=> array(false,	'../forms/dataprotection.php',			_('Data protection and privacy')),
 
     //Default page
-    ''			=> array(false,	'',					'')
+    ''			=> array(false,	'../forms/default.php',					'')
     );
 
 if(!array_key_exists($type, $funclist)) {
