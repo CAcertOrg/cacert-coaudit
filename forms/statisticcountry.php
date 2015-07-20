@@ -36,7 +36,7 @@ echo table_end();
 echo built_form_footer($hidden);
 echo empty_line();
 
-//build country table table
+//build country table
 $res = $db->get_statistics_country(' and `r`.`coauditsession_id` = ' . $csid);
 
 $year = '';
@@ -49,7 +49,7 @@ $total = 0;
 $nodetails = 0;
 
 foreach($res as $row) {
-    //new year
+    //new table (year)
     if ($session != $row['CYear'] ) {
         $session = $row['CYear'];
 
@@ -75,7 +75,7 @@ foreach($res as $row) {
         $start = 0;
         $year = '';
     }
-
+    //new table row
     if ($year != $row['Country'] ) {
         $year = $row['Country'];
 
@@ -99,7 +99,7 @@ foreach($res as $row) {
         $col = 2;
         $nodetails = 0;
     }
-
+    //fill table row
     if ( $row['Total'] >= $number_per_country) {
         $datarow .= tablecell($row['res'],0,'center');
         $datarow .= tablecell(number_format($row['Perc'], 1, '.', '') . '%',0,'right');
@@ -114,10 +114,10 @@ if (!$nodetails){
     $datarow .= tablecell(_('Not enough data for detail output'), $coltotal - 2,'center');
 }
 
-    echo tablerow_start() . $datarow . tablerow_end();
-    echo tablerow_start() . tablecell(sprintf(_('Total test: %s'), $total), $coltotal, 'center') . tablerow_end();
-    echo table_end();
-    echo empty_line();
+echo tablerow_start() . $datarow . tablerow_end();
+echo tablerow_start() . tablecell(sprintf(_('Total test: %s'), $total), $coltotal, 'center') . tablerow_end();
+echo table_end();
+echo empty_line();
 
 
 echo end_div();
