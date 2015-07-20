@@ -11,6 +11,7 @@ include_once '../module/class.db_functions.php';
 $db = new db_function();
 $assurerid = 0;
 $_SESSION ['debug'] = '';
+$_SESSION['error'] = '';
 
 $r_uri = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '';
 $qs = isset( $_SERVER['QUERY_STRING'] ) ? $_SERVER['QUERY_STRING'] : '';
