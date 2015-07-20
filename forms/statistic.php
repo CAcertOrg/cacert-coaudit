@@ -2,6 +2,7 @@
 
 include_once '../module/output_functions.php';
 include_once '../module/class.db_functions.php';
+include '../module/applicationconfig.php';
 
 $db = new db_function();
 
@@ -18,71 +19,57 @@ echo start_div('content');
 
 foreach ($ressessions as $ressession) {
 
-    //build seesion table
     $res = $db->get_statistics_basic(' and `r`.`coauditsession_id` = ' . $ressession['session_id']);
 
     $year = 0;
-    $session = '';
-    $sessionold = '';
-    $sessionhead = '';
     $datarow = '';
-    $col = 0;
+    $coltotal = 0;
     $start = 0;
+    $nodetails = 0;
+
+    //build new session table
+
+
+    $headertopics = $db -> get_statistics_header(' and `sts`.`coaudit_session_id` = ' . $ressession['session_id']);
+    $coltotal =get_statistics_col($headertopics) + 2;
+
+    echo tableheader(sprintf(_('Coaudit results for %s'),  $ressession['session_name']), $coltotal);
+    $headertopics = $db -> get_statistics_header(' and `sts`.`coaudit_session_id` = ' . $ressession['session_id'] );
+    echo statistics_header($headertopics);
 
     foreach($res as $row) {
-        if ($session != $row['Session'] ) {
-            $sessionold = $session;
-            $session = $row['Session'];
-
-            if ($start == 0 && $col == 0) {
-                $sessionold = $session;
-            }
-
-            $start = 0;
-        }
 
         if ($year != $row['CYear'] ) {
-            if ($col >0 && $start == 0) {
-                if ($sessionold != $session) {
-                    echo tablerow_start() . $datarow . tablerow_end();
-                    echo table_end();
-                    echo empty_line();
+
+            //write datarow if not new table
+            if ($start) {
+                if ( !$nodetails){
+                    $datarow .= tablecell(_('Not enough data for detail output'), $coltotal - 2,'center');
                 }
-
-                echo tableheader(sprintf(_('Coaudit results for %s'), $sessionold), $col);
-
-                $headertopics = $db -> get_statistics_header(' and `sts`.`coaudit_session_id` = ' . $ressession['session_id'] );
-                echo statistics_header($headertopics);
-
-                $start = 1;
-                $col = 1;
-            }
-
-            if ($col >0 && $sessionold == $session ) {
                 echo tablerow_start() . $datarow . tablerow_end();
             }
 
+            //create start of new datarow
+            $start = 1;
             $year = $row['CYear'];
             $datarow = tablecell($row['CYear']);
             $datarow .= tablecell($row['Total'],0,'center');
             $kpidata[] = array($row['CYear'],$row['Total']);
-
-            $col = 2;
+            $nodetails = 0;
         }
 
-        $datarow .= tablecell($row['res'],0,'center');
-        $datarow .= tablecell(number_format($row['Perc'], 1, '.', '') . '%',0,'right');
+        //fill table row
+        if ( $row['Total'] >= $number_per_country) {
+            $datarow .= tablecell($row['res'],0,'center');
+            $datarow .= tablecell(number_format($row['Perc'], 1, '.', '') . '%',0,'right');
+            $nodetails = 1;
+        }
 
-        $col +=2;
     }
 
-    if ($start == 0) {
-        echo tableheader(sprintf(_('CoAudit results for %'), $sessionold), $col);
-
-        $headertopics = $db -> get_statistics_header(' and `sts`.`coaudit_session_id` = ' . $ressession['session_id'] );
-        echo statistics_header($headertopics);
-
-        $start = 1;
+    //close session table
+    if ( !$nodetails){
+        $datarow .= tablecell(_('Not enough data for detail output'), $coltotal - 2,'center');
     }
 
     echo tablerow_start() . $datarow . tablerow_end();
@@ -90,7 +77,6 @@ foreach ($ressessions as $ressession) {
     echo empty_line();
 
     //KPI statistic
-    echo empty_line();
 
     $res = $db -> get_statistics_kpi( $ressession['session_id']);
 
@@ -124,6 +110,7 @@ foreach ($ressessions as $ressession) {
     }
 
     echo table_end();
+    echo empty_line();
     echo empty_line();
 }
 
