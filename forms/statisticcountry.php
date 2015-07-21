@@ -47,6 +47,7 @@ $coltotal = 0;
 $start = 0;
 $total = 0;
 $nodetails = 0;
+$nodetailcounty = array();
 
 foreach($res as $row) {
     //new table (year)
@@ -56,10 +57,17 @@ foreach($res as $row) {
         // close table previous year
         if ($start > 0) {
             if ( !$nodetails){
-                $datarow .= tablecell(_('Not enough data for detail output'), $col - 2,'center');
+                $nodetailcounty[] = $datarow .= tablecell(_('Not enough data for detail output'), $col - 2,'center');
+            } else {
+                echo tablerow_start() . $datarow . tablerow_end();
             }
 
-            echo tablerow_start() . $datarow . tablerow_end();
+            if (isset($nodetailcounty)) {
+                foreach($nodetailcounty as $countryline){
+                    echo tablerow_start() . $countryline . tablerow_end();
+                }
+            }
+
             echo tablerow_start() . tablecell(sprintf(_('Total test: %s'), $total), $coltotal, 'center') . tablerow_end();
             echo table_end();
             echo empty_line();
@@ -74,6 +82,7 @@ foreach($res as $row) {
 
         $start = 0;
         $year = '';
+        $nodetailcounty = array();
     }
     //new table row
     if ($year != $row['Country'] ) {
@@ -87,9 +96,10 @@ foreach($res as $row) {
 
         if ($col > 1 ) {
             if ( !$nodetails){
-                $datarow .= tablecell(_('Not enough data for detail output'), $coltotal - 2,'center');
+                $nodetailcounty[] = $datarow .= tablecell(_('Not enough data for detail output'), $col - 2,'center');
+            } else {
+                echo tablerow_start() . $datarow . tablerow_end();
             }
-            echo tablerow_start() . $datarow . tablerow_end();
         }
 
         $year = $row['Country'];
@@ -110,14 +120,23 @@ foreach($res as $row) {
 }
 
 //close last table
-if (!$nodetails){
-    $datarow .= tablecell(_('Not enough data for detail output'), $coltotal - 2,'center');
+if ( !$nodetails){
+    $nodetailcounty[] = $datarow .= tablecell(_('Not enough data for detail output'), $col - 2,'center');
+} else {
+    echo tablerow_start() . $datarow . tablerow_end();
 }
 
-echo tablerow_start() . $datarow . tablerow_end();
+if (isset($nodetailcounty)) {
+    foreach($nodetailcounty as $countryline){
+        echo tablerow_start() . $countryline . tablerow_end();
+    }
+}
+
 echo tablerow_start() . tablecell(sprintf(_('Total test: %s'), $total), $coltotal, 'center') . tablerow_end();
 echo table_end();
 echo empty_line();
 
 
 echo end_div();
+
+
