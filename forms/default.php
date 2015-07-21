@@ -2,6 +2,6 @@
 
 <h2>CAcert Co-Audit system</h2>
 
-<p>You only can log into the system if you have been added by the Co-Audit team.</p>
+<p>The login to this page is restricted to Co-Audit Team members.</p>
 
 </div>
