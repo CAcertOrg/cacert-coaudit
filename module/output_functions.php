@@ -590,7 +590,6 @@ function tablerow_sessiontopiclist_header() {
     $tabstring .= '    <td class="DataTD">' . _('Session') . '</td>' . "\n";
     $tabstring .= '    <td class="DataTD">' . _('Topic No') . '</td>' . "\n";
     $tabstring .= '    <td class="DataTD">' . _('Topic') . '</td>' . "\n";
-    $tabstring .= '    <td class="DataTD">' . _('Default') . '</td>' . "\n";
     $tabstring .= '    <td class="DataTD">' . _('Active') . '</td>' . "\n";
     $tabstring .= '</tr>' . "\n";
 
