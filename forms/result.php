@@ -89,12 +89,12 @@ foreach($checkno as $entry){
     echo error(sprintf(_('There is a problem with definition of the session.%s Get in contact with the administrator.'), '</br>'));
 }
 
-echo tablerow_2col_textbox(_('Assurer mail'), 'primaryemail', $primaryemail);
+echo tablerow_2col_textbox(_('Assurer mail *'), 'primaryemail', $primaryemail);
 echo tablerow_2col_checkbox(_('Is Assurer?'), 'assurer', $isassurer);
-echo tablerow_2col_textbox(_('Expierence Points'), 'expierencepoints', $expierencepoints);
-echo tablerow_2col_textbox(_('Residence country (ISO 2 letter code)'), 'country', $country);
-echo tablerow_2col_textbox(_('Location/Event'), 'location', $location);
-echo tablerow_2col_textbox(_('Date of Co-Audit'), 'coauditdate', $coauditdate);
+echo tablerow_2col_textbox(_('Experience Points *'), 'expierencepoints', $expierencepoints);
+echo tablerow_2col_textbox(_('Residence country (ISO 2 letter code) *'), 'country', $country);
+echo tablerow_2col_textbox(_('Location/Event *'), 'location', $location);
+echo tablerow_2col_textbox(_('Date of Co-Audit *'), 'coauditdate', $coauditdate);
 
 $i = 1;
 foreach($questions as $row){
