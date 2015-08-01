@@ -424,6 +424,12 @@ class db_function {
     }
 
 
+    /**
+     * db_function::check_no_sessiontopics()
+     * returns the session topics if they are entered more than once as active topic
+     * @param mixed $session_id
+     * @return
+     */
     public function check_no_sessiontopics($session_id) {
         $query = "SELECT `sts`.`session_topic_id`, COUNT(`sts`.`session_topic_id`) AS Numbers,  `st`.`session_topic`
             FROM  `session_topics` AS `sts`, `session_topic` AS `st`
