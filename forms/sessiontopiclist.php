@@ -20,11 +20,18 @@ if (isset( $_REQUEST['sid'])) {
 //get data
 $sessiontopics = $db -> get_all_sessiontopics(' `s`.`session_id` = ' . $sid);
 
+$checkno = $db -> check_no_sessiontopics($sid);
+
+
 echo start_div('content');
 
 if ($readperm == 0) {
     echo error(_('You do not have the right to read this page.'));
     exit;
+}
+
+foreach($checkno as $entry){
+    echo error(sprintf(_('Double entries: %s %s'), $entry['session_topic'],'</br>'));
 }
 
 echo tableheader(_('Session topics list'), 4);

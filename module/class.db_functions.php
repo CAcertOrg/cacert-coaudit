@@ -423,6 +423,20 @@ class db_function {
         write_log('admin', $stid, "updated sessiontopic");
     }
 
+
+    public function check_no_sessiontopics($session_id) {
+        $query = "SELECT `sts`.`session_topic_id`, COUNT(`sts`.`session_topic_id`) AS Numbers,  `st`.`session_topic`
+            FROM  `session_topics` AS `sts`, `session_topic` AS `st`
+            WHERE `sts`.`active` = 1 AND  `st`.`session_topic_id` = `sts`.`session_topic_id` AND `sts`.`coaudit_session_id` = $session_id
+            GROUP BY `sts`.`session_topic_id`,  `st`.`session_topic`
+            HAVING COUNT(`sts`.`session_topic_id`) > 1 ";
+
+        $res = $this->db->query($query);
+
+        return $res->fetchAll();
+    }
+
+
     // view handling
 
     /**
