@@ -117,16 +117,21 @@ function tableheader($title,$cols) {
 
 /**
  * tablerow_2col_textbox()
- * return the 2 column table row wuth textbox
+ * return the 2 column table row with textbox
  * @param mixed $label
  * @param mixed $name
  * @param mixed $value
  * @return
  */
-function tablerow_2col_textbox($label, $name, $value) {
+function tablerow_2col_textbox($label, $name, $value, $required = 0) {
+    $requiredtext = '';
+    if ($required) {
+         $requiredtext = ' required ';
+    }
+
     $tabstring = '<tr>' . "\n";
     $tabstring .= '    <td class="DataTD">'.$label.'</td>' . "\n";
-    $tabstring .= '    <td class="DataTD"><input name="'.$name.'" type="text" value="'.$value.'" /></td>' . "\n";
+    $tabstring .= '    <td class="DataTD"><input name="'.$name.'" type="text" value="'.$value.'" ' . $requiredtext . '/></td>' . "\n";
     $tabstring .= '</tr>' . "\n";
 
     return $tabstring;
