@@ -868,7 +868,7 @@ class db_function {
             WHERE `c`.`cacertuser_id` = `r`.`cacertuser_id` AND `r`.`session_topic_id` = `st`.`session_topic_id`
                 AND `r`.`coauditsession_id` = `co`.`session_id`
                 AND (`sts`.`session_topic_id` = `r`.`session_topic_id` AND `sts`.`coaudit_session_id` = `r`.`coauditsession_id`)
-                AND `c`.`deleted` IS Null AND `r`.`deleted` IS Null " . $where ."
+                AND `c`.`deleted` IS Null AND `r`.`deleted` IS Null AND `sts`.`active` = 1 " . $where ."
             GROUP BY `CYear` , `Topic` , `Session` , `TopicID` , `Topic_No` , `SessionID`
             ORDER BY `Session` , `CYear` ,`Topic_No`";
         $res = $this->db->query($query);
