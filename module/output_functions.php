@@ -312,7 +312,7 @@ function tablerow_2col_checkbox($label, $name, $value) {
         $checked = '';
     }
 
-    $tabstring = '</tr>' . "\n";
+    $tabstring = '<tr>' . "\n";
     $tabstring .= '    <td class="DataTD">' . $label . '</td>' . "\n";
     $tabstring .= '    <td class="DataTD"><input type="checkbox" name="' .$name .'" '.$checked.'/></td>' . "\n";
     $tabstring .= '</tr>' . "\n";
