@@ -5,8 +5,8 @@ $SSL_CLIENT_S_DN_delimeter = ',';
 //array of possible SSL_CLIENT_I_DN entries.
 $SSL_CLIENT_I_DN = array('emailAddress=support@cacert.org,CN=CA Cert Signing Authority,OU=http://www.cacert.org,O=Root CA',
  'CN=CAcert Class 3 Root,OU=http://www.CAcert.org,O=CAcert Inc.',
- '/C=AU/ST=New South Wales/O=CAcert Testserver/OU=http://cacert1.it-sls.de/CN=CAcert Testserver Root',
- '/O=CAcert Testsever/OU=http://cacert1.it-sls.de/CN=CAcert Testserver Class 3');
+ 'CN=CAcert Testserver Root,OU=http://cacert1.it-sls.de,O=CAcert Testserver,ST=New South Wales,C=AU',
+ 'CN=CAcert Testserver Class 3,OU=http://cacert1.it-sls.de,O=CAcert Testsever');
 
 //number of test need to get country details
 $number_per_country = 5;
