@@ -66,6 +66,9 @@ if ($rid == 0) {
     $questions = $db->get_result_topics($coaudit_session_id,$rid);
 }
 
+
+$checkno = $db -> check_no_sessiontopics($coaudit_session_id);
+
 $hidden[] = array('rid', $rid);
 
 $sessionres = $db->get_all_session();
@@ -80,6 +83,12 @@ if ($assurerid > 0) {
 echo built_form_header(create_url('result', 1));
 echo tableheader(_('Enter Co-Audit result'), 2);
 echo tablerow_2col_dropbox_apply(_('Co-Audit session'), $sessionres, $coaudit_session_id, 'session_id', 'session_name', 'change', _('Update'), 0);
+
+foreach($checkno as $entry){
+    $writeperm = 0;
+    echo error(sprintf(_('There is a problem with definition of the session.%s Get in contact with the administrator.'), '</br>'));
+}
+
 echo tablerow_2col_textbox(_('Assurer mail'), 'primaryemail', $primaryemail);
 echo tablerow_2col_checkbox(_('Is Assurer?'), 'assurer', $isassurer);
 echo tablerow_2col_textbox(_('Expierence Points'), 'expierencepoints', $expierencepoints);
