@@ -9,6 +9,8 @@
 	Australia
 </p>
 
+<p>Email address: support (at) cacert dot org</p>
+
 <p>represented by the Secretary: Etienne Ruedin</p>
 
 <h3>CAcert Inc. Committee</h3>
