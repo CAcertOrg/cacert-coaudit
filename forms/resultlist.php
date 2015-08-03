@@ -48,8 +48,16 @@ if (isset($_REQUEST['coauditor_id'])) {
     $coaudid = $cid;
 }
 
+if (isset($_REQUEST['session_year'])) {
+    $sessionyear = intval($_REQUEST['session_year']);
+} else {
+    $sessionyear = 0;
+}
+
 $sessionres = $db -> get_all_session();
 $coauditorres = $db -> get_all_user();
+$sessionyearress =  $db -> get_session_year($session);
+
 $hidden[]=array('cid',$cid);
 
 echo start_div('content');
@@ -57,7 +65,8 @@ echo start_div('content');
 // build filter form
 echo built_form_header(create_url('resultlist', 1));
 echo tableheader(_('Filter'), 2);
-echo tablerow_2col_dropbox(_('Coaudit session'), $sessionres, $session, 'session_id', 'session_name', 1);
+echo tablerow_2col_dropbox(_('RA-Audit session'), $sessionres, $session, 'session_id', 'session_name', 1);
+echo tablerow_2col_dropbox(_('Year'), $sessionyearress, $sessionyear, 'session_year', 'session_year', 1);
 
 if ($cid == '') {
     echo tablerow_2col_dropbox(_('RA-Auditor'), $coauditorres, $coaudid, 'coauditor_id', 'coauditor_name', 1);
@@ -70,7 +79,7 @@ echo empty_line();
 foreach ($sessionres as $ressession) {
     if ($session == 0 || $ressession['session_id'] == $session ) {
 
-        $res = $db->get_results($ressession['session_id'], $coaudid);
+        $res = $db->get_results($ressession['session_id'], $coaudid, $sessionyear);
         $sessionname = $ressession['session_name'];
         $col = 0;
         $start = 0;
@@ -101,7 +110,7 @@ foreach ($sessionres as $ressession) {
 
             if ($assurer != $row['uid'] ) {
                 if ($col > 0 && $start == 0) {
-                    echo tableheader(sprintf(_('Coaudit results for %s'), $sessionname), $col);
+                    echo tableheader(sprintf(_('RA-Audit results for %s'), $sessionname), $col);
                     echo tablerow_start() . $rowheader1 . tablerow_end();
                     echo tablerow_start() . $rowheader2 . tablerow_end();
 

@@ -618,20 +618,22 @@ class db_function {
      * @param integer $coauditid    if given filter on the RA-Auditor
      * @return
      */
-    public function get_results($session = 0, $coauditid = 0) {
+    public function get_results($session = 0, $coauditid = 0, $sessionyear = 0) {
         $where = '';
-        if ($session != 0) {
-            $where .= ' and `co`.`session_id` = ' . intval($session);
+        if ($session) {
+            $where .= ' AND `co`.`session_id` = ' . intval($session);
         }
-        if ($coauditid != 0) {
-            $where .= ' and `aud`.`coauditor_id` = ' . intval($coauditid);
+        if ($coauditid) {
+            $where .= ' AND `aud`.`coauditor_id` = ' . intval($coauditid);
         }
-
-        $query = "SELECT `co`.`session_name` AS `Session` , year( `c`.`coauditdate` ) AS `CYear` ,
+        if ($sessionyear) {
+            $where .= ' AND  YEAR( `c`.`coauditdate` ) = ' . intval($sessionyear);
+        }
+        $query = "SELECT `co`.`session_name` AS `Session` , YEAR( `c`.`coauditdate` ) AS `CYear` ,
                     `sts`.`topic_no` AS `Topic_No` , `st`.`session_topic` AS `Topic` ,
                     `r`.`result` AS `Result`, `st`.`session_topic_id` AS `TopicID` ,
                     `r`.`coauditsession_id` AS `SessionID`,
-                    `c`.`primaryemail` as `Assurer` , `c`.`cacertuser_id` as `uid`, `aud`.`coauditor_name` as `Coauditor`,
+                    `c`.`primaryemail` AS `Assurer` , `c`.`cacertuser_id` AS `uid`, `aud`.`coauditor_name` AS `Coauditor`,
                     `r`.`comment` AS `Comment`
                     FROM `cacertuser` AS `c` , `result` AS `r` , `session_topic` AS `st` , `coauditsession` AS `co` , `session_topics` AS `sts`, `coauditor` AS `aud`
                     WHERE `c`.`cacertuser_id` = `r`.`cacertuser_id` AND `r`.`session_topic_id` = `st`.`session_topic_id`
@@ -922,6 +924,24 @@ class db_function {
         $res = $this->db->query($query);
 
         return $res;
+    }
+
+    public function get_session_year($session = 0) {
+        $where = '';
+        if ($session) {
+            $where = ' AND `r`. `coauditsession_id` = ' . intval($session);
+        }
+        $query = "SELECT Year(`c`.`coauditdate`) AS 'session_year' FROM `cacertuser` as `c`, `result` as `r`
+            WHERE `c`.`cacertuser_id` = `r`.`cacertuser_id` " . $where ."
+            GROUP BY Year(`c`.`coauditdate`)
+        ORDER BY Year(`c`.`coauditdate`)";
+
+        $res = $this -> db -> query($query);
+        if($res) {
+            return $res->fetchAll();
+        } else {
+            return false;
+        }
     }
 
     /**
