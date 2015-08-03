@@ -26,6 +26,11 @@ if (isset($_SESSION['user']['rid'])) {
 
 if (check_role_access('Auditor', $_SESSION['user']['write_permission'])) {
     $writeperm = 2;
+    if (0 == $rid) {
+        $writeperm = 0;
+        echo error(_('Auditors are not allowed to add new results'));
+        exit;
+    }
 }
 
 if ($rid == 0) {
