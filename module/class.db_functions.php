@@ -641,6 +641,7 @@ class db_function {
                         AND (`sts`.`session_topic_id` = `r`.`session_topic_id` AND `sts`.`coaudit_session_id` = `r`.`coauditsession_id`)
                         AND `r`.`coauditor_id` = `aud`.`coauditor_id`
                         AND `c`.`deleted` IS NULL
+                        AND `r`.`deleted` IS NULL
                         $where
                     ORDER BY  `Session`, `CYear` , `Coauditor`, `uid`, `Topic_No`";
 
