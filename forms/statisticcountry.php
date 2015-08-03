@@ -75,7 +75,7 @@ foreach($res as $row) {
         }
         $headertopics = $db -> get_statistics_header(' and `sts`.`coaudit_session_id` = ' . $csid );
         $coltotal =get_statistics_col($headertopics) +2;
-        echo tableheader(sprintf(_('Coaudit results for %s'), $session), $coltotal);
+        echo tableheader(sprintf(_('RA-Audit results for %s'), $session), $coltotal);
 
         $headertopics = $db -> get_statistics_header(' and `sts`.`coaudit_session_id` = ' . $csid );
         echo statistics_header($headertopics);

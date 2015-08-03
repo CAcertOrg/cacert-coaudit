@@ -366,7 +366,7 @@ function tablefooter_user($cols, $uid, $write=0) {
  */
 function tablerow_userlist_header() {
     $tabstring = '<tr>' . "\n";
-    $tabstring .= '    <td class="DataTD">' . _('Coauditor') . '</td>' . "\n";
+    $tabstring .= '    <td class="DataTD">' . _('RA-Auditor') . '</td>' . "\n";
     $tabstring .= '    <td class="DataTD">' . _('Read permission') . '</td>' . "\n";
     $tabstring .= '    <td class="DataTD">' . _('Write permission') . '</td>' . "\n";
     $tabstring .= '</tr>' . "\n";

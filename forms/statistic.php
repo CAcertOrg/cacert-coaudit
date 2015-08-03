@@ -33,7 +33,7 @@ foreach ($ressessions as $ressession) {
     $headertopics = $db -> get_statistics_header(' and `sts`.`coaudit_session_id` = ' . $ressession['session_id']);
     $coltotal =get_statistics_col($headertopics) + 2;
 
-    echo tableheader(sprintf(_('Coaudit results for %s'),  $ressession['session_name']), $coltotal);
+    echo tableheader(sprintf(_('RA-Audit results for %s'),  $ressession['session_name']), $coltotal);
     $headertopics = $db -> get_statistics_header(' and `sts`.`coaudit_session_id` = ' . $ressession['session_id'] );
     echo statistics_header($headertopics);
 
@@ -80,7 +80,7 @@ foreach ($ressessions as $ressession) {
 
     $res = $db -> get_statistics_kpi( $ressession['session_id']);
 
-    echo tableheader(_('Coaudit KPI for ' . $ressession['session_name']),5);
+    echo tableheader(_('RA-Audit KPI for ' . $ressession['session_name']),5);
 
     $rowheader = tablerow_start();
     $rowheader .= tablecell(_('Year'));

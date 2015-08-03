@@ -133,7 +133,7 @@ foreach ($sessionres as $ressession) {
         }
 
         if ($start == 0 ) {
-            echo tableheader(sprintf(_('Coaudit results for %s'), $sessionname), $col);
+            echo tableheader(sprintf(_('RA-Audit results for %s'), $sessionname), $col);
             if ($col > 0 ) {
                 echo tablerow_start() . $rowheader1 . tablerow_end();
                 echo tablerow_start() . $rowheader2 . tablerow_end();

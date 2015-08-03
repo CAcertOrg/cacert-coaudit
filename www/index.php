@@ -70,7 +70,7 @@ $funclist = array(
 
     // session management
     'sessionlist'	=> array(true,	'../forms/sessionlist.php',		_('List of coaudit sessions')),
-    'session'		=> array(true,	'../pages/session.php',			_('Coaudit session')),
+    'session'		=> array(true,	'../pages/session.php',			_('RA-Audit session')),
 
     // session topics management
     'sessiontopiclist'	=> array(true,	'../forms/sessiontopiclist.php',	_('List of session topics')),
