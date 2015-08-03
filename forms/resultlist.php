@@ -79,10 +79,32 @@ echo empty_line();
 foreach ($sessionres as $ressession) {
     if ($session == 0 || $ressession['session_id'] == $session ) {
 
+
+        $res = $db->get_statistics_basic(' and `r`.`coauditsession_id` = ' . $ressession['session_id']);
+
+        $year = 0;
+        $datarow = '';
+        $coltotal = 0;
+        $start = 0;
+        $nodetails = 0;
+
+        //build new session table
+
+
+        $headertopics = $db -> get_statistics_header(' and `sts`.`coaudit_session_id` = ' . $ressession['session_id']);
+        $coltotal =get_statistics_col($headertopics) + 5;
+
+        echo tableheader(sprintf(_('RA-Audit results for %s'),  $ressession['session_name']), $coltotal);
+        $headertopics = $db -> get_statistics_header(' and `sts`.`coaudit_session_id` = ' . $ressession['session_id'] );
+        echo result_header($headertopics);
+
+
+
         $res = $db->get_results($ressession['session_id'], $coaudid, $sessionyear);
         $sessionname = $ressession['session_name'];
         $col = 0;
         $start = 0;
+        $total = array();
 
         // build result table
         foreach($res as $row){
@@ -91,17 +113,6 @@ foreach ($sessionres as $ressession) {
 
             if ($start == 0 && $col == 0) {
                 $assurer = $row['uid'];
-                $rowheader1 = tablecell(_(''));
-                $rowheader1 .= tablecell(_(''));
-                $rowheader1 .= tablecell(_(''));
-                $rowheader1 .= tablecell(_(''));
-                $rowheader1 .= tablecell(_(''));
-
-                $rowheader2 = tablecell(_('Year'));
-                $rowheader2 .= tablecell(_('ID'));
-                $rowheader2 .= tablecell(_('RA-Auditor'));
-                $rowheader2 .= tablecell(_('Country'));
-                $rowheader2 .= tablecell(_('View'));
 
                 $datarow = tablecell($row['CYear']);
                 $datarow .= tablecell($row['uid'],0,'right');
@@ -113,10 +124,6 @@ foreach ($sessionres as $ressession) {
 
             if ($assurer != $row['uid'] ) {
                 if ($col > 0 && $start == 0) {
-                    echo tableheader(sprintf(_('RA-Audit results for %s'), $sessionname), $col + 1);
-                    echo tablerow_start() . $rowheader1 . tablerow_end();
-                    echo tablerow_start() . $rowheader2 . tablerow_end();
-
                     $start = 1;
                 }
 
@@ -130,6 +137,7 @@ foreach ($sessionres as $ressession) {
                 $datarow .= tablecell($row['Coauditor']);
                 $datarow .= tablecell($row['Country']);
                 $datarow .= $editcell;
+                array_key_exists(0 ,$total) ?  $total[0] += 1 : $total[0] = 1;
                 $col = 4;
             }
 
@@ -142,18 +150,28 @@ foreach ($sessionres as $ressession) {
             $datarow .= tablecell($row['Result'], 0,'center');
             $datarow .= tablecell($row['Comment']);
 
+
+            array_key_exists($row['Topic_No'] ,$total) ?  $total[$row['Topic_No']] += $row['Result'] : $total[$row['Topic_No']] = $row['Result'];
+
             $col +=2;
         }
 
-        if ($start == 0 ) {
-            echo tableheader(sprintf(_('RA-Audit results for %s'), $sessionname), $col);
-            if ($col > 0 ) {
-                echo tablerow_start() . $rowheader1 . tablerow_end();
-                echo tablerow_start() . $rowheader2 . tablerow_end();
-            }
-        }
-
         if ($col > 0 ) {
+            echo tablerow_start() . $datarow . tablerow_end();
+
+            $datarow = tablecell(_(''));
+            $datarow .= tablecell(_(''));
+            $datarow .= tablecell(_(''));
+            $datarow .= tablecell(_('Total'));
+
+            array_key_exists(0 ,$total) ?  $total[0] += 1 : $total[0] = 1;
+
+            $datarow .= tablecell($total[0] , 0, 'center');
+
+            for ($i = 1; $i < count($total); $i++){
+                $datarow .= tablecell($total[$i], 0, 'center');
+                $datarow .= tablecell(_(''));
+            }
             echo tablerow_start() . $datarow . tablerow_end();
         }
 

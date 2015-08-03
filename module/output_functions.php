@@ -753,6 +753,34 @@ function statistics_header($headertopics){
     return tablerow_start() . $rowheader1 . tablerow_end() . tablerow_start() . $rowheader2 . tablerow_end();
 }
 
+/**
+ * result_header()
+ * returns the header for a result list table
+ * @param mixed $headertopics
+ * @return
+ */
+function result_header($headertopics){
+    $rowheader1 = tablecell(_(''));
+    $rowheader1 .= tablecell(_(''));
+    $rowheader1 .= tablecell(_(''));
+    $rowheader1 .= tablecell(_(''));
+    $rowheader1 .= tablecell(_(''));
+
+    $rowheader2 = tablecell(_('Year'));
+    $rowheader2 .= tablecell(_('ID'));
+    $rowheader2 .= tablecell(_('RA-Auditor'));
+    $rowheader2 .= tablecell(_('Country'));
+    $rowheader2 .= tablecell(_('View'));
+
+    foreach ($headertopics as $row) {
+        $rowheader1 .= tablecell($row['Topic'],2);
+
+        $rowheader2 .= tablecell(_('Result'));
+        $rowheader2 .= tablecell(_('Comment'));
+    }
+
+    return tablerow_start() . $rowheader1 . tablerow_end() . tablerow_start() . $rowheader2 . tablerow_end();
+}
 
 /**
  * get_statistics_col()
