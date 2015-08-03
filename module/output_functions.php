@@ -777,7 +777,7 @@ function get_statistics_col($headertopics){
  * @return
  */
 function last_id_entered($id) {
-    $tabstring = '<div class="last_id">' . _('Please note the id of the last entry made on your Co-Audit form:') . '<strong>' . $id . '</strong></div>';
+    $tabstring = '<div class="last_id">' . _('Please note the id of the last entry made on your RA-Audit form:') . '<strong>' . $id . '</strong></div>';
 
     return $tabstring;
 }

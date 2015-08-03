@@ -60,7 +60,7 @@ echo tableheader(_('Filter'), 2);
 echo tablerow_2col_dropbox(_('Coaudit session'), $sessionres, $session, 'session_id', 'session_name', 1);
 
 if ($cid == '') {
-    echo tablerow_2col_dropbox(_('Co-Auditor'), $coauditorres, $coaudid, 'coauditor_id', 'coauditor_name', 1);
+    echo tablerow_2col_dropbox(_('RA-Auditor'), $coauditorres, $coaudid, 'coauditor_id', 'coauditor_name', 1);
 }
 
 echo tablefooter_filter(2, _('Apply'));
@@ -89,7 +89,7 @@ foreach ($sessionres as $ressession) {
                 $rowheader1 .= tablecell(_(''));
                 $rowheader2 = tablecell(_('Year'));
                 $rowheader2 .= tablecell(_('ID'));
-                $rowheader2 .= tablecell(_('Co-Auditor'));
+                $rowheader2 .= tablecell(_('RA-Auditor'));
                 $rowheader2 .= tablecell(_('View'));
 
                 $datarow = tablecell($row['CYear']);

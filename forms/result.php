@@ -81,8 +81,8 @@ if ($assurerid > 0) {
 }
 
 echo built_form_header(create_url('result', 1));
-echo tableheader(_('Enter Co-Audit result'), 2);
-echo tablerow_2col_dropbox_apply(_('Co-Audit session'), $sessionres, $coaudit_session_id, 'session_id', 'session_name', 'change', _('Update'), 0);
+echo tableheader(_('Enter RA-Audit result'), 2);
+echo tablerow_2col_dropbox_apply(_('RA-Audit session'), $sessionres, $coaudit_session_id, 'session_id', 'session_name', 'change', _('Update'), 0);
 
 foreach($checkno as $entry){
     $writeperm = 0;
@@ -94,7 +94,7 @@ echo tablerow_2col_checkbox(_('Is Assurer?'), 'assurer', $isassurer);
 echo tablerow_2col_textbox(_('Experience Points *'), 'expierencepoints', $expierencepoints , 1);
 echo tablerow_2col_textbox(_('Residence country (ISO 2 letter code) *'), 'country', $country , 1);
 echo tablerow_2col_textbox(_('Location/Event *'), 'location', $location), 1;
-echo tablerow_2col_textbox(_('Date of Co-Audit *'), 'coauditdate', $coauditdate, 1);
+echo tablerow_2col_textbox(_('Date of RA-Audit *'), 'coauditdate', $coauditdate, 1);
 
 $i = 1;
 foreach($questions as $row){

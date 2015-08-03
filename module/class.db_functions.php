@@ -615,7 +615,7 @@ class db_function {
      * db_function::get_results()
      * returns tke results
      * @param integer $session      if given filter on the session
-     * @param integer $coauditid    if given filter on the co-auditor
+     * @param integer $coauditid    if given filter on the RA-Auditor
      * @return
      */
     public function get_results($session = 0, $coauditid = 0) {

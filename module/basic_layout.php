@@ -10,7 +10,7 @@ include_once 'class.db_functions.php';
  * @return
  */
 function titlebar() {
-    $coauditsystem = _('Co-Audit system');
+    $coauditsystem = _('RA-Audit system');
     $tabstrings = <<<foohtmlheader
     <header class="mainHeader">
         <div class="titlecontainer">
@@ -52,7 +52,7 @@ function menu($secure = 0) {
     $statistics = _('Statistics');
     $overview = _('Overview');
     $percountry = _('Per country');
-    $coauditors = _('Co-Auditors');
+    $coauditors = _('RA-Auditors');
     $newEntry = _('Enter new entry');
     $ownEntry = _('List own entries');
     $admin = _('Administrative view');
@@ -182,7 +182,7 @@ foohtmlnav6;
  * @return
  */
 function headerstart($title) {
-    $title = _('CAcert Co-Audit') . ' - ' . $title;
+    $title = _('CAcert RA-Audit') . ' - ' . $title;
 
     $tabstrings = <<<foohtmlhead1
 <!DOCTYPE html>
