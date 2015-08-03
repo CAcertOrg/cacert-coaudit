@@ -98,7 +98,7 @@ echo tablerow_2col_textbox(_('Assurer mail *'), 'primaryemail', $primaryemail, 1
 echo tablerow_2col_checkbox(_('Is Assurer?'), 'assurer', $isassurer);
 echo tablerow_2col_textbox(_('Experience Points *'), 'expierencepoints', $expierencepoints , 1);
 echo tablerow_2col_textbox(_('Residence country (ISO 2 letter code) *'), 'country', $country , 1);
-echo tablerow_2col_textbox(_('Location/Event *'), 'location', $location), 1;
+echo tablerow_2col_textbox(_('Location/Event *'), 'location', $location, 1);
 echo tablerow_2col_textbox(_('Date of RA-Audit (YYYY-MM-DD) *'), 'coauditdate', $coauditdate, 1);
 
 $i = 1;
