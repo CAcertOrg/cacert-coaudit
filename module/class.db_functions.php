@@ -629,7 +629,7 @@ class db_function {
         if ($sessionyear) {
             $where .= ' AND  YEAR( `c`.`coauditdate` ) = ' . intval($sessionyear);
         }
-        $query = "SELECT `co`.`session_name` AS `Session` , YEAR( `c`.`coauditdate` ) AS `CYear` ,
+        $query = "SELECT `co`.`session_name` AS `Session` , YEAR( `c`.`coauditdate` ) AS `CYear` , `c`.`country` AS `Country`,
                     `sts`.`topic_no` AS `Topic_No` , `st`.`session_topic` AS `Topic` ,
                     `r`.`result` AS `Result`, `st`.`session_topic_id` AS `TopicID` ,
                     `r`.`coauditsession_id` AS `SessionID`,

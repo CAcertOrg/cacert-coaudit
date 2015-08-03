@@ -96,21 +96,24 @@ foreach ($sessionres as $ressession) {
                 $rowheader1 .= tablecell(_(''));
                 $rowheader1 .= tablecell(_(''));
                 $rowheader1 .= tablecell(_(''));
+
                 $rowheader2 = tablecell(_('Year'));
                 $rowheader2 .= tablecell(_('ID'));
                 $rowheader2 .= tablecell(_('RA-Auditor'));
+                $rowheader2 .= tablecell(_('Country'));
                 $rowheader2 .= tablecell(_('View'));
 
                 $datarow = tablecell($row['CYear']);
                 $datarow .= tablecell($row['uid'],0,'right');
                 $datarow .= tablecell($row['Coauditor']);
+                $datarow .= tablecell($row['Country']);
                 $datarow .= $editcell;
-                $col = 3;
+                $col = 4;
             }
 
             if ($assurer != $row['uid'] ) {
                 if ($col > 0 && $start == 0) {
-                    echo tableheader(sprintf(_('RA-Audit results for %s'), $sessionname), $col);
+                    echo tableheader(sprintf(_('RA-Audit results for %s'), $sessionname), $col + 1);
                     echo tablerow_start() . $rowheader1 . tablerow_end();
                     echo tablerow_start() . $rowheader2 . tablerow_end();
 
@@ -125,8 +128,9 @@ foreach ($sessionres as $ressession) {
                 $datarow = tablecell($row['CYear']);
                 $datarow .= tablecell($row['uid'],0,'right');
                 $datarow .= tablecell($row['Coauditor']);
+                $datarow .= tablecell($row['Country']);
                 $datarow .= $editcell;
-                $col = 3;
+                $col = 4;
             }
 
             if ($start == 0) {
