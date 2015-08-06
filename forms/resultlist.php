@@ -22,6 +22,10 @@ if ($cid) {
     $cid = $_SESSION['user']['id'];
 }
 
+if (!check_role_access('Auditor', $_SESSION['user']['write_permission'])){
+    $cid = $_SESSION['user']['id'];
+}
+
 $year = 0;
 $session = '';
 $sessionold = '';
