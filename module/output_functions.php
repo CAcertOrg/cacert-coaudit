@@ -25,7 +25,7 @@ function built_form_footer($hidden) {
         $tabstring .= '<input type="hidden" name="'.$hid[0].'" value="'.$hid[1] .'" />' . "\n";
     }
 
-    $tabstring .= '<form>' . "\n";
+    $tabstring .= '</form>' . "\n";
 
     return $tabstring;
 }
