@@ -26,7 +26,7 @@ function tidystring($input) {
 function define_roles(){
     $result = array();
     $result[] = _('Guest'); // 1
-    $result[] = _('Coauditor'); // 2
+    $result[] = _('RA-Auditor'); // 2
     $result[] = _('Session administrator'); // 4
     $result[] = _('Administrator'); // 8
     $result[] = _('Auditor'); // 16
