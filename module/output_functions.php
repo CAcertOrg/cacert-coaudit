@@ -335,7 +335,7 @@ function tablerow_2col_checkbox($label, $name, $value) {
  */
 function tablefooter_user($cols, $uid, $write=0) {
     if ($uid == 0 ) {
-        $label = _('New entry');
+        $label = _('Save new entry');
         $name = 'new';
     } else {
         $label = _('Save entry');
