@@ -46,11 +46,11 @@ if ($readperm == 0) {
     exit;
 }
 
-echo built_form_header(create_url('view', 1));
+echo build_form_header(create_url('view', 1));
 echo tableheader(_('View'), 3);
 echo tablerow_3col_textbox_2col(_('Name of view'), 'view_name', $view_name);
 echo tablerow_topics_active($active);
 echo tablerow_user_rights($roles, $read, $write);
 echo tablefooter_user(3, $vid, $writeperm);
-echo built_form_footer($hidden);
+echo build_form_footer($hidden);
 echo end_div();

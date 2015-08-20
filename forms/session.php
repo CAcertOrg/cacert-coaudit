@@ -44,7 +44,7 @@ if ($readperm == 0) {
     exit;
 }
 
-echo built_form_header( create_url('session', 1));
+echo build_form_header( create_url('session', 1));
 echo tableheader(_('Session'), 2);
 echo tablerow_2col_textbox(_('Session'), 'session_name', $session_name);
 echo tablerow_2col_textbox(_('From'), 'from', $from);
@@ -52,5 +52,5 @@ echo tablerow_2col_textbox(_('To'), 'to', $to);
 echo tablerow_topics_checkbox('default', _('Default'), $default);
 echo tablerow_topics_active($active);
 echo tablefooter_user(2, $sid, $writeperm);;
-echo built_form_footer($hidden);
+echo build_form_footer($hidden);
 echo end_div();

@@ -67,7 +67,7 @@ $hidden[]=array('cid',$cid);
 echo start_div('content');
 
 // build filter form
-echo built_form_header(create_url('resultlist', 1));
+echo build_form_header(create_url('resultlist', 1));
 echo tableheader(_('Filter'), 2);
 echo tablerow_2col_dropbox(_('RA-Audit session'), $sessionres, $session, 'session_id', 'session_name', 1);
 echo tablerow_2col_dropbox(_('Year'), $sessionyearress, $sessionyear, 'session_year', 'session_year', 1);
@@ -77,7 +77,7 @@ if ($cid == '') {
 }
 
 echo tablefooter_filter(2, _('Apply'));
-echo built_form_footer($hidden);
+echo build_form_footer($hidden);
 echo empty_line();
 
 foreach ($sessionres as $ressession) {

@@ -29,11 +29,11 @@ $hidden[] = array('csid', $csid);
 //build form to choose session
 echo start_div('content');
 
-echo built_form_header(create_url('statistic', $urlsecure, array('csid' => $csid)));
+echo build_form_header(create_url('statistic', $urlsecure, array('csid' => $csid)));
 echo tableheader(_('Choose RA-Audit session'), 2);
 echo tablerow_2col_dropbox_apply(_('Session'), $ressessions, $csid, 'session_id', 'session_name', 'change', _('Update'), 0);
 echo table_end();
-echo built_form_footer($hidden);
+echo build_form_footer($hidden);
 echo empty_line();
 
 //build country table

@@ -85,12 +85,12 @@ if ($assurerid > 0) {
     echo last_id_entered($assurerid);
 }
 
-echo built_form_header(create_url('result', 1));
+echo build_form_header(create_url('result', 1));
 echo tableheader(_('Enter RA-Audit result'), 2);
 echo tablerow_2col_dropbox_apply(_('RA-Audit session'), $sessionres, $coaudit_session_id, 'session_id', 'session_name', 'change', _('Update'), 0);
 
 echo build_just_form_footer();
-echo built_form_header(create_url('result', 1));
+echo build_form_header(create_url('result', 1));
 $hidden[] = array('session_id',  $coaudit_session_id);
 foreach($checkno as $entry){
     $writeperm = 0;
@@ -124,5 +124,5 @@ foreach($questions as $row){
 }
 
 echo tablefooter_user(2, $rid, $writeperm);
-echo built_form_footer($hidden);
+echo build_form_footer($hidden);
 echo end_div();

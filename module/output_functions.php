@@ -3,22 +3,22 @@
 include_once 'basic_functions.php';
 
 /**
- * built_form_header()
+ * build_form_header()
  * returns the header line for a form
  * @param mixed $action
  * @return
  */
-function built_form_header($action) {
+function build_form_header($action) {
     return '<form method="post" action="'.$action.'">' . "\n";
 }
 
 /**
- * built_form_footer()
+ * build_form_footer()
  * returns the footer of a form
  * @param mixed $hidden
  * @return
  */
-function built_form_footer($hidden) {
+function build_form_footer($hidden) {
     $tabstring = '';
 
     foreach ($hidden as $hid) {

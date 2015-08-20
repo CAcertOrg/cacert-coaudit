@@ -42,11 +42,11 @@ if ($readperm == 0) {
     exit;
 }
 
-echo built_form_header(create_url('topic', 1));
+echo build_form_header(create_url('topic', 1));
 echo tableheader(_('Topic'), 2);
 echo tablerow_2col_textbox(_('Topic'), 'topic', $session_topic);
 echo tablerow_2col_textbox(_('Explaination'), 'explain', $topic_explaination);
 echo tablerow_topics_active($activ);
 echo tablefooter_user(2, $session_topic_id, $writeperm);;
-echo built_form_footer($hidden);
+echo build_form_footer($hidden);
 echo end_div();
