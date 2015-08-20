@@ -89,6 +89,9 @@ echo built_form_header(create_url('result', 1));
 echo tableheader(_('Enter RA-Audit result'), 2);
 echo tablerow_2col_dropbox_apply(_('RA-Audit session'), $sessionres, $coaudit_session_id, 'session_id', 'session_name', 'change', _('Update'), 0);
 
+echo build_just_form_footer();
+echo built_form_header(create_url('result', 1));
+$hidden[] = array('session_id',  $coaudit_session_id);
 foreach($checkno as $entry){
     $writeperm = 0;
     echo error(sprintf(_('There is a problem with definition of the session.%s Get in contact with the administrator.'), '</br>'));

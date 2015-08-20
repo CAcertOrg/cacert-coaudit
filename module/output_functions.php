@@ -14,7 +14,7 @@ function built_form_header($action) {
 
 /**
  * built_form_footer()
- * returns the footer of aform
+ * returns the footer of a form
  * @param mixed $hidden
  * @return
  */
@@ -26,6 +26,18 @@ function built_form_footer($hidden) {
     }
 
     $tabstring .= '</form>' . "\n";
+
+    return $tabstring;
+}
+
+/**
+ * build_just_form_footer()
+ * returns an empty footer of a form
+ * @return
+ */
+function build_just_form_footer() {
+
+    $tabstring = '</form>' . "\n";
 
     return $tabstring;
 }
