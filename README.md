@@ -1,8 +1,11 @@
-cacert-coaudit
+cacert-raaudit
 ==============
 
-new coaudtit system
+new RA - Audit system
 
 install
 added write access to folder ../log
-adjustes the database settings in file ../module/dbconfig.php according to the sample file
+activate/adjust the following sample files
+../form/default.php.sample
+../module/applicationconfig.php.sample
+../module/dbconfig.php.sample
