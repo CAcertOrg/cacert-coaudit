@@ -61,44 +61,44 @@ if ( $type == 'logout') {
 
 $funclist = array(
     //user management
-    'userlist'		=> array(true,	'../forms/userlist.php',		_('List of user')),
-    'user'		=> array(true,	'../pages/user.php',			_('User')),
+    'userlist'          => array(true,    '../forms/userlist.php',          _('List of user')),
+    'user'              => array(true,    '../pages/user.php',              _('User')),
 
     // topics management
-    'topiclist'		=> array(true,	'../forms/topiclist.php',		_('List of topics')),
-    'topic'		=> array(true,	'../pages/topic.php',			_('Topic')),
+    'topiclist'         => array(true,    '../forms/topiclist.php',         _('List of topics')),
+    'topic'             => array(true,    '../pages/topic.php',             _('Topic')),
 
     // session management
-    'sessionlist'	=> array(true,	'../forms/sessionlist.php',		_('List of coaudit sessions')),
-    'session'		=> array(true,	'../pages/session.php',			_('RA-Audit session')),
+    'sessionlist'       => array(true,    '../forms/sessionlist.php',       _('List of coaudit sessions')),
+    'session'           => array(true,    '../pages/session.php',           _('RA-Audit session')),
 
     // session topics management
-    'sessiontopiclist'	=> array(true,	'../forms/sessiontopiclist.php',	_('List of session topics')),
-    'sessiontopic'	=> array(true,	'../pages/sessiontopic.php',		_('Session topic')),
+    'sessiontopiclist'  => array(true,    '../forms/sessiontopiclist.php',  _('List of session topics')),
+    'sessiontopic'      => array(true,    '../pages/sessiontopic.php',      _('Session topic')),
 
     //view management
-    'viewlist'		=> array(true,	'../forms/viewlist.php',		_('List of view')),
-    'view'		=> array(true,	'../pages/view.php',			_('View')),
+    'viewlist'          => array(true,    '../forms/viewlist.php',          _('List of view')),
+    'view'              => array(true,    '../pages/view.php',              _('View')),
 
     // Enter result management
-    'resultlist'	=> array(true,	'../forms/resultlist.php',		_('Own result entries')),
-    'result'		=> array(true,	'../pages/result.php',			_('Result')),
+    'resultlist'        => array(true,    '../forms/resultlist.php',        _('Own result entries')),
+    'result'            => array(true,    '../pages/result.php',            _('Result')),
 
     // statistic
-    'statistic'		=> array(false,	'../pages/statistics.php',		_('Statisics')),
+    'statistic'         => array(false,    '../pages/statistics.php',       _('Statisics')),
 
     //imprint management
-    'imprint'		=> array(false,	'../forms/imprint.php',			_('Imprint')),
+    'imprint'           => array(false,    '../forms/imprint.php',          _('Imprint')),
 
     //kpi management
-    'kpilist'		=> array(true,	'../forms/kpilist.php',			_('List of KPI')),
-    'kpi'		=> array(true,	'../pages/kpi.php',			_('KPI')),
+    'kpilist'           => array(true,    '../forms/kpilist.php',           _('List of KPI')),
+    'kpi'               => array(true,    '../pages/kpi.php',               _('KPI')),
 
     //data protection management
-    'dataprotection'		=> array(false,	'../forms/dataprotection.php',			_('Data protection and privacy')),
+    'dataprotection'    => array(false,    '../forms/dataprotection.php',   _('Data protection and privacy')),
 
     //Default page
-    ''			=> array(false,	'../forms/default.php',					'')
+    ''                  => array(false,    '../forms/default.php',          '')
     );
 
 if(!array_key_exists($type, $funclist)) {
