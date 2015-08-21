@@ -10,3 +10,6 @@ $SSL_CLIENT_I_DN = array('emailAddress=support@cacert.org,CN=CA Cert Signing Aut
 
 //number of test need to get country details
 $number_per_country = 5;
+
+//email address of adminstrator
+$mail_admin = 'ra-audit-system-admin@cacert.org';
