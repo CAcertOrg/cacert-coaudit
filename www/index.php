@@ -7,6 +7,7 @@ include_once '../module/basic_functions.php';
 include_once '../module/login_functions.php';
 include_once '../module/output_functions.php';
 include_once '../module/class.db_functions.php';
+include_once '../module/applicationconfig.php';
 
 $db = new db_function();
 $assurerid = 0;
@@ -146,6 +147,8 @@ $userroles = count(define_roles()) - 1;
 
 if('' != $func && file_exists($func)) {
     include $func;
+} elseif ('' != $func && !file_exists($func)){
+    echo '<div class="error">' . sprintf(_('The requested page is currently not available. Please try again later. %sIf this problem occurs for a longer time get in contact with %s.'), '</br>', $mail_admin) . '</div>';
 }
 
 output_debug_box($_SESSION ['debug']);
